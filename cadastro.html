@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="imgs/Miniatura.png" />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- ============================
+     Página de Login
+  ============================== -->
+    <div
+      id="page-login"
+      class="flex items-center justify-center flex-1 p-4 bg-gray-100"
+    >
+      <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <!-- Logo -->
+        <div class="flex justify-center mb-8">
+          <img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-20 w-auto" />
+        </div>
+        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
+          Bem-vindo
+        </h2>
+        <form class="space-y-4" id="login-form">
+          <!-- E-mail -->
+          <div>
+            <label class="block mb-1 font-medium" for="login-email"
+              >E-mail</label
+            >
+            <input
+              type="email"
+              id="login-email"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <!-- Senha -->
+          <div>
+            <label class="block mb-1 font-medium" for="login-senha"
+              >Senha</label
+            >
+            <input
+              type="password"
+              id="login-senha"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Senha"
+              required
+            />
+          </div>
+          <!-- Botão Entrar -->
+          <button
+            type="submit"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition"
+          >
+            Entrar
+          </button>
+        </form>
+        <!-- Links -->
+        <div class="mt-4 flex flex-col items-center space-y-2 text-sm">
+          <a href="#" id="link-esqueci" class="text-blue-400 hover:underline"
+            >Esqueci minha senha</a
+          >
+          <button id="btn-ir-cadastrar" class="text-blue-400 hover:underline">
+            Criar Conta
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================
+     Página de Cadastro (para criar nova conta)
+  ============================== -->
+    <div
+      id="page-cadastro-novo"
+      class="hidden flex items-center justify-center flex-1 p-4 bg-gray-100"
+    >
+      <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
+          Criar Conta no AgendeJá
+        </h2>
+        <form class="space-y-4" id="cadastro-novo-form">
+          <!-- Nome completo -->
+          <div>
+            <label class="block mb-1 font-medium" for="cadastro-novo-nome"
+              >Nome Completo</label
+            >
+            <input
+              type="text"
+              id="cadastro-novo-nome"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Seu nome"
+              required
+            />
+          </div>
+          <!-- Tipo de profissional -->
+          <div>
+            <label class="block mb-1 font-medium" for="tipo-profissional-novo"
+              >Tipo de Profissional</label
+            >
+            <select
+              id="tipo-profissional-novo"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            >
+              <option value="">Selecione</option>
+              <option value="Barbeiro">Barbeiro</option>
+              <option value="Professor">Professor</option>
+              <option value="Tatuador">Tatuador</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+          <!-- E-mail -->
+          <div>
+            <label class="block mb-1 font-medium" for="cadastro-novo-email"
+              >E-mail</label
+            >
+            <input
+              type="email"
+              id="cadastro-novo-email"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <!-- Senha -->
+          <div>
+            <label class="block mb-1 font-medium" for="cadastro-novo-senha"
+              >Senha</label
+            >
+            <input
+              type="password"
+              id="cadastro-novo-senha"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Senha"
+              required
+            />
+          </div>
+          <!-- Confirmar senha -->
+          <div>
+            <label class="block mb-1 font-medium" for="cadastro-novo-confirmar"
+              >Confirmar Senha</label
+            >
+            <input
+              type="password"
+              id="cadastro-novo-confirmar"
+              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Confirmar senha"
+              required
+            />
+          </div>
+          <!-- Botões -->
+          <div class="flex justify-end space-x-2">
+            <button
+              type="button"
+              id="btn-voltar-login"
+              class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            >
+              Voltar
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+            >
+              Cadastrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================
+       Scripts JavaScript
+  ============================== -->
+    <script>
+      // Controle de telas
+      const loginPage = document.getElementById("page-login");
+      const cadastroPage = document.getElementById("page-cadastro");
+      const cadastroNovoPage = document.getElementById("page-cadastro-novo");
+      const dashboardPage = document.getElementById("page-dashboard");
+
+      // Botão na tela de login para ir criar nova conta
+      document
+        .getElementById("btn-ir-cadastrar")
+        .addEventListener("click", () => {
+          loginPage.classList.add("hidden");
+          cadastroNovoPage.classList.remove("hidden");
+        });
+
+      // Botão voltar na página de criar conta
+      document
+        .getElementById("btn-voltar-login")
+        .addEventListener("click", () => {
+          cadastroNovoPage.classList.add("hidden");
+          loginPage.classList.remove("hidden");
+        });
+
+      // Para simular login, ao enviar o formulário de login
+      document.getElementById("login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Aqui você faria a autenticação real
+        document.getElementById("nome-profissional").textContent =
+          document.getElementById("login-email").value;
+        loginPage.classList.add("hidden");
+        dashboardPage.classList.remove("hidden");
+        // Mostra a aba agenda por padrão
+        Object.values(sections).forEach((sec) => sec.classList.add("hidden"));
+        document.getElementById("section-agenda").classList.remove("hidden");
+      });
+
+      // Para criar conta nova
+      document
+        .getElementById("cadastro-novo-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          // Aqui você salvaria os dados no banco
+          alert("Conta criada! Agora faça login.");
+          // Voltar à página de login
+          cadastroNovoPage.classList.add("hidden");
+          loginPage.classList.remove("hidden");
+        });
+
+      // Controle das seções do dashboard (igual ao seu código anterior)
+      const sections = {
+        agenda: document.getElementById("section-agenda"),
+        clientes: document.getElementById("section-clientes"),
+        configuracoes: document.getElementById("section-configuracoes"),
+      };
+      document.querySelectorAll("aside button[data-section]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          Object.values(sections).forEach((sec) => sec.classList.add("hidden"));
+          const section = btn.getAttribute("data-section");
+          sections[section].classList.remove("hidden");
+          document
+            .querySelectorAll("aside button")
+            .forEach((b) => b.classList.remove("bg-gray-200"));
+          btn.classList.add("bg-gray-200");
+        });
+      });
+
+      // Menu lateral (sair)
+      document.getElementById("sair-btn").addEventListener("click", () => {
+        // Voltar para login ao sair
+        document.getElementById("page-dashboard").classList.add("hidden");
+        document.getElementById("page-login").classList.remove("hidden");
+      });
+
+      // Modal agendamento (seu código anterior se mantém)
+      const modal = document.getElementById("modal-agendamento");
+      document
+        .getElementById("btn-novo-agendamento")
+        .addEventListener("click", () => {
+          modal.classList.remove("hidden");
+        });
+      document.getElementById("btn-cancelar").addEventListener("click", () => {
+        modal.classList.add("hidden");
+      });
+      document
+        .getElementById("form-agendamento")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          alert("Agendamento salvo!");
+          modal.classList.add("hidden");
+        });
+    </script>
+  </body>
+</html>
