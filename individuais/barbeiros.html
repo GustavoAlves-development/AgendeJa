@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barbeiro João Silva | AgendeJá</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="../assets/imgs/Miniatura.png"/>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Flatpickr para seleção de data/hora -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+      <a href="index.html" class="ml-2 text-2xl font-bold text-blue-600"></a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="index.html" class="text-gray-600 hover:text-blue-600">Início</a>
+      <a href="#" class="text-blue-600 font-medium">Barbeiros</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Tatuadores</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Professores</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+      <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Coluna Esquerda - Perfil do Barbeiro -->
+    <div class="lg:col-span-2">
+      <!-- Cabeçalho do Perfil -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="relative">
+          <div class="h-48 bg-gray-300 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                 alt="Barbearia do João"
+                 class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-16 left-6">
+            <div class="h-32 w-32 rounded-full border-4 border-white overflow-hidden bg-white">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                   alt="João Silva"
+                   class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+        <div class="pt-20 px-6 pb-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <h1 class="text-3xl font-bold">João Silva</h1>
+              <p class="text-gray-600 mb-2">Barbeiro Profissional • 8 anos de experiência</p>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400 mr-2">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="text-gray-700">4.7 (128 avaliações)</span>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700">
+                <i class="fas fa-share-alt"></i>
+              </button>
+              <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Corte Masculino</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Barba</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Pigmentação</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Hidratação</span>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Sobre mim</h3>
+            <p class="text-gray-700">Profissional com mais de 8 anos de experiência no mercado, especializado em cortes modernos e cuidados com a barba. Meu objetivo é proporcionar aos clientes não apenas um serviço de qualidade, mas uma experiência única de cuidado masculino. Trabalhei nas melhores barbearias de São Paulo antes de abrir meu próprio espaço.</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-map-marker-alt text-blue-600 mr-2"></i> Localização</h4>
+              <p class="text-gray-600">Rua das Flores, 123 - Centro, São Paulo/SP</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-clock text-blue-600 mr-2"></i> Horário</h4>
+              <p class="text-gray-600">Seg-Sex: 9h-19h • Sáb: 9h-15h</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-phone-alt text-blue-600 mr-2"></i> Telefone</h4>
+              <p class="text-gray-600">(11) 98765-4321</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-certificate text-blue-600 mr-2"></i> Certificações</h4>
+              <p class="text-gray-600">Senac, Wahl, Barbearia Premium</p>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-xl font-semibold mb-4">Galeria de Trabalhos</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                     alt="Trabalho 1"
+                     class="w-full h-full object-cover hover:scale-105 transition cursor-pointer">
+              </div>
+              <div class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1621607512014-fd8c41f9c7b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                     alt="Trabalho 2"
+                     class="w-full h-full object-cover hover:scale-105 transition cursor-pointer">
+              </div>
+              <div class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                     alt="Trabalho 3"
+                     class="w-full h-full object-cover hover:scale-105 transition cursor-pointer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avaliações -->
+      <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold">Avaliações (128)</h3>
+          <button class="text-blue-600 hover:text-blue-800 font-medium">Ver todas</button>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Avaliação 1 -->
+          <div class="border-b border-gray-200 pb-6">
+            <div class="flex justify-between mb-2">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/41.jpg"
+                     alt="Carlos Oliveira"
+                     class="w-10 h-10 rounded-full mr-3">
+                <div>
+                  <h4 class="font-semibold">Carlos Oliveira</h4>
+                  <div class="flex items-center">
+                    <div class="flex text-yellow-400 mr-2 text-sm">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm">2 semanas atrás</span>
+                  </div>
+                </div>
+              </div>
+              <button class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+            <p class="text-gray-700">Melhor barbeiro que já fui! Corte exatamente como pedi e ainda deu ótimas dicas para cuidar do meu cabelo. Ambiente limpo e profissional. Com certeza voltarei!</p>
+          </div>
+
+          <!-- Avaliação 2 -->
+          <div class="border-b border-gray-200 pb-6">
+            <div class="flex justify-between mb-2">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg"
+                     alt="Ricardo Santos"
+                     class="w-10 h-10 rounded-full mr-3">
+                <div>
+                  <h4 class="font-semibold">Ricardo Santos</h4>
+                  <div class="flex items-center">
+                    <div class="flex text-yellow-400 mr-2 text-sm">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm">1 mês atrás</span>
+                  </div>
+                </div>
+              </div>
+              <button class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+            <p class="text-gray-700">João é extremamente talentoso e atencioso. Fiz a barba com ele e foi a melhor experiência que já tive. Uso seu serviço mensalmente agora.</p>
+          </div>
+        </div>
+
+        <button class="mt-6 w-full py-3 border border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition">
+          Carregar mais avaliações
+        </button>
+      </div>
+    </div>
+
+    <!-- Coluna Direita - Agendamento -->
+    <div class="sticky top-4 h-fit">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-blue-600 text-white p-4">
+          <h3 class="text-xl font-bold">Agendar Serviço</h3>
+        </div>
+
+        <div class="p-6">
+          <form id="agendamento-form">
+            <!-- Serviço -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="servico">Serviço</label>
+              <select id="servico" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                <option value="">Selecione um serviço</option>
+                <option value="Corte de Cabelo">Corte de Cabelo - R$ 60,00</option>
+                <option value="Barba">Barba - R$ 40,00</option>
+                <option value="Corte + Barba">Corte + Barba - R$ 90,00</option>
+                <option value="Hidratação">Hidratação Capilar - R$ 50,00</option>
+                <option value="Pigmentação">Pigmentação de Barba - R$ 120,00</option>
+              </select>
+            </div>
+
+            <!-- Data -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="data">Data</label>
+              <input type="text" id="data" placeholder="Selecione uma data"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+            </div>
+
+            <!-- Horário -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="horario">Horário</label>
+              <select id="horario" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400" disabled>
+                <option value="">Selecione um horário disponível</option>
+              </select>
+            </div>
+
+            <!-- Observações -->
+            <div class="mb-6">
+              <label class="block text-gray-700 font-medium mb-2" for="observacoes">Observações</label>
+              <textarea id="observacoes" rows="3" placeholder="Alguma preferência especial ou detalhe sobre o serviço?"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"></textarea>
+            </div>
+
+            <!-- Resumo -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-3">Resumo do Agendamento</h4>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Serviço:</span>
+                  <span class="font-medium" id="resumo-servico">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Data:</span>
+                  <span class="font-medium" id="resumo-data">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Horário:</span>
+                  <span class="font-medium" id="resumo-horario">-</span>
+                </div>
+                <div class="border-t border-gray-200 my-2"></div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Total:</span>
+                  <span class="font-bold text-blue-600" id="resumo-total">R$ 0,00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão Agendar -->
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
+              Confirmar Agendamento
+            </button>
+
+            <p class="text-center text-gray-500 text-sm mt-4">
+              Ao agendar, você concorda com nossos <a href="#" class="text-blue-600 hover:underline">Termos de Serviço</a>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Mapa -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
+        <div class="bg-blue-600 text-white p-4">
+          <h3 class="text-xl font-bold">Localização</h3>
+        </div>
+        <div class="p-4">
+          <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden">
+            <!-- Mapa incorporado do Google Maps -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0754267452926!2d-46.6534265844076!3d-23.565734367638192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1684868938405!5m2!1spt-BR!2sbr"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="mt-4">
+            <p class="text-gray-700"><i class="fas fa-map-marker-alt text-blue-600 mr-2"></i> Rua das Flores, 123 - Centro, São Paulo/SP</p>
+            <p class="text-gray-700 mt-1"><i class="fas fa-subway text-blue-600 mr-2"></i> Próximo à estação República do Metrô</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+          <h3 class="ml-2 text-xl font-bold">AgendeJá</h3>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Barbeiros</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Tatuadores</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Professores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Central de Ajuda</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Termos de Uso</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Política de Privacidade</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script>
+  // Inicializar datepicker
+  flatpickr("#data", {
+    locale: "pt",
+    minDate: "today",
+    maxDate: new Date().fp_incr(30), // 30 dias a partir de hoje
+    disable: [
+      function(date) {
+        // Desabilitar domingos
+        return (date.getDay() === 0);
+      }
+    ]
+  });
+
+  // Simular horários disponíveis quando uma data é selecionada
+  document.getElementById('data').addEventListener('change', function() {
+    const horarioSelect = document.getElementById('horario');
+    horarioSelect.innerHTML = '<option value="">Selecione um horário disponível</option>';
+    horarioSelect.disabled = false;
+
+    // Gerar horários fictícios (na realidade, isso viria de uma API)
+    const horariosDisponiveis = [
+      '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
+    ];
+
+    horariosDisponiveis.forEach(horario => {
+      const option = document.createElement('option');
+      option.value = horario;
+      option.textContent = horario;
+      horarioSelect.appendChild(option);
+    });
+  });
+
+  // Atualizar resumo quando os campos mudam
+  document.getElementById('servico').addEventListener('change', atualizarResumo);
+  document.getElementById('data').addEventListener('change', atualizarResumo);
+  document.getElementById('horario').addEventListener('change', atualizarResumo);
+
+  function atualizarResumo() {
+    const servico = document.getElementById('servico');
+    const data = document.getElementById('data');
+    const horario = document.getElementById('horario');
+
+    document.getElementById('resumo-servico').textContent = servico.value || '-';
+    document.getElementById('resumo-data').textContent = data.value || '-';
+    document.getElementById('resumo-horario').textContent = horario.value || '-';
+
+    // Atualizar preço baseado no serviço selecionado
+    if (servico.value) {
+      let preco = 0;
+      if (servico.value.includes('60,00')) preco = 60;
+      else if (servico.value.includes('40,00')) preco = 40;
+      else if (servico.value.includes('90,00')) preco = 90;
+      else if (servico.value.includes('50,00')) preco = 50;
+      else if (servico.value.includes('120,00')) preco = 120;
+
+      document.getElementById('resumo-total').textContent = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+    } else {
+      document.getElementById('resumo-total').textContent = 'R$ 0,00';
+    }
+  }
+
+  // Formulário de agendamento
+  document.getElementById('agendamento-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Verificar se está logado
+    const isLoggedIn = false; // Isso deve ser verificado na prática
+
+    if (!isLoggedIn) {
+      alert('Por favor, faça login ou cadastre-se para agendar.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Simular agendamento bem-sucedido
+    alert('Agendamento realizado com sucesso! Um e-mail de confirmação foi enviado para você.');
+    this.reset();
+    document.getElementById('horario').disabled = true;
+    document.getElementById('resumo-servico').textContent = '-';
+    document.getElementById('resumo-data').textContent = '-';
+    document.getElementById('resumo-horario').textContent = '-';
+    document.getElementById('resumo-total').textContent = 'R$ 0,00';
+  });
+</script>
+</body>
+</html>

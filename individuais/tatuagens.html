@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tatuadora Ana Costa | AgendeJá</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="../assets/imgs/Miniatura.png"/>>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Flatpickr para seleção de data/hora -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Lightbox para galeria -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+      <a href="index.html" class="ml-2 text-2xl font-bold text-blue-600"></a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="index.html" class="text-gray-600 hover:text-blue-600">Início</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Barbeiros</a>
+      <a href="#" class="text-blue-600 font-medium">Tatuadores</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Professores</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+      <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Coluna Esquerda - Perfil do Tatuador -->
+    <div class="lg:col-span-2">
+      <!-- Cabeçalho do Perfil -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="relative">
+          <div class="h-48 bg-gray-300 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                 alt="Estúdio da Ana"
+                 class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-16 left-6">
+            <div class="h-32 w-32 rounded-full border-4 border-white overflow-hidden bg-white">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                   alt="Ana Costa"
+                   class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+        <div class="pt-20 px-6 pb-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <h1 class="text-3xl font-bold">Ana Costa</h1>
+              <p class="text-gray-600 mb-2">Tatuadora Profissional • 6 anos de experiência</p>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400 mr-2">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-700">5.0 (86 avaliações)</span>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700">
+                <i class="fas fa-share-alt"></i>
+              </button>
+              <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Realista</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Minimalista</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Pontilhismo</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Blackwork</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Aquarela</span>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Sobre mim</h3>
+            <p class="text-gray-700">Artista especializada em tatuagens realistas e minimalistas com 6 anos de experiência. Formada em Belas Artes e com especialização em técnicas de tatuagem na Europa. Meu trabalho é focado em criar peças únicas e personalizadas que contam histórias através da arte na pele. Trabalho em um estúdio certificado pela Vigilância Sanitária, com todos os protocolos de segurança e higiene.</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-map-marker-alt text-blue-600 mr-2"></i> Estúdio</h4>
+              <p class="text-gray-600">Rua da Tatuagem, 456 - Vila Madalena, São Paulo/SP</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-clock text-blue-600 mr-2"></i> Horário</h4>
+              <p class="text-gray-600">Ter-Sáb: 11h-20h</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-phone-alt text-blue-600 mr-2"></i> Contato</h4>
+              <p class="text-gray-600">(11) 99876-5432</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1"><i class="fas fa-certificate text-blue-600 mr-2"></i> Certificações</h4>
+              <p class="text-gray-600">Belas Artes, Ink Masters, Safe Tattoo</p>
+            </div>
+          </div>
+
+          <!-- Estilo de Trabalho -->
+          <div class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-xl font-semibold mb-4">Estilo de Trabalho</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-600 mb-2"><i class="fas fa-paint-brush mr-2"></i> Processo Criativo</h4>
+                <p class="text-gray-700">Cada tatuagem é única e desenvolvida em colaboração com o cliente. Após a consulta inicial, crio um esboço personalizado que pode ser ajustado até que esteja perfeito para você.</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-600 mb-2"><i class="fas fa-shield-alt mr-2"></i> Segurança</h4>
+                <p class="text-gray-700">Trabalho apenas com materiais descartáveis e tintas de alta qualidade. Meu estúdio segue todos os protocolos de higiene e segurança exigidos pela Vigilância Sanitária.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Galeria de Trabalhos -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-xl font-semibold mb-4">Portfólio</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <a href="https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                 data-lightbox="portfolio"
+                 data-title="Tatuagem Realista - Rosa"
+                 class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                     alt="Tatuagem Realista"
+                     class="w-full h-full object-cover hover:scale-105 transition">
+              </a>
+              <a href="https://images.unsplash.com/photo-1596452854557-1a9851b5c23f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                 data-lightbox="portfolio"
+                 data-title="Tatuagem Minimalista - Lua"
+                 class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1596452854557-1a9851b5c23f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                     alt="Tatuagem Minimalista"
+                     class="w-full h-full object-cover hover:scale-105 transition">
+              </a>
+              <a href="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                 data-lightbox="portfolio"
+                 data-title="Tatuagem Pontilhismo - Mandala"
+                 class="aspect-square overflow-hidden rounded-lg">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                     alt="Tatuagem Pontilhismo"
+                     class="w-full h-full object-cover hover:scale-105 transition">
+              </a>
+            </div>
+            <div class="text-center mt-4">
+              <button class="text-blue-600 hover:text-blue-800 font-medium">
+                Ver portfólio completo <i class="fas fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avaliações -->
+      <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold">Avaliações (86)</h3>
+          <button class="text-blue-600 hover:text-blue-800 font-medium">Ver todas</button>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Avaliação 1 -->
+          <div class="border-b border-gray-200 pb-6">
+            <div class="flex justify-between mb-2">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg"
+                     alt="Juliana Martins"
+                     class="w-10 h-10 rounded-full mr-3">
+                <div>
+                  <h4 class="font-semibold">Juliana Martins</h4>
+                  <div class="flex items-center">
+                    <div class="flex text-yellow-400 mr-2 text-sm">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm">1 mês atrás</span>
+                  </div>
+                </div>
+              </div>
+              <button class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+            <p class="text-gray-700">Ana é incrível! Fiz uma tatuagem realista de uma rosa e ficou perfeita. Todo o processo foi muito profissional, desde a criação do desenho até a execução. O estúdio é impecável e super higiênico. Recomendo muito!</p>
+            <div class="mt-3 flex space-x-2">
+              <img src="https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                   alt="Tatuagem de Juliana"
+                   class="w-16 h-16 rounded object-cover cursor-pointer"
+                   onclick="openLightbox('https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80', 'Tatuagem de Juliana')">
+            </div>
+          </div>
+
+          <!-- Avaliação 2 -->
+          <div class="border-b border-gray-200 pb-6">
+            <div class="flex justify-between mb-2">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg"
+                     alt="Ricardo Lopes"
+                     class="w-10 h-10 rounded-full mr-3">
+                <div>
+                  <h4 class="font-semibold">Ricardo Lopes</h4>
+                  <div class="flex items-center">
+                    <div class="flex text-yellow-400 mr-2 text-sm">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm">2 meses atrás</span>
+                  </div>
+                </div>
+              </div>
+              <button class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+            <p class="text-gray-700">Fiz uma tatuagem minimalista com a Ana e adorei o resultado! Ela tem um olhar incrível para detalhes e conseguiu captar exatamente o que eu queria. O atendimento foi excelente e o cuidado com a higiene me deixou muito tranquilo. Com certeza voltarei para fazer mais!</p>
+          </div>
+        </div>
+
+        <button class="mt-6 w-full py-3 border border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition">
+          Carregar mais avaliações
+        </button>
+      </div>
+    </div>
+
+    <!-- Coluna Direita - Agendamento -->
+    <div class="sticky top-4 h-fit">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-blue-600 text-white p-4">
+          <h3 class="text-xl font-bold">Agendar Sessão</h3>
+        </div>
+
+        <div class="p-6">
+          <form id="agendamento-form">
+            <!-- Tipo de Sessão -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="tipo-sessao">Tipo de Sessão</label>
+              <select id="tipo-sessao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                <option value="">Selecione o tipo de sessão</option>
+                <option value="Consulta">Consulta (Grátis) - 30min</option>
+                <option value="Pequena">Pequena (até 10cm) - R$ 300,00</option>
+                <option value="Média">Média (10-20cm) - R$ 600,00</option>
+                <option value="Grande">Grande (acima de 20cm) - R$ 1.000,00</option>
+                <option value="Sessão Contínua">Sessão Contínua (por hora) - R$ 400,00/h</option>
+                <option value="Retoque">Retoque - R$ 150,00</option>
+              </select>
+            </div>
+
+            <!-- Parte do Corpo -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="parte-corpo">Parte do Corpo</label>
+              <select id="parte-corpo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                <option value="">Selecione a parte do corpo</option>
+                <option value="Braço">Braço</option>
+                <option value="Antebraço">Antebraço</option>
+                <option value="Costas">Costas</option>
+                <option value="Peito">Peito</option>
+                <option value="Perna">Perna</option>
+                <option value="Outra">Outra</option>
+              </select>
+            </div>
+
+            <!-- Data -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="data">Data</label>
+              <input type="text" id="data" placeholder="Selecione uma data"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+            </div>
+
+            <!-- Horário -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="horario">Horário</label>
+              <select id="horario" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400" disabled>
+                <option value="">Selecione um horário disponível</option>
+              </select>
+            </div>
+
+            <!-- Referência -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="referencia">Referência (Opcional)</label>
+              <input type="file" id="referencia"
+                     class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+              <p class="text-gray-500 text-sm mt-1">Envie uma imagem de referência para sua tatuagem</p>
+            </div>
+
+            <!-- Descrição -->
+            <div class="mb-6">
+              <label class="block text-gray-700 font-medium mb-2" for="descricao">Descrição</label>
+              <textarea id="descricao" rows="3" placeholder="Descreva sua ideia, estilo preferido ou qualquer detalhe importante..."
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"></textarea>
+            </div>
+
+            <!-- Resumo -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-3">Resumo do Agendamento</h4>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Tipo:</span>
+                  <span class="font-medium" id="resumo-tipo">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Local:</span>
+                  <span class="font-medium" id="resumo-local">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Data:</span>
+                  <span class="font-medium" id="resumo-data">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Horário:</span>
+                  <span class="font-medium" id="resumo-horario">-</span>
+                </div>
+                <div class="border-t border-gray-200 my-2"></div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Total estimado:</span>
+                  <span class="font-bold text-blue-600" id="resumo-total">R$ 0,00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão Agendar -->
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
+              Confirmar Agendamento
+            </button>
+
+            <p class="text-center text-gray-500 text-sm mt-4">
+              Ao agendar, você concorda com nossos <a href="#" class="text-blue-600 hover:underline">Termos de Serviço</a>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Informações do Estúdio -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
+        <div class="bg-blue-600 text-white p-4">
+          <h3 class="text-xl font-bold">Estúdio Ink Soul</h3>
+        </div>
+        <div class="p-4">
+          <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0754267452926!2d-46.6534265844076!3d-23.565734367638192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1684868938405!5m2!1spt-BR!2sbr"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="space-y-2">
+            <p class="text-gray-700"><i class="fas fa-map-marker-alt text-blue-600 mr-2"></i> Rua da Tatuagem, 456 - Vila Madalena, São Paulo/SP</p>
+            <p class="text-gray-700"><i class="fas fa-subway text-blue-600 mr-2"></i> Próximo à estação Vila Madalena</p>
+            <p class="text-gray-700"><i class="fas fa-parking text-blue-600 mr-2"></i> Estacionamento no local</p>
+            <p class="text-gray-700"><i class="fas fa-wheelchair text-blue-600 mr-2"></i> Acessível para cadeirantes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dicas para Primeira Tatuagem -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
+        <div class="bg-blue-600 text-white p-4">
+          <h3 class="text-xl font-bold">Dicas para sua Tatuagem</h3>
+        </div>
+        <div class="p-4">
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3 flex-shrink-0">
+                <i class="fas fa-sun"></i>
+              </div>
+              <p class="text-gray-700">Evite exposição ao sol na área a ser tatuada nos dias anteriores.</p>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3 flex-shrink-0">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <p class="text-gray-700">Alimente-se bem antes da sessão e evite consumir álcool.</p>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3 flex-shrink-0">
+                <i class="fas fa-tshirt"></i>
+              </div>
+              <p class="text-gray-700">Use roupas confortáveis que permitam acesso à área a ser tatuada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+          <h3 class="ml-2 text-xl font-bold">AgendeJá</h3>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Barbeiros</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Tatuadores</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Professores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Central de Ajuda</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Termos de Uso</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Política de Privacidade</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script>
+  // Inicializar datepicker
+  flatpickr("#data", {
+    locale: "pt",
+    minDate: "today",
+    maxDate: new Date().fp_incr(60), // 60 dias a partir de hoje
+    disable: [
+      function(date) {
+        // Desabilitar domingos e segundas
+        return (date.getDay() === 0 || date.getDay() === 1);
+      }
+    ]
+  });
+
+  // Simular horários disponíveis quando uma data é selecionada
+  document.getElementById('data').addEventListener('change', function() {
+    const horarioSelect = document.getElementById('horario');
+    horarioSelect.innerHTML = '<option value="">Selecione um horário disponível</option>';
+    horarioSelect.disabled = false;
+
+    // Gerar horários fictícios (na realidade, isso viria de uma API)
+    const horariosDisponiveis = [
+      '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'
+    ];
+
+    horariosDisponiveis.forEach(horario => {
+      const option = document.createElement('option');
+      option.value = horario;
+      option.textContent = horario;
+      horarioSelect.appendChild(option);
+    });
+  });
+
+  // Atualizar resumo quando os campos mudam
+  document.getElementById('tipo-sessao').addEventListener('change', atualizarResumoTatuagem);
+  document.getElementById('parte-corpo').addEventListener('change', atualizarResumoTatuagem);
+  document.getElementById('data').addEventListener('change', atualizarResumoTatuagem);
+  document.getElementById('horario').addEventListener('change', atualizarResumoTatuagem);
+
+  function atualizarResumoTatuagem() {
+    const tipoSessao = document.getElementById('tipo-sessao');
+    const parteCorpo = document.getElementById('parte-corpo');
+    const data = document.getElementById('data');
+    const horario = document.getElementById('horario');
+
+    document.getElementById('resumo-tipo').textContent = tipoSessao.value || '-';
+    document.getElementById('resumo-local').textContent = parteCorpo.value || '-';
+    document.getElementById('resumo-data').textContent = data.value || '-';
+    document.getElementById('resumo-horario').textContent = horario.value || '-';
+
+    // Atualizar preço baseado no tipo de sessão selecionado
+    if (tipoSessao.value) {
+      let preco = 0;
+      if (tipoSessao.value.includes('300,00')) preco = 300;
+      else if (tipoSessao.value.includes('600,00')) preco = 600;
+      else if (tipoSessao.value.includes('1.000,00')) preco = 1000;
+      else if (tipoSessao.value.includes('400,00')) preco = 400;
+      else if (tipoSessao.value.includes('150,00')) preco = 150;
+
+      if (preco > 0) {
+        document.getElementById('resumo-total').textContent = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+      } else {
+        document.getElementById('resumo-total').textContent = 'Grátis';
+      }
+    } else {
+      document.getElementById('resumo-total').textContent = 'R$ 0,00';
+    }
+  }
+
+  // Lightbox personalizado para avaliações
+  function openLightbox(imageSrc, title) {
+    const lightbox = document.createElement('div');
+    lightbox.style.position = 'fixed';
+    lightbox.style.top = '0';
+    lightbox.style.left = '0';
+    lightbox.style.width = '100%';
+    lightbox.style.height = '100%';
+    lightbox.style.backgroundColor = 'rgba(0,0,0,0.8)';
+    lightbox.style.display = 'flex';
+    lightbox.style.alignItems = 'center';
+    lightbox.style.justifyContent = 'center';
+    lightbox.style.zIndex = '1000';
+    lightbox.style.cursor = 'pointer';
+    lightbox.onclick = function() {
+      document.body.removeChild(lightbox);
+    };
+
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.style.maxWidth = '90%';
+    img.style.maxHeight = '90%';
+    img.style.objectFit = 'contain';
+
+    if (title) {
+      const caption = document.createElement('div');
+      caption.textContent = title;
+      caption.style.position = 'absolute';
+      caption.style.bottom = '20px';
+      caption.style.color = 'white';
+      caption.style.textAlign = 'center';
+      caption.style.width = '100%';
+      lightbox.appendChild(caption);
+    }
+
+    lightbox.appendChild(img);
+    document.body.appendChild(lightbox);
+  }
+
+  // Formulário de agendamento
+  document.getElementById('agendamento-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Verificar se está logado
+    const isLoggedIn = false; // Isso deve ser verificado na prática
+
+    if (!isLoggedIn) {
+      alert('Por favor, faça login ou cadastre-se para agendar uma sessão de tatuagem.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Verificar se todos os campos obrigatórios foram preenchidos
+    const tipoSessao = document.getElementById('tipo-sessao').value;
+    const parteCorpo = document.getElementById('parte-corpo').value;
+    const data = document.getElementById('data').value;
+    const horario = document.getElementById('horario').value;
+
+    if (!tipoSessao || !parteCorpo || !data || !horario) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    // Simular agendamento bem-sucedido
+    alert('Sessão agendada com sucesso! Você receberá um e-mail de confirmação com todos os detalhes.');
+    this.reset();
+    document.getElementById('horario').disabled = true;
+    document.getElementById('resumo-tipo').textContent = '-';
+    document.getElementById('resumo-local').textContent = '-';
+    document.getElementById('resumo-data').textContent = '-';
+    document.getElementById('resumo-horario').textContent = '-';
+    document.getElementById('resumo-total').textContent = 'R$ 0,00';
+  });
+</script>
+</body>
+</html>

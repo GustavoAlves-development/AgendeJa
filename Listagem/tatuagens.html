@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tatuadores Cadastrados</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="../assets/imgs/Miniatura.png"/>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+      <a href="index.html" class="ml-2 text-2xl font-bold text-blue-600"></a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="index.html" class="text-gray-600 hover:text-blue-600">Início</a>
+      <a href="barbeiros.html" class="text-gray-600 hover:text-blue-600">Barbeiros</a>
+      <a href="#" class="text-blue-600 font-medium">Tatuadores</a>
+      <a href="professores.html" class="text-gray-600 hover:text-blue-600">Professores</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+      <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <!-- Cabeçalho da Página -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Tatuadores Cadastrados</h1>
+    <p class="text-gray-600">Encontre o artista perfeito para sua próxima tatuagem</p>
+  </div>
+
+  <!-- Filtros e Ordenação -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <!-- Filtro por Localização -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="localizacao">Localização</label>
+        <select id="localizacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todas as localizações</option>
+          <option value="sao-paulo">São Paulo/SP</option>
+          <option value="rio-de-janeiro">Rio de Janeiro/RJ</option>
+          <option value="belo-horizonte">Belo Horizonte/MG</option>
+          <option value="curitiba">Curitiba/PR</option>
+        </select>
+      </div>
+
+      <!-- Filtro por Estilo -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="estilo">Estilo</label>
+        <select id="estilo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todos os estilos</option>
+          <option value="realista">Realista</option>
+          <option value="minimalista">Minimalista</option>
+          <option value="old-school">Old School</option>
+          <option value="pontilhismo">Pontilhismo</option>
+          <option value="aquarela">Aquarela</option>
+          <option value="blackwork">Blackwork</option>
+          <option value="tribal">Tribal</option>
+        </select>
+      </div>
+
+      <!-- Filtro por Preço Mínimo -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="preco-minimo">Preço Mínimo</label>
+        <select id="preco-minimo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Qualquer valor</option>
+          <option value="300">A partir de R$ 300</option>
+          <option value="500">A partir de R$ 500</option>
+          <option value="800">A partir de R$ 800</option>
+          <option value="1000">A partir de R$ 1.000</option>
+        </select>
+      </div>
+
+      <!-- Ordenação -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="ordenacao">Ordenar por</label>
+        <select id="ordenacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="avaliacao">Melhor avaliados</option>
+          <option value="preco-menor">Menor preço</option>
+          <option value="preco-maior">Maior preço</option>
+          <option value="proximidade">Mais próximos</option>
+          <option value="experiencia">Mais experientes</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filtros Adicionais -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="disponibilidade">Disponibilidade</label>
+        <select id="disponibilidade" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Qualquer disponibilidade</option>
+          <option value="imediata">Vagas imediatas</option>
+          <option value="7dias">Até 7 dias</option>
+          <option value="15dias">Até 15 dias</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="tatuador">Tipo de Tatuador</label>
+        <select id="tatuador" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todos</option>
+          <option value="estudio">Estúdio</option>
+          <option value="freelancer">Freelancer</option>
+          <option value="visitante">Artista visitante</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="certificacao">Certificação</label>
+        <select id="certificacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Qualquer</option>
+          <option value="sanitario">Certificado sanitário</option>
+          <option value="curso">Curso reconhecido</option>
+          <option value="premiacoes">Com premiações</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Barra de Pesquisa -->
+    <div class="mt-4 relative">
+      <input type="text" placeholder="Pesquisar por nome, estilo ou estúdio..."
+             class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+      <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
+    </div>
+  </div>
+
+  <!-- Lista de Tatuadores -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Tatuador 1 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio da Ana"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                 alt="Ana Costa"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+          <i class="fas fa-certificate mr-1"></i> Certificado
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Ana Costa</h3>
+            <p class="text-gray-600 text-sm">Especialista em Realismo</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">5.0</span>
+            <span class="text-gray-500 text-sm ml-1">(86)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Realista</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Retratos</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Preto e Cinza</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Vila Madalena, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 500,00</p>
+          </div>
+          <a href="tatuador-ana.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tatuador 2 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1596452854557-1a9851b5c23f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio do Rafael"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                 alt="Rafael Silva"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Rafael Silva</h3>
+            <p class="text-gray-600 text-sm">Minimalista e Fine Line</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.8</span>
+            <span class="text-gray-500 text-sm ml-1">(64)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Minimalista</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Fine Line</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Microtatuagem</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Pinheiros, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 300,00</p>
+          </div>
+          <a href="tatuador-rafael.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tatuador 3 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio do Pedro"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg"
+                 alt="Pedro Santos"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+          <i class="fas fa-trophy mr-1"></i> Premiado
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Pedro Santos</h3>
+            <p class="text-gray-600 text-sm">Blackwork e Tribal</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.9</span>
+            <span class="text-gray-500 text-sm ml-1">(112)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Blackwork</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Tribal</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Geométrico</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Centro, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 400,00</p>
+          </div>
+          <a href="tatuador-pedro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tatuador 4 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio da Juliana"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/women/63.jpg"
+                 alt="Juliana Fernandes"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Juliana Fernandes</h3>
+            <p class="text-gray-600 text-sm">Aquarela e Colorida</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.7</span>
+            <span class="text-gray-500 text-sm ml-1">(53)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Aquarela</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Colorida</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Neo-tradicional</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Vila Olímpia, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 600,00</p>
+          </div>
+          <a href="tatuador-juliana.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tatuador 5 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1622295025350-2f0ab7a4aabd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio do Lucas"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/85.jpg"
+                 alt="Lucas Mendes"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+          <i class="fas fa-bolt mr-1"></i> Vagas hoje
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Lucas Mendes</h3>
+            <p class="text-gray-600 text-sm">Old School e Tradicional</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.6</span>
+            <span class="text-gray-500 text-sm ml-1">(78)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Old School</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Tradicional</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Flash</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Liberdade, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 350,00</p>
+          </div>
+          <a href="tatuador-lucas.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tatuador 6 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Estúdio do André"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg"
+                 alt="André Lima"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">André Lima</h3>
+            <p class="text-gray-600 text-sm">Pontilhismo e Mandalas</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.9</span>
+            <span class="text-gray-500 text-sm ml-1">(95)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Pontilhismo</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Mandala</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Geométrico</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Moema, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Valor mínimo</p>
+            <p class="text-blue-600 font-bold">R$ 450,00</p>
+          </div>
+          <a href="tatuador-andre.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginação -->
+  <div class="mt-8 flex justify-center">
+    <nav class="inline-flex rounded-md shadow">
+      <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium">1</a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">2</a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">3</a>
+      <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Destaque para Estúdios -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Estúdios em Destaque</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Ink Soul Studio"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Ink Soul Studio</h3>
+          <div class="flex items-center text-gray-600 text-sm mb-3">
+            <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+            <span>Vila Madalena, São Paulo/SP</span>
+          </div>
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="text-gray-700">4.7 (215 avaliações)</span>
+          </div>
+          <p class="text-gray-600 mb-4">Estúdio especializado em tatuagens realistas e aquarela, com 5 artistas disponíveis.</p>
+          <a href="estudio-ink-soul.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+            Ver Estúdio
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1596452854557-1a9851b5c23f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Black Ink Studio"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Black Ink Studio</h3>
+          <div class="flex items-center text-gray-600 text-sm mb-3">
+            <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+            <span>Pinheiros, São Paulo/SP</span>
+          </div>
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="text-gray-700">5.0 (183 avaliações)</span>
+          </div>
+          <p class="text-gray-600 mb-4">Especialistas em blackwork e tatuagens tribais, ambiente premium e higienizado.</p>
+          <a href="estudio-black-ink.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+            Ver Estúdio
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1613082442324-62ef5249275e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Fine Line Collective"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Fine Line Collective</h3>
+          <div class="flex items-center text-gray-600 text-sm mb-3">
+            <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+            <span>Jardins, São Paulo/SP</span>
+          </div>
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 mr-2">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="text-gray-700">4.9 (156 avaliações)</span>
+          </div>
+          <p class="text-gray-600 mb-4">Coletivo de artistas especializados em fine line e tatuagens minimalistas.</p>
+          <a href="estudio-fine-line.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+            Ver Estúdio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+          <h3 class="ml-2 text-xl font-bold">AgendeJá</h3>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="barbeiros.html" class="text-gray-400 hover:text-white">Barbeiros</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Tatuadores</a></li>
+          <li><a href="professores.html" class="text-gray-400 hover:text-white">Professores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Central de Ajuda</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Termos de Uso</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Política de Privacidade</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // Filtros (simulação)
+  document.getElementById('localizacao').addEventListener('change', function() {
+    console.log('Filtrando por localização:', this.value);
+  });
+
+  document.getElementById('estilo').addEventListener('change', function() {
+    console.log('Filtrando por estilo:', this.value);
+  });
+
+  document.getElementById('preco-minimo').addEventListener('change', function() {
+    console.log('Filtrando por preço mínimo:', this.value);
+  });
+
+  document.getElementById('ordenacao').addEventListener('change', function() {
+    console.log('Ordenando por:', this.value);
+  });
+
+  document.getElementById('disponibilidade').addEventListener('change', function() {
+    console.log('Filtrando por disponibilidade:', this.value);
+  });
+
+  document.getElementById('tatuador').addEventListener('change', function() {
+    console.log('Filtrando por tipo de tatuador:', this.value);
+  });
+
+  document.getElementById('certificacao').addEventListener('change', function() {
+    console.log('Filtrando por certificação:', this.value);
+  });
+
+  // Menu mobile (simplificado)
+  document.querySelector('.md\\:hidden').addEventListener('click', function() {
+    alert('Menu mobile será implementado aqui');
+  });
+</script>
+</body>
+</html>

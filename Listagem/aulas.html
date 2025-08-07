@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Professores Particulares | AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/imgs/Miniatura.png"/>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+            <a href="index.html" class="ml-2 text-2xl font-bold text-blue-600">AgendeJá</a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="text-gray-600 hover:text-blue-600">Início</a>
+            <a href="barbeiros.html" class="text-gray-600 hover:text-blue-600">Barbeiros</a>
+            <a href="tatuadores.html" class="text-gray-600 hover:text-blue-600">Tatuadores</a>
+            <a href="#" class="text-blue-600 font-medium">Professores</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+        </div>
+        <button class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Cabeçalho da Página -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Professores Particulares</h1>
+        <p class="text-gray-600">Encontre o professor ideal para suas necessidades educacionais</p>
+    </div>
+
+    <!-- Filtros e Ordenação -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Filtro por Matéria -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="materia">Matéria</label>
+                <select id="materia" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Todas as matérias</option>
+                    <option value="matematica">Matemática</option>
+                    <option value="portugues">Português</option>
+                    <option value="fisica">Física</option>
+                    <option value="quimica">Química</option>
+                    <option value="biologia">Biologia</option>
+                    <option value="historia">História</option>
+                    <option value="geografia">Geografia</option>
+                    <option value="ingles">Inglês</option>
+                    <option value="espanhol">Espanhol</option>
+                    <option value="filosofia">Filosofia/Sociologia</option>
+                </select>
+            </div>
+
+            <!-- Filtro por Nível -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="nivel">Nível</label>
+                <select id="nivel" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Todos os níveis</option>
+                    <option value="fundamental">Ensino Fundamental</option>
+                    <option value="medio">Ensino Médio</option>
+                    <option value="enem">Pré-ENEM</option>
+                    <option value="vestibular">Pré-Vestibular</option>
+                    <option value="superior">Ensino Superior</option>
+                    <option value="concursos">Concursos</option>
+                </select>
+            </div>
+
+            <!-- Filtro por Modalidade -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="modalidade">Modalidade</label>
+                <select id="modalidade" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Qualquer modalidade</option>
+                    <option value="presencial">Presencial</option>
+                    <option value="online">Online</option>
+                    <option value="ambos">Presencial ou Online</option>
+                </select>
+            </div>
+
+            <!-- Ordenação -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="ordenacao">Ordenar por</label>
+                <select id="ordenacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="avaliacao">Melhor avaliados</option>
+                    <option value="preco-menor">Menor preço</option>
+                    <option value="preco-maior">Maior preço</option>
+                    <option value="experiencia">Mais experientes</option>
+                    <option value="proximidade">Mais próximos</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Filtros Adicionais -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="preco">Faixa de Preço</label>
+                <select id="preco" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Qualquer preço</option>
+                    <option value="50">Até R$ 50/h</option>
+                    <option value="100">R$ 50 - R$ 100/h</option>
+                    <option value="150">R$ 100 - R$ 150/h</option>
+                    <option value="200">Acima de R$ 150/h</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="formacao">Formação</label>
+                <select id="formacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Qualquer formação</option>
+                    <option value="graduacao">Graduação</option>
+                    <option value="mestrado">Mestrado</option>
+                    <option value="doutorado">Doutorado</option>
+                    <option value="pos">Pós-graduação</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium mb-2" for="disponibilidade">Disponibilidade</label>
+                <select id="disponibilidade" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                    <option value="">Qualquer horário</option>
+                    <option value="manha">Manhã</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noite">Noite</option>
+                    <option value="fds">Finais de semana</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Barra de Pesquisa -->
+        <div class="mt-4 relative">
+            <input type="text" placeholder="Pesquisar por nome, matéria ou especialidade..."
+                   class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+            <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
+        </div>
+    </div>
+
+    <!-- Lista de Professores -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Professor 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                         alt="Aula de Matemática"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg"
+                             alt="Marcos Ribeiro"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    <i class="fas fa-graduation-cap mr-1"></i> Mestre
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Marcos Ribeiro</h3>
+                        <p class="text-gray-600 text-sm">Professor de Matemática</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.8</span>
+                        <span class="text-gray-500 text-sm ml-1">(215)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Matemática</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Física</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">ENEM</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Online ou São Paulo/SP</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 80,00/h</p>
+                    </div>
+                    <a href="professor-marcos.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professor 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                         alt="Aula de Inglês"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                             alt="Ana Beatriz"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Ana Beatriz</h3>
+                        <p class="text-gray-600 text-sm">Professora de Inglês</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.9</span>
+                        <span class="text-gray-500 text-sm ml-1">(187)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Inglês</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Conversação</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">TOEFL/IELTS</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Online</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 90,00/h</p>
+                    </div>
+                    <a href="professor-ana.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professor 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Aula de Química"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                             alt="Carlos Eduardo"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    <i class="fas fa-flask mr-1"></i> Doutor
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Carlos Eduardo</h3>
+                        <p class="text-gray-600 text-sm">Professor de Química</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.7</span>
+                        <span class="text-gray-500 text-sm ml-1">(132)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Química</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Pré-Vestibular</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Ensino Superior</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Rio de Janeiro/RJ</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 120,00/h</p>
+                    </div>
+                    <a href="professor-carlos.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professor 4 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Aula de Português"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg"
+                             alt="Juliana Santos"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Juliana Santos</h3>
+                        <p class="text-gray-600 text-sm">Professora de Português</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.9</span>
+                        <span class="text-gray-500 text-sm ml-1">(178)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Português</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Redação</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Literatura</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Belo Horizonte/MG</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 70,00/h</p>
+                    </div>
+                    <a href="professor-juliana.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professor 5 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1571260898930-a8a426064e6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Aula de Física"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/men/85.jpg"
+                             alt="Ricardo Almeida"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Ricardo Almeida</h3>
+                        <p class="text-gray-600 text-sm">Professor de Física</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.6</span>
+                        <span class="text-gray-500 text-sm ml-1">(94)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Física</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Matemática</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Pré-ENEM</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Curitiba/PR</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 85,00/h</p>
+                    </div>
+                    <a href="professor-ricardo.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professor 6 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="relative">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                         alt="Aula de História"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 left-4">
+                    <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+                        <img src="https://randomuser.me/api/portraits/women/22.jpg"
+                             alt="Fernanda Oliveira"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    <i class="fas fa-book mr-1"></i> Especialista
+                </div>
+            </div>
+            <div class="pt-8 px-4 pb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="text-xl font-bold">Fernanda Oliveira</h3>
+                        <p class="text-gray-600 text-sm">Professora de História</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="font-medium">4.8</span>
+                        <span class="text-gray-500 text-sm ml-1">(126)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">História</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Geografia</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Atualidades</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                    <span>Porto Alegre/RS</span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">A partir de</p>
+                        <p class="text-blue-600 font-bold">R$ 75,00/h</p>
+                    </div>
+                    <a href="professor-fernanda.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Ver Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginação -->
+    <div class="mt-8 flex justify-center">
+        <nav class="inline-flex rounded-md shadow">
+            <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium">1</a>
+            <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">2</a>
+            <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">3</a>
+            <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Destaque para Grupos de Estudo -->
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Grupos de Estudo em Destaque</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Grupo ENEM"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Turma ENEM 2023</h3>
+                    <div class="flex items-center text-gray-600 text-sm mb-3">
+                        <i class="fas fa-users mr-2 text-blue-600"></i>
+                        <span>5 professores especializados</span>
+                    </div>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-700">4.9 (156 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Grupo completo para preparação para o ENEM com todas as matérias incluídas.</p>
+                    <a href="grupo-enem.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                         alt="Grupo Medicina"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Turma Medicina</h3>
+                    <div class="flex items-center text-gray-600 text-sm mb-3">
+                        <i class="fas fa-users mr-2 text-blue-600"></i>
+                        <span>Foco em vestibulares concorridos</span>
+                    </div>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-700">4.7 (98 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Preparação intensiva para vestibulares de medicina com simulados semanais.</p>
+                    <a href="grupo-medicina.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div class="h-48 bg-gray-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                         alt="Grupo Concursos"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Turma Concursos Públicos</h3>
+                    <div class="flex items-center text-gray-600 text-sm mb-3">
+                        <i class="fas fa-users mr-2 text-blue-600"></i>
+                        <span>Professores especializados</span>
+                    </div>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-700">4.8 (112 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Preparação para concursos de nível médio e superior com material específico.</p>
+                    <a href="grupo-concursos.html" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Ver Detalhes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center
+
+termine esse código que voce mesmo estava fazendo

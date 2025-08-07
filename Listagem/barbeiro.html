@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barbeiros Cadastrados | AgendeJá</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="../assets/imgs/Miniatura.png"/>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+      <a href="index.html" class="ml-2 text-2xl font-bold text-blue-600"></a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="index.html" class="text-gray-600 hover:text-blue-600">Início</a>
+      <a href="#" class="text-blue-600 font-medium">Barbeiros</a>
+      <a href="tatuadores.html" class="text-gray-600 hover:text-blue-600">Tatuadores</a>
+      <a href="professores.html" class="text-gray-600 hover:text-blue-600">Professores</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+      <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <!-- Cabeçalho da Página -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Barbeiros Cadastrados</h1>
+    <p class="text-gray-600">Encontre o profissional perfeito para o seu estilo</p>
+  </div>
+
+  <!-- Filtros e Ordenação -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <!-- Filtro por Localização -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="localizacao">Localização</label>
+        <select id="localizacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todas as localizações</option>
+          <option value="sao-paulo">São Paulo/SP</option>
+          <option value="rio-de-janeiro">Rio de Janeiro/RJ</option>
+          <option value="belo-horizonte">Belo Horizonte/MG</option>
+          <option value="curitiba">Curitiba/PR</option>
+          <option value="online">Online</option>
+        </select>
+      </div>
+
+      <!-- Filtro por Especialidade -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="especialidade">Especialidade</label>
+        <select id="especialidade" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todas as especialidades</option>
+          <option value="corte-masculino">Corte Masculino</option>
+          <option value="barba">Barba</option>
+          <option value="pigmentacao">Pigmentação</option>
+          <option value="hidratacao">Hidratação</option>
+          <option value="progressiva">Progressiva</option>
+        </select>
+      </div>
+
+      <!-- Filtro por Preço -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="faixa-preco">Faixa de Preço</label>
+        <select id="faixa-preco" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="">Todas as faixas</option>
+          <option value="ate-50">Até R$ 50</option>
+          <option value="50-100">R$ 50 - R$ 100</option>
+          <option value="100-150">R$ 100 - R$ 150</option>
+          <option value="acima-150">Acima de R$ 150</option>
+        </select>
+      </div>
+
+      <!-- Ordenação -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="ordenacao">Ordenar por</label>
+        <select id="ordenacao" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+          <option value="avaliacao">Melhor avaliados</option>
+          <option value="preco-menor">Menor preço</option>
+          <option value="preco-maior">Maior preço</option>
+          <option value="proximidade">Mais próximos</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Barra de Pesquisa -->
+    <div class="mt-4 relative">
+      <input type="text" placeholder="Pesquisar por nome, bairro ou especialidade..."
+             class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+      <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
+    </div>
+  </div>
+
+  <!-- Lista de Barbeiros -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Barbeiro 1 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Barbearia do João"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                 alt="João Silva"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">João Silva</h3>
+            <p class="text-gray-600 text-sm">Barbeiro Profissional</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.7</span>
+            <span class="text-gray-500 text-sm ml-1">(128)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Masculino</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Barba</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Hidratação</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Vila Madalena, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 60,00</p>
+          </div>
+          <a href="barbeiro-joao.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbeiro 2 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Barbearia do Carlos"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/41.jpg"
+                 alt="Carlos Oliveira"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Carlos Oliveira</h3>
+            <p class="text-gray-600 text-sm">Especialista em Barba</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.9</span>
+            <span class="text-gray-500 text-sm ml-1">(87)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Barba</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Pigmentação</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Design de Barba</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Moema, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 80,00</p>
+          </div>
+          <a href="barbeiro-carlos.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbeiro 3 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1621607512014-fd8c41f9c7b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Barbearia do Pedro"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg"
+                 alt="Pedro Santos"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Pedro Santos</h3>
+            <p class="text-gray-600 text-sm">Barbeiro e Hair Stylist</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.5</span>
+            <span class="text-gray-500 text-sm ml-1">(64)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Masculino</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Progressiva</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Coloração</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Pinheiros, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 70,00</p>
+          </div>
+          <a href="barbeiro-pedro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbeiro 4 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Barbearia do Rafael"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg"
+                 alt="Rafael Costa"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Rafael Costa</h3>
+            <p class="text-gray-600 text-sm">Barbeiro Clássico</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.8</span>
+            <span class="text-gray-500 text-sm ml-1">(112)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Clássico</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Navalha</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Barba</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Centro, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 50,00</p>
+          </div>
+          <a href="barbeiro-rafael.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbeiro 5 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1599351430140-c70f0250bd70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Barbearia do Lucas"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/65.jpg"
+                 alt="Lucas Mendes"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">Lucas Mendes</h3>
+            <p class="text-gray-600 text-sm">Barbeiro Moderno</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.6</span>
+            <span class="text-gray-500 text-sm ml-1">(93)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Moderno</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Degradê</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Hidratação</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Itaim Bibi, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 90,00</p>
+          </div>
+          <a href="barbeiro-lucas.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbeiro 6 -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+      <div class="relative">
+        <div class="h-48 bg-gray-300 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80"
+               alt="Barbearia do André"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 left-4">
+          <div class="h-16 w-16 rounded-full border-4 border-white overflow-hidden bg-white">
+            <img src="https://randomuser.me/api/portraits/men/85.jpg"
+                 alt="André Lima"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 px-4 pb-4">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">André Lima</h3>
+            <p class="text-gray-600 text-sm">Especialista em Cortes</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-star text-yellow-400 mr-1"></i>
+            <span class="font-medium">4.9</span>
+            <span class="text-gray-500 text-sm ml-1">(145)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-1 mb-3">
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Social</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Corte Militar</span>
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Barba</span>
+        </div>
+
+        <div class="flex items-center text-gray-600 text-sm mb-3">
+          <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+          <span>Jardins, São Paulo/SP</span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">A partir de</p>
+            <p class="text-blue-600 font-bold">R$ 120,00</p>
+          </div>
+          <a href="barbeiro-andre.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            Ver Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginação -->
+  <div class="mt-8 flex justify-center">
+    <nav class="inline-flex rounded-md shadow">
+      <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium">1</a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">2</a>
+      <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">3</a>
+      <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </nav>
+  </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+          <h3 class="ml-2 text-xl font-bold">AgendeJá</h3>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Barbeiros</a></li>
+          <li><a href="tatuadores.html" class="text-gray-400 hover:text-white">Tatuadores</a></li>
+          <li><a href="professores.html" class="text-gray-400 hover:text-white">Professores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Central de Ajuda</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Termos de Uso</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Política de Privacidade</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // Filtros (simulação)
+  document.getElementById('localizacao').addEventListener('change', function() {
+    // Na prática, isso filtraria os resultados
+    console.log('Filtrando por localização:', this.value);
+  });
+
+  document.getElementById('especialidade').addEventListener('change', function() {
+    console.log('Filtrando por especialidade:', this.value);
+  });
+
+  document.getElementById('faixa-preco').addEventListener('change', function() {
+    console.log('Filtrando por faixa de preço:', this.value);
+  });
+
+  document.getElementById('ordenacao').addEventListener('change', function() {
+    console.log('Ordenando por:', this.value);
+  });
+
+  // Menu mobile (simplificado)
+  document.querySelector('.md\\:hidden').addEventListener('click', function() {
+    alert('Menu mobile será implementado aqui');
+  });
+</script>
+</body>
+</html>

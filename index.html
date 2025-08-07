@@ -1,504 +1,287 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800 min-h-screen">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgendeJá</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="imgs/Miniatura.png" />
-  </head>
-  <body class="flex flex-col min-h-screen">
-    <!-- ============================
-       Página de Login
-  ============================== -->
-    <div
-      id="page-login"
-      class="flex items-center justify-center flex-1 p-4 bg-gray-100"
-    >
-      <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <!-- Espaço para sua logo -->
-        <div class="flex justify-center mb-8">
-          <img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-20 w-auto" />
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgendeJá - Agendamentos para serviços profissionais</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="assets/imgs/Miniatura.png"/>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/>
+      <h1 class="ml-2 text-2xl font-bold text-blue-600"></h1>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Início</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Serviços</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+      <a href="login.html#link-cadastrar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-blue-600 text-white py-16">
+  <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+    <div class="md:w-1/2 mb-8 md:mb-0">
+      <h2 class="text-4xl font-bold mb-4">Agende serviços profissionais de forma rápida e fácil</h2>
+      <p class="text-xl mb-6">Barbearias, tatuadores e professores particulares ao seu alcance com apenas alguns cliques.</p>
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="login.html#link-cadastrar" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg text-center transition">Comece agora</a>
+        <a href="#" class="border-2 border-white hover:bg-blue-700 font-bold py-3 px-6 rounded-lg text-center transition">Saiba mais</a>
+      </div>
+    </div>
+    <div class="md:w-1/2 flex justify-center">
+      <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80"
+           alt="Agendamento de serviços"
+           class="rounded-lg shadow-xl max-h-96 object-cover">
+    </div>
+  </div>
+</section>
+
+<!-- Serviços -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Nossos Serviços</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Barbearia -->
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+               alt="Barbearia"
+               class="w-full h-full object-cover">
         </div>
-
-        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
-          Bem-vindo
-        </h2>
-
-        <form class="space-y-4" id="login-form">
-          <!-- E-mail -->
-          <div>
-            <label class="block mb-1 font-medium" for="login-email"
-              >E-mail</label
-            >
-            <input
-              type="email"
-              id="login-email"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="seu@email.com"
-              required
-            />
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <div class="bg-blue-100 p-2 rounded-full mr-3">
+              <i class="fas fa-cut text-blue-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Barbearia</h3>
           </div>
-          <!-- Senha -->
-          <div>
-            <label class="block mb-1 font-medium" for="login-senha"
-              >Senha</label
-            >
-            <input
-              type="password"
-              id="login-senha"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Senha"
-              required
-            />
+          <p class="text-gray-600 mb-4">Agende cortes de cabelo, barba e tratamentos capilares com os melhores barbeiros da sua região.</p>
+          <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+            Encontrar barbeiros
+            <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tatuagem -->
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+               alt="Tatuagem"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <div class="bg-blue-100 p-2 rounded-full mr-3">
+              <i class="fas fa-paint-brush text-blue-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Tatuagem</h3>
           </div>
-          <!-- Botão Entrar -->
-          <button
-            type="submit"
-            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition"
-          >
-            Entrar
-          </button>
-        </form>
-        <!-- Links -->
-        <div class="mt-4 flex justify-between text-sm">
-          <a href="#" id="link-esqueci" class="text-blue-400 hover:underline"
-            >Esqueci minha senha</a
-          >
-          <a href="#" id="link-cadastrar" class="text-blue-400 hover:underline"
-            >Cadastre-se</a
-          >
+          <p class="text-gray-600 mb-4">Encontre tatuadores especializados e agende sua próxima arte corporal com facilidade e segurança.</p>
+          <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+            Encontrar tatuadores
+            <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Aulas Particulares -->
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+               alt="Aulas particulares"
+               class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-4">
+            <div class="bg-blue-100 p-2 rounded-full mr-3">
+              <i class="fas fa-book-open text-blue-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Aulas Particulares</h3>
+          </div>
+          <p class="text-gray-600 mb-4">Conecte-se com professores qualificados para aulas de reforço, idiomas, música e muito mais.</p>
+          <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+            Encontrar professores
+            <i class="fas fa-arrow-right ml-2"></i>
+          </a>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- ============================
-       Página de Cadastro
-  ============================== -->
-    <div
-      id="page-cadastro"
-      class="hidden flex items-center justify-center flex-1 p-4 bg-gray-100"
-    >
-      <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
-          Criar Conta
-        </h2>
+<!-- Como Funciona -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Como Funciona</h2>
 
-        <form class="space-y-4" id="cadastro-form">
-          <!-- Nome completo -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center p-6">
+        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-search text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-gray-800">1. Encontre Profissionais</h3>
+        <p class="text-gray-600">Busque por profissionais qualificados na sua área ou próximos a você.</p>
+      </div>
+
+      <div class="text-center p-6">
+        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-calendar-check text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-gray-800">2. Agende Online</h3>
+        <p class="text-gray-600">Escolha o horário que melhor se encaixa na sua agenda e confirme o agendamento.</p>
+      </div>
+
+      <div class="text-center p-6">
+        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-smile text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-gray-800">3. Aproveite o Serviço</h3>
+        <p class="text-gray-600">Compareça no local e horário marcados e aproveite o serviço com qualidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Depoimentos -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">O que dizem sobre nós</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+        <div class="flex items-center mb-4">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg"
+               alt="Cliente"
+               class="w-12 h-12 rounded-full mr-4">
           <div>
-            <label class="block mb-1 font-medium" for="cadastro-nome"
-              >Nome Completo</label
-            >
-            <input
-              type="text"
-              id="cadastro-nome"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Seu nome"
-              required
-            />
+            <h4 class="font-bold text-gray-800">Carlos Silva</h4>
+            <div class="flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
           </div>
-          <!-- Tipo de profissional -->
+        </div>
+        <p class="text-gray-600 italic">"Finalmente encontrei um jeito fácil de marcar com meu barbeiro sem ter que ficar ligando toda semana. O AgendeJá revolucionou minha rotina!"</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+        <div class="flex items-center mb-4">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg"
+               alt="Cliente"
+               class="w-12 h-12 rounded-full mr-4">
           <div>
-            <label class="block mb-1 font-medium" for="tipo-profissional"
-              >Tipo de Profissional</label
-            >
-            <select
-              id="tipo-profissional"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            >
-              <option value="">Selecione</option>
-              <option value="Barbeiro">Barbeiro</option>
-              <option value="Professor">Professor</option>
-              <option value="Tatuador">Tatuador</option>
-              <option value="Outro">Outro</option>
-            </select>
+            <h4 class="font-bold text-gray-800">Ana Oliveira</h4>
+            <div class="flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
           </div>
-          <!-- E-mail -->
-          <div>
-            <label class="block mb-1 font-medium" for="cadastro-email"
-              >E-mail</label
-            >
-            <input
-              type="email"
-              id="cadastro-email"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="seu@email.com"
-              required
-            />
-          </div>
-          <!-- Senha -->
-          <div>
-            <label class="block mb-1 font-medium" for="cadastro-senha"
-              >Senha</label
-            >
-            <input
-              type="password"
-              id="cadastro-senha"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Senha"
-              required
-            />
-          </div>
-          <!-- Confirmar senha -->
-          <div>
-            <label class="block mb-1 font-medium" for="cadastro-confirmar"
-              >Confirmar Senha</label
-            >
-            <input
-              type="password"
-              id="cadastro-confirmar"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Confirmar senha"
-              required
-            />
-          </div>
-          <!-- Botão criar conta -->
-          <button
-            type="submit"
-            class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded transition"
-          >
-            Criar Conta
+        </div>
+        <p class="text-gray-600 italic">"Como tatuadora, o AgendeJá me ajudou a organizar meus horários e atrair novos clientes. Minha produtividade aumentou em 40%!"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Final -->
+<section class="py-16 bg-blue-600 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">Pronto para simplificar seus agendamentos?</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">Junte-se a milhares de profissionais e clientes que já estão aproveitando a praticidade do AgendeJá.</p>
+    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+      <a href="login.html#link-cadastrar" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition">Cadastre-se agora</a>
+      <a href="#" class="border-2 border-white hover:bg-blue-700 font-bold py-3 px-8 rounded-lg transition">Saiba mais</a>
+    </div>
+  </div>
+</section>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/imgs/Logo.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+          <h3 class="ml-2 text-xl font-bold">AgendeJá</h3>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Serviços</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Profissionais</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Central de Ajuda</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Termos de Uso</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Política de Privacidade</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+        <div class="mt-2 flex">
+          <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+          <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+            <i class="fas fa-paper-plane"></i>
           </button>
-        </form>
-        <!-- Link voltar ao login -->
-        <div class="mt-4 text-center text-sm">
-          <a
-            href="#"
-            id="link-voltar-login"
-            class="text-blue-400 hover:underline"
-            >Já tenho uma conta</a
-          >
         </div>
       </div>
     </div>
-
-    <!-- ============================
-       Dashboard do Usuário
-  ============================== -->
-    <div
-      id="page-dashboard"
-      class="hidden flex-1 flex flex-col md:flex-row bg-gray-100 text-gray-800 min-h-screen"
-    >
-      <!-- Menu lateral -->
-      <aside class="w-full md:w-60 bg-white p-4 shadow-md flex-shrink-0">
-        <h3 class="text-xl font-semibold mb-4 text-blue-600">Menu</h3>
-        <nav class="flex flex-col space-y-3">
-          <button
-            class="flex items-center p-2 rounded hover:bg-gray-200"
-            data-section="agenda"
-          >
-            <svg
-              class="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10m-4 4h4m-4 4h4m-4 4h4"
-              />
-            </svg>
-            Agenda
-          </button>
-          <button
-            class="flex items-center p-2 rounded hover:bg-gray-200"
-            data-section="clientes"
-          >
-            <svg
-              class="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                cx="12"
-                cy="7"
-                r="4"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              />
-              <path
-                stroke="currentColor"
-                stroke-width="2"
-                d="M4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2"
-              />
-            </svg>
-            Clientes
-          </button>
-          <button
-            class="flex items-center p-2 rounded hover:bg-gray-200"
-            data-section="configuracoes"
-          >
-            <svg
-              class="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="3"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-              <path
-                stroke="currentColor"
-                stroke-width="2"
-                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.5V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.5 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.5-1H3a2 2 0 010-4h.09a1.65 1.65 0 001 1.5h3.4z"
-              />
-            </svg>
-            Configurações
-          </button>
-          <button
-            class="flex items-center p-2 rounded hover:bg-gray-200"
-            id="sair-btn"
-          >
-            <svg
-              class="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"
-              />
-            </svg>
-            Sair
-          </button>
-        </nav>
-      </aside>
-
-      <!-- Conteúdo principal -->
-      <main class="flex-1 p-6">
-        <!-- Saudação -->
-        <div class="mb-4">
-          <h1 class="text-2xl font-semibold">
-            Olá, <span id="nome-profissional">Seu Nome</span>
-          </h1>
-        </div>
-
-        <!-- Seção Agenda -->
-        <section id="section-agenda" class="hidden space-y-4">
-          <div class="flex justify-between items-center">
-            <h2 class="text-xl font-semibold text-blue-600">Agenda</h2>
-            <button
-              class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-              id="btn-novo-agendamento"
-            >
-              Novo Agendamento
-            </button>
-          </div>
-          <!-- Calendário (simples) -->
-          <div class="bg-blue-100 p-4 rounded shadow-md">
-            <p class="text-center text-blue-600">[Calendário aqui]</p>
-          </div>
-          <!-- Lista de próximos agendamentos -->
-          <div>
-            <h3 class="text-lg font-semibold mb-2">Próximos Agendamentos</h3>
-            <ul id="lista-agendamentos" class="space-y-2">
-              <!-- Itens dinâmicos -->
-              <li class="bg-white p-3 rounded shadow">
-                Sem agendamentos próximos
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- Seção Clientes -->
-        <section id="section-clientes" class="hidden">
-          <h2 class="text-xl font-semibold mb-4 text-blue-600">Clientes</h2>
-          <p>[Lista de clientes]</p>
-        </section>
-
-        <!-- Seção Configurações -->
-        <section id="section-configuracoes" class="hidden">
-          <h2 class="text-xl font-semibold mb-4 text-blue-600">
-            Configurações
-          </h2>
-          <p>[Opções de configuração]</p>
-        </section>
-      </main>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
     </div>
+  </div>
+</footer>
 
-    <!-- ============================
-       Modal Novo Agendamento
-  ============================== -->
-    <div
-      id="modal-agendamento"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    >
-      <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg relative">
-        <h3 class="text-xl font-semibold mb-4 text-blue-600">
-          Novo Agendamento
-        </h3>
-        <form id="form-agendamento" class="space-y-4">
-          <!-- Nome do cliente -->
-          <div>
-            <label class="block mb-1 font-medium" for="cliente-nome"
-              >Nome do Cliente</label
-            >
-            <input
-              type="text"
-              id="cliente-nome"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Nome do cliente"
-              required
-            />
-          </div>
-          <!-- Data -->
-          <div>
-            <label class="block mb-1 font-medium" for="data-agendamento"
-              >Data</label
-            >
-            <input
-              type="date"
-              id="data-agendamento"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-          </div>
-          <!-- Horário -->
-          <div>
-            <label class="block mb-1 font-medium" for="hora-agendamento"
-              >Horário</label
-            >
-            <input
-              type="time"
-              id="hora-agendamento"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-          </div>
-          <!-- Serviço -->
-          <div>
-            <label class="block mb-1 font-medium" for="servico">Serviço</label>
-            <select
-              id="servico"
-              class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            >
-              <option value="">Selecione</option>
-              <option value="Corte de cabelo">Corte de cabelo</option>
-              <option value="Tatuagem">Tatuagem</option>
-              <option value="Barba">Barba</option>
-              <!-- Outros serviços -->
-            </select>
-          </div>
-          <!-- Botões -->
-          <div class="flex justify-end space-x-2">
-            <button
-              type="button"
-              id="btn-cancelar"
-              class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
-            >
-              Salvar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- ============================
-       Scripts JavaScript
-  ============================== -->
-    <script>
-      // Controle de telas
-      const loginPage = document.getElementById("page-login");
-      const cadastroPage = document.getElementById("page-cadastro");
-      const dashboardPage = document.getElementById("page-dashboard");
-
-      // Links de navegação
-      document
-        .getElementById("link-cadastrar")
-        .addEventListener("click", () => {
-          loginPage.classList.add("hidden");
-          cadastroPage.classList.remove("hidden");
-        });
-      document
-        .getElementById("link-voltar-login")
-        .addEventListener("click", () => {
-          cadastroPage.classList.add("hidden");
-          loginPage.classList.remove("hidden");
-        });
-
-      // Navegação no dashboard
-      const sections = {
-        agenda: document.getElementById("section-agenda"),
-        clientes: document.getElementById("section-clientes"),
-        configuracoes: document.getElementById("section-configuracoes"),
-      };
-      document.querySelectorAll("aside button[data-section]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          Object.values(sections).forEach((sec) => sec.classList.add("hidden"));
-          const section = btn.getAttribute("data-section");
-          sections[section].classList.remove("hidden");
-          // Destacar botão ativo
-          document
-            .querySelectorAll("aside button")
-            .forEach((b) => b.classList.remove("bg-gray-200"));
-          btn.classList.add("bg-gray-200");
-        });
-      });
-
-      // Login simulados
-      document.getElementById("login-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        // Aqui você faria autenticação
-        // Para testar, apenas troca para dashboard
-        document.getElementById("nome-profissional").textContent =
-          document.getElementById("login-email").value;
-        loginPage.classList.add("hidden");
-        dashboardPage.classList.remove("hidden");
-        // Mostrar a agenda por padrão
-        Object.values(sections).forEach((sec) => sec.classList.add("hidden"));
-        sections["agenda"].classList.remove("hidden");
-      });
-
-      // Cadastro
-      document
-        .getElementById("cadastro-form")
-        .addEventListener("submit", (e) => {
-          e.preventDefault();
-          alert("Conta criada! Faça login.");
-          // Voltar ao login
-          cadastroPage.classList.add("hidden");
-          loginPage.classList.remove("hidden");
-        });
-
-      // Modal agendamento
-      const modal = document.getElementById("modal-agendamento");
-      document
-        .getElementById("btn-novo-agendamento")
-        .addEventListener("click", () => {
-          modal.classList.remove("hidden");
-        });
-      document.getElementById("btn-cancelar").addEventListener("click", () => {
-        modal.classList.add("hidden");
-      });
-      document
-        .getElementById("form-agendamento")
-        .addEventListener("submit", (e) => {
-          e.preventDefault();
-          alert("Agendamento salvo!");
-          modal.classList.add("hidden");
-          // Aqui você pode atualizar a lista de agendamentos
-        });
-    </script>
-  </body>
+<!-- Scripts -->
+<script>
+  // Menu mobile (simplificado)
+  document.querySelector('.md\\:hidden').addEventListener('click', function() {
+    // Implementação do menu mobile aqui
+    alert('Menu mobile será implementado aqui');
+  });
+</script>
+</body>
 </html>
