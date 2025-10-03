@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-50 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Meus Serviços - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .servico-card {
+                border-left: 4px solid #3b82f6;
+            }
+        }
+
+        .servico-item {
+            transition: all 0.3s ease;
+        }
+
+        .servico-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="../cliente/cliente.html"><img src="../../imgs/Logo.png" alt="Logo AgendeJá"
+                                                   class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Perfil -->
+        <div class="flex items-center space-x-4">
+            <div class="relative group">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                    <span class="text-gray-700 font-medium">Carlos Silva</span>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Menu dropdown -->
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
+                    <a href="meus-servicos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        💼 Meus Serviços
+                    </a>
+                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📅 Agendamentos
+                    </a>
+                    <a href="perfil-profissional.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        👤 Meu Perfil
+                    </a>
+                    <div class="border-t my-1"></div>
+                    <a href="../cliente/cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                        🚪 Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="cadastro.html"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-6 md:py-8">
+    <div class="max-w-6xl mx-auto">
+
+        <!-- Cabeçalho da Página -->
+        <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800">Meus Serviços</h1>
+                    <p class="text-gray-600 text-sm md:text-base">Gerencie os serviços que você oferece</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="abrirModalNovoServico()"
+                            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-plus mr-2"></i> Novo Serviço
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Serviços - Mobile -->
+        <div class="md:hidden space-y-4">
+            <!-- Serviço 1 -->
+            <div class="servico-card bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-900 text-lg">Consulta Básica</h3>
+                        <p class="text-gray-600 text-sm mt-1">Serviço padrão de 1 hora para avaliação inicial</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-semibold text-green-600 text-lg">R$ 120,00</div>
+                        <div class="text-gray-500 text-sm mt-1">60 min</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
+                    <div class="flex space-x-2">
+                        <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="alternarStatusServico(1)"
+                                class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Ativo">
+                            <i class="fas fa-toggle-on"></i>
+                        </button>
+                        <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Serviço 2 -->
+            <div class="servico-card bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-900 text-lg">Acompanhamento Mensal</h3>
+                        <p class="text-gray-600 text-sm mt-1">Acompanhamento contínuo com 4 sessões mensais</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-semibold text-green-600 text-lg">R$ 400,00</div>
+                        <div class="text-gray-500 text-sm mt-1">240 min</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
+                    <div class="flex space-x-2">
+                        <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="alternarStatusServico(2)"
+                                class="p-2 text-gray-400 hover:bg-gray-50 rounded-lg transition-colors" title="Inativo">
+                            <i class="fas fa-toggle-off"></i>
+                        </button>
+                        <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Serviços - Desktop -->
+        <div class="hidden md:block bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Cabeçalho da Tabela -->
+            <div class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-200 font-semibold text-gray-700 text-sm">
+                <div class="col-span-4">Serviço</div>
+                <div class="col-span-3">Descrição</div>
+                <div class="col-span-1 text-center">Duração</div>
+                <div class="col-span-2 text-right">Preço</div>
+                <div class="col-span-2 text-center">Ações</div>
+            </div>
+
+            <!-- Serviço 1 -->
+            <div class="servico-item grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="col-span-4">
+                    <div class="font-medium text-gray-900">Consulta Básica</div>
+                </div>
+                <div class="col-span-3">
+                    <div class="text-sm text-gray-500">Serviço padrão de 1 hora para avaliação inicial</div>
+                </div>
+                <div class="col-span-1 text-center">
+                    <div class="text-gray-700">60 min</div>
+                </div>
+                <div class="col-span-2 text-right">
+                    <div class="font-medium text-green-600">R$ 120,00</div>
+                </div>
+                <div class="col-span-2">
+                    <div class="flex justify-center space-x-2">
+                        <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <!--            <button onclick="alternarStatusServico(1)"  class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Ativo">-->
+                        <!--              <i class="fas fa-toggle-on" id="iconeStatusOn"></i>-->
+                        <!--            </button>-->
+                        <button data-id="1" data-status="ativo" onclick="alternarStatusServico(1)"
+                                class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Ativo">
+                            <i class="fas fa-toggle-on"></i>
+                        </button>
+                        <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Serviço 2 -->
+            <div class="servico-item grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="col-span-4">
+                    <div class="font-medium text-gray-900">Acompanhamento Mensal</div>
+                </div>
+                <div class="col-span-3">
+                    <div class="text-sm text-gray-500">Acompanhamento contínuo com 4 sessões mensais</div>
+                </div>
+                <div class="col-span-1 text-center">
+                    <div class="text-gray-700">240 min</div>
+                </div>
+                <div class="col-span-2 text-right">
+                    <div class="font-medium text-green-600">R$ 400,00</div>
+                </div>
+                <div class="col-span-2">
+                    <div class="flex justify-center space-x-2">
+                        <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+<!--                        <button onclick="alternarStatusServico(2)"-->
+<!--                                class="p-2 text-gray-400 hover:bg-gray-50 rounded-lg transition-colors" title="Inativo">-->
+<!--                            <i class="fas fa-toggle-off" id="iconeStatusOff"></i>-->
+<!--                        </button>-->
+                        <button data-id="0" data-status="inativo" onclick="alternarStatusServico(0)"
+                                class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Ativo">
+                            <i class="fas fa-toggle-off"></i>
+                        </button>
+                        <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal para Adicionar/Editar Serviço -->
+<div id="modalServico" class="modal">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitulo" class="text-xl font-bold text-gray-800">Novo Serviço</h3>
+                <button onclick="fecharModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="formServico" onsubmit="salvarServico(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Serviço</label>
+                        <input type="text" id="nomeServico"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                               required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Descrição</label>
+                        <textarea id="descricaoServico" rows="3"
+                                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Duração (minutos)</label>
+                            <input type="number" id="duracaoServico" min="1"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Preço (R$)</label>
+                            <input type="number" id="precoServico" min="0" step="0.01"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="statusServico"
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                        <label for="statusServico" class="ml-2 block text-sm text-gray-700">Serviço ativo</label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
+                    <button type="button" onclick="fecharModal()"
+                            class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Scripts -->
+<script>
+    // Menu mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    }
+
+    // Modal functions
+    function abrirModalNovoServico() {
+        document.getElementById('modalTitulo').textContent = 'Novo Serviço';
+        document.getElementById('formServico').reset();
+        document.getElementById('modalServico').classList.add('active');
+    }
+
+    function fecharModal() {
+        document.getElementById('modalServico').classList.remove('active');
+    }
+
+    function alternarStatusServico(id) {
+        // Seleciona o botão usando data-id
+        const botao = document.querySelector(`button[data-id="${id}"]`);
+        if (!botao) return;
+
+        const icone = botao.querySelector('i');
+
+        // Verifica status atual pelo atributo data-status (ativo/inativo)
+        const statusAtual = botao.getAttribute('data-status') || 'ativo';
+
+        if (statusAtual === 'ativo') {
+            icone.classList.remove('fa-toggle-on', 'text-green-600');
+            icone.classList.add('fa-toggle-off', 'text-gray-400');
+            botao.title = 'Inativo';
+            botao.setAttribute('data-status', 'inativo');
+        } else {
+            icone.classList.remove('fa-toggle-off', 'text-gray-400');
+            icone.classList.add('fa-toggle-on', 'text-green-600');
+            botao.title = 'Ativo';
+            botao.setAttribute('data-status', 'ativo');
+        }
+
+        console.log(`Status do serviço ${id} alterado para ${botao.getAttribute('data-status')}`);
+    }
+
+
+    // Fechar menu mobile ao clicar em um link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        });
+    });
+
+    // Fechar modal ao clicar fora dele
+    document.getElementById('modalServico').addEventListener('click', function (e) {
+        if (e.target === this) {
+            fecharModal();
+        }
+    });
+</script>
+</body>
+</html>

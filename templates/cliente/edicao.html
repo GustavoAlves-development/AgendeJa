@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Editar Perfil - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../../assets/imgs/Miniatura.png"/>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Login/Perfil -->
+        <div class="flex items-center space-x-4">
+            {% if usuario %}
+                <!-- Usuário logado - Mostrar foto e menu -->
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 focus:outline-none">
+                        <img src="{{ usuario[8] }}"
+                             alt="Foto de perfil"
+                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                        <span class="text-gray-700 font-medium">{{ usuario[1] }}</span>
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Menu dropdown -->
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
+                        {% if usuario[5] == 'profissional' %}
+                            <a href="/dashboard-profissional" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                📊 Meu Dashboard
+                            </a>
+                            <a href="/perfil" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                💼 Meu Perfil
+                            </a>
+                            <a href="/agendamentos" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                📅 Agendamentos
+                            </a>
+                        {% else %}
+                            <a href="/meus-agendamentos" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                📅 Meus Agendamentos
+                            </a>
+                            <a href="/perfil" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                👤 Meu Perfil
+                            </a>
+                        {% endif %}
+
+                        <div class="border-t my-1"></div>
+                        <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                            🚪 Sair
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Usuário não logado - Mostrar botões de login/cadastro -->
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+            {% endif %}
+        </div>
+        <button class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    <div class="flex flex-col lg:flex-row gap-8 justify-center">
+        <!-- Conteúdo do Perfil -->
+        <div class="lg:w-3/4 mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Editar Perfil</h2>
+                </div>
+
+                <form action="/editarCliente" method="post" enctype="multipart/form-data">
+                    <!-- Foto de Perfil -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Foto de Perfil</h3>
+                        <div class="flex items-center space-x-6">
+                            <div class="relative">
+                                <img id="foto-preview" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto do perfil"
+                                     class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
+                                <input type="file" id="foto-perfil" name="foto_perfil" accept="image/*" class="hidden" onchange="previewImage(this)">
+                            </div>
+                            <div class="space-y-2">
+                                <button type="button" onclick="document.getElementById('foto-perfil').click()"
+                                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                                    Alterar Foto
+                                </button>
+                                <p class="text-xs text-gray-500">Recomendado: 500x500px</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informações Pessoais -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Informações Pessoais</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Nome Completo *</label>
+                                <input type="text" name="nome" required
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[1] }}">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">E-mail *</label>
+                                <input type="email" name="email" required
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[2] }}">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Telefone *</label>
+                                <input type="tel" name="telefone" required
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[4] }}">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                                    <i class="fab fa-whatsapp text-green-600 mr-2 text-xl"></i> WhatsApp
+                                </label>
+                                <input type="tel" name="whatsapp"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[19] }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Endereço -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Endereço</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">CEP</label>
+                                <input type="text" name="cep" id="cep"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[11] }}">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-gray-700 font-medium mb-2">Logradouro</label>
+                                <input type="text" name="logradouro" id="logradouro"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[12] }}">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Número</label>
+                                <input type="text" name="numero"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[13] }}">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-gray-700 font-medium mb-2">Complemento</label>
+                                <input type="text" name="complemento"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[14] }}">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Bairro</label>
+                                <input type="text" name="bairro" id="bairro"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[15] }}">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Cidade</label>
+                                <input type="text" name="cidade" id="cidade"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                       value="{{ usuario[16] }}">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Estado</label>
+                                <select name="estado" id="estado" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                    <option value="">Selecione</option>
+                                    <option value="AC" selected>Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                        <button type="button"
+                                class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg">
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+    // Preview da imagem
+    function previewImage(input) {
+        const preview = document.getElementById('foto-preview');
+        const file = input.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Buscar CEP (exemplo simplificado)
+    document.getElementById('cep').addEventListener('blur', function() {
+        const cep = this.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            // Aqui você implementaria a busca na API de CEP
+            console.log('Buscando CEP:', cep);
+            // Exemplo de preenchimento automático (substituir pela API real)
+            // document.getElementById('logradouro').value = 'Rua Exemplo';
+            // document.getElementById('bairro').value = 'Bairro Exemplo';
+            // document.getElementById('cidade').value = 'Cidade Exemplo';
+            // document.getElementById('estado').value = 'SP';
+        }
+    });
+
+    // Dropdown do perfil
+    document.addEventListener('DOMContentLoaded', function() {
+        const perfilBtn = document.getElementById('perfil-btn');
+        const notificacoesBtn = document.getElementById('notificacoes-btn');
+
+        perfilBtn.addEventListener('click', function() {
+            alert('Menu do perfil clicado - implementar dropdown');
+        });
+
+        notificacoesBtn.addEventListener('click', function() {
+            alert('Notificações clicado - implementar dropdown');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-50 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Painel do Profissional - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="#"><img src="../../imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agedamentos</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Perfil -->
+        <div class="flex items-center space-x-4">
+            <div class="relative group">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                    <span class="text-gray-700 font-medium">Carlos Silva</span>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Menu dropdown -->
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
+                    <a href="meus-servicos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        💼 Meus Serviços
+                    </a>
+                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📅 Agendamentos
+                    </a>
+                    <a href="perfil-profissional.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        👤 Meu Perfil
+                    </a>
+                    <div class="border-t my-1"></div>
+                    <a href="../cliente/cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                        🚪 Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Cabeçalho do Painel -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Painel do Profissional</h1>
+                    <p class="text-gray-600">Gerencie seus agendamentos, serviços e perfil</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-3">
+                    <a href="editar.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-user-edit mr-2"></i> Editar Perfil
+                    </a>
+                    <a href="agendamentos.html" class="inline-flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-clock mr-2"></i> Horários
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Próximos Agendamentos -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">Próximos Agendamentos</h2>
+                    <a href="agendamentos.html" class="text-blue-600 hover:text-blue-800 text-sm">Ver todos</a>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Agendamento 1 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Maria Silva</h4>
+                                <div class="flex items-center text-sm text-gray-600 mt-1">
+                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
+                                    <span>Hoje, 14:00 - 15:30</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="contatarCliente('Maria Silva')">
+                                    <i class="fas fa-phone-alt"></i>
+                                </button>
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="enviarMensagem('Maria Silva')">
+                                    <i class="fas fa-comment-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-600">
+                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Consulta de rotina
+                        </div>
+                    </div>
+
+                    <!-- Agendamento 2 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">João Pereira</h4>
+                                <div class="flex items-center text-sm text-gray-600 mt-1">
+                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
+                                    <span>Amanhã, 10:00 - 11:00</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="contatarCliente('João Pereira')">
+                                    <i class="fas fa-phone-alt"></i>
+                                </button>
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="enviarMensagem('João Pereira')">
+                                    <i class="fas fa-comment-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-600">
+                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Primeira sessão
+                        </div>
+                    </div>
+
+                    <!-- Agendamento 3 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Ana Costa</h4>
+                                <div class="flex items-center text-sm text-gray-600 mt-1">
+                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
+                                    <span>Quinta, 16:00 - 17:00</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="contatarCliente('Ana Costa')">
+                                    <i class="fas fa-phone-alt"></i>
+                                </button>
+                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full" onclick="enviarMensagem('Ana Costa')">
+                                    <i class="fas fa-comment-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-600">
+                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Retorno - Cliente recorrente
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meus Serviços -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">Meus Serviços</h2>
+                    <a href="meus-servicos.html" class="text-blue-600 hover:text-blue-800 text-sm">Gerenciar</a>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Serviço 1 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Consulta Básica</h4>
+                                <p class="text-sm text-gray-600 mt-1">Serviço padrão de 1 hora</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">R$ 80</span>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 60 min •
+                            <i class="fas fa-users ml-2 mr-1"></i> 15 agendamentos este mês
+                        </div>
+                    </div>
+
+                    <!-- Serviço 2 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Sessão Avançada</h4>
+                                <p class="text-sm text-gray-600 mt-1">Serviço completo de 2 horas</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">R$ 150</span>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 120 min •
+                            <i class="fas fa-users ml-2 mr-1"></i> 8 agendamentos este mês
+                        </div>
+                    </div>
+
+                    <!-- Serviço 3 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Pacote Mensal</h4>
+                                <p class="text-sm text-gray-600 mt-1">4 sessões mensais</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">R$ 280</span>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 4 sessões •
+                            <i class="fas fa-users ml-2 mr-1"></i> 12 pacotes ativos
+                        </div>
+                    </div>
+
+                    <!-- Serviço 4 -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold">Consulta Express</h4>
+                                <p class="text-sm text-gray-600 mt-1">Serviço rápido de 30 min</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">R$ 50</span>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 30 min •
+                            <i class="fas fa-users ml-2 mr-1"></i> 22 agendamentos este mês
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meu Perfil -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Meu Perfil</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Foto e informações básicas -->
+                <div class="md:col-span-1">
+                    <div class="flex flex-col items-center text-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profissional" class="w-24 h-24 rounded-full border-2 border-blue-500 mb-4">
+                        <h3 class="font-bold text-lg">Carlos Silva</h3>
+                        <p class="text-gray-600 mb-2">Profissional Certificado</p>
+                        <div class="flex text-yellow-400 mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="text-gray-600 ml-2">4.8 (124 avaliações)</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-envelope text-blue-600 mr-2 w-5"></i>
+                            <span class="text-sm">carlos@agendeja.com</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-phone text-blue-600 mr-2 w-5"></i>
+                            <span class="text-sm">(11) 98765-4321</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-map-marker-alt text-blue-600 mr-2 w-5"></i>
+                            <span class="text-sm">São Paulo, SP</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-briefcase text-blue-600 mr-2 w-5"></i>
+                            <span class="text-sm">5 anos de experiência</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descrição e especialidades -->
+                <div class="md:col-span-2">
+                    <h4 class="font-semibold mb-2">Sobre mim</h4>
+                    <p class="text-gray-700 mb-4">Profissional dedicado com mais de 5 anos de experiência no mercado. Comprometido em oferecer serviços de alta qualidade e proporcionar a melhor experiência para meus clientes. Sempre em busca de atualização e aperfeiçoamento constante.</p>
+
+                    <h4 class="font-semibold mb-2">Especialidades</h4>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Consultoria</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Atendimento Personalizado</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Soluções Específicas</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Acompanhamento</span>
+                    </div>
+
+                    <h4 class="font-semibold mb-2">Disponibilidade</h4>
+                    <div class="flex items-center text-gray-700 mb-2">
+                        <i class="fas fa-calendar-check text-blue-600 mr-2"></i>
+                        <span>Segunda a Sexta: 8h às 18h</span>
+                    </div>
+                    <div class="flex items-center text-gray-700">
+                        <i class="fas fa-calendar-check text-blue-600 mr-2"></i>
+                        <span>Sábado: 8h às 12h</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <a href="editar-perfil.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                    <i class="fas fa-edit mr-2"></i> Editar informações do perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Scripts -->
+<script>
+    // Menu mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    }
+
+    // Fechar menu dropdown ao clicar fora
+    document.addEventListener('click', function(event) {
+        const menus = document.querySelectorAll('.group-hover\\:block');
+        menus.forEach(menu => {
+            if (!menu.parentElement.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    });
+
+    // Funções de contato
+    function contatarCliente(nome) {
+        alert(`Ligando para ${nome}...\n\nEsta funcionalidade conectaria com o sistema de telefonia.`);
+    }
+
+    function enviarMensagem(nome) {
+        alert(`Enviando mensagem para ${nome}...\n\nEsta funcionalidade abriria o chat com o cliente.`);
+    }
+
+    // Fechar menu mobile ao clicar em um link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        });
+    });
+</script>
+</body>
+</html>4

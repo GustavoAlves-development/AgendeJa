@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Serviços - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../../imgs/Miniatura.png">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="cliente.html"><img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Login/Perfil -->
+        <div class="flex items-center space-x-4">
+            <!-- Simulando usuário NÃO logado -->
+            <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+
+            <!-- Para simular usuário LOGADO, comente as linhas acima e descomente as abaixo -->
+            <!--
+            <div class="relative dropdown">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                    <span class="text-gray-700 font-medium">João Silva</span>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
+                    <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📊 Meu Dashboard
+                    </a>
+                    <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        👤 Meu Perfil
+                    </a>
+                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📅 Meus Agendamentos
+                    </a>
+                    <div class="border-t my-1"></div>
+                    <a href="cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                        🚪 Sair
+                    </a>
+                </div>
+            </div>
+            -->
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Breadcrumb -->
+<section class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="cliente.html" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
+                        <span class="text-sm font-medium text-blue-600">Serviços</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Hero Serviços -->
+<section class="bg-blue-600 text-white py-12">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Nossos Serviços</h1>
+        <p class="text-xl max-w-3xl mx-auto">Descubra uma variedade de serviços profissionais disponíveis para
+            agendamento rápido e conveniente.</p>
+    </div>
+</section>
+
+<!-- Filtros e Busca -->
+<section class="py-8 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Encontre o serviço ideal</h2>
+            <div class="flex items-center">
+                <div class="relative mr-4">
+                    <input type="text" placeholder="Buscar serviços..."
+                           class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-filter mr-2"></i> Filtrar
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-center transition">Todos</button>
+            <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg text-center transition">Barbearia</button>
+            <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg text-center transition">Tatuagem</button>
+            <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg text-center transition">Aulas</button>
+        </div>
+    </div>
+</section>
+
+<!-- Lista de Serviços -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Serviço 1 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                         alt="Corte de Cabelo"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Corte de Cabelo</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Barbearia</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Corte moderno e estilizado com os melhores profissionais da
+                        cidade.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 35,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 40min</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+
+            <!-- Serviço 2 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Tatuagem Personalizada"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Tatuagem Personalizada</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Tatuagem</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Criação e aplicação de tatuagem única de acordo com sua ideia e
+                        preferências.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 200,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 2h</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+
+            <!-- Serviço 3 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                         alt="Aula de Inglês"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Aula de Inglês</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Aulas</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Aulas particulares de inglês para todos os níveis, com metodologia
+                        personalizada.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 80,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 1h</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+
+            <!-- Serviço 4 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Design de Sobrancelhas"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Design de Sobrancelhas</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Estética</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Design personalizado de sobrancelhas para valorizar sua expressão
+                        facial.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 25,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 30min</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+
+            <!-- Serviço 5 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                         alt="Aula de Violão"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Aula de Violão</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Aulas</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Aprenda a tocar violão do zero ou aperfeiçoe sua técnica com
+                        professores especializados.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 70,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 1h</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+
+            <!-- Serviço 6 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                         alt="Massagem Relaxante"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-gray-800">Massagem Relaxante</h3>
+                        <span class="bg-blue-100 text-blue-600 text-sm font-medium px-2 py-1 rounded">Bem-estar</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Massagem terapêutica para aliviar o estresse e tensionamentos
+                        musculares.</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">R$ 120,00</span>
+                            <span class="text-sm text-gray-500 block">Duração: 1h</span>
+                        </div>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <a href="../agendamento.html"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
+                        agora</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paginação -->
+        <div class="mt-12 flex justify-center">
+            <nav class="flex items-center space-x-2">
+                <a href="#" class="px-3 py-1 rounded border text-gray-600 hover:bg-blue-100 hover:text-blue-600">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" class="px-3 py-1 rounded border bg-blue-600 text-white">1</a>
+                <a href="#" class="px-3 py-1 rounded border text-gray-600 hover:bg-blue-100 hover:text-blue-600">2</a>
+                <a href="#" class="px-3 py-1 rounded border text-gray-600 hover:bg-blue-100 hover:text-blue-600">3</a>
+                <span class="px-2 text-gray-600">...</span>
+                <a href="#" class="px-3 py-1 rounded border text-gray-600 hover:bg-blue-100 hover:text-blue-600">10</a>
+                <a href="#" class="px-3 py-1 rounded border text-gray-600 hover:bg-blue-100 hover:text-blue-600">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="py-16 bg-blue-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Não encontrou o que procurava?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">Entre em contato conosco e nos diga que serviço você gostaria de ver
+            em nossa plataforma.</p>
+        <a href="../contato.html"
+           class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition">Fale conosco</a>
+    </div>
+</section>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+    // Menu mobile (simplificado)
+    document.querySelector('.md\\:hidden').addEventListener('click', function () {
+        // Implementação do menu mobile aqui
+        alert('Menu mobile será implementado aqui');
+    });
+</script>
+</body>
+</html>

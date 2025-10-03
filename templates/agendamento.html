@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Agendar Serviço - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../../imgs/Miniatura.png"/>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <!-- Flatpickr para seleção de data/hora -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../../imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="login.html#link-cadastrar"
+               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+        </div>
+        <button class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Breadcrumb -->
+<section class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="login.html" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
+                </li>
+                <li class="inline-flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
+                    <a href="servicos.html" class="text-sm text-gray-600 hover:text-blue-600">Serviços</a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
+                        <span class="text-sm font-medium text-blue-600">Agendamento</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow py-8">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-center mb-8">Agendar Serviço</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Resumo do Serviço -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+                    <h2 class="text-xl font-bold mb-4">Resumo do Serviço</h2>
+                    <div class="flex items-start mb-4">
+                        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                             alt="Corte de Cabelo" class="w-20 h-20 object-cover rounded-lg mr-4">
+                        <div>
+                            <h3 class="font-bold">Corte de Cabelo</h3>
+                            <p class="text-sm text-gray-600">Barbearia</p>
+                            <p class="text-sm text-gray-600">Duração: 40min</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span>Valor do serviço:</span>
+                            <span class="font-bold">R$ 35,00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Taxa de reserva:</span>
+                            <span class="font-bold">R$ 5,00</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold mt-4 pt-4 border-t border-gray-200">
+                            <span>Total:</span>
+                            <span class="text-blue-600">R$ 40,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário de Agendamento -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-6">Escolha a data e horário</h2>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Selecione a data:</label>
+                        <input type="text" id="datepicker" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Selecione uma data">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Selecione o horário:</label>
+                        <div id="time-slots" class="grid grid-cols-4 gap-2">
+                            <!-- Horários serão carregados via JavaScript -->
+                            <p class="text-gray-500 col-span-4 text-center py-4">Selecione uma data para ver os horários disponíveis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finalização -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <button id="confirm-booking" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        Confirmar Agendamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal de Confirmação -->
+<div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg shadow-xl p-6 m-4 max-w-md w-full">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Agendamento Confirmado!</h3>
+            <p class="text-gray-600 mb-4">Seu agendamento foi realizado com sucesso.</p>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4 text-left">
+                <p class="font-bold">Corte de Cabelo</p>
+                <p class="text-sm"><span id="confirmed-date">25/11/2023</span> às <span id="confirmed-time">14:00</span></p>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Enviamos um e-mail com os detalhes do agendamento.</p>
+            <div class="flex space-x-4">
+                <button id="close-modal" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
+                    Fechar
+                </button>
+                <a href="login.html" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg text-center transition">
+                    Página Inicial
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+    // Inicializar datepicker
+    const datepicker = flatpickr("#datepicker", {
+        locale: "pt",
+        minDate: "today",
+        dateFormat: "d/m/Y",
+        disableMobile: true,
+        onChange: function(selectedDates, dateStr, instance) {
+            updateTimeSlots(dateStr);
+        }
+    });
+
+    // Gerar horários disponíveis
+    function updateTimeSlots(date) {
+        const timeSlotsContainer = document.getElementById('time-slots');
+        timeSlotsContainer.innerHTML = '';
+
+        // Horários de trabalho: 9h às 18h
+        const startHour = 9;
+        const endHour = 18;
+
+        for (let hour = startHour; hour < endHour; hour++) {
+            for (let minute = 0; minute < 60; minute += 30) {
+                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+
+                const timeSlot = document.createElement('button');
+                timeSlot.type = 'button';
+                timeSlot.className = 'py-2 px-3 border border-gray-300 rounded-lg text-sm hover:bg-blue-100 hover:border-blue-500 transition time-slot';
+                timeSlot.textContent = timeString;
+
+                timeSlot.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot').forEach(slot => {
+                        slot.classList.remove('bg-blue-500', 'text-white', 'border-blue-500');
+                    });
+                    this.classList.add('bg-blue-500', 'text-white', 'border-blue-500');
+                });
+
+                // Simular alguns horários ocupados
+                if (Math.random() > 0.3) {
+                    timeSlotsContainer.appendChild(timeSlot);
+                } else {
+                    timeSlot.disabled = true;
+                    timeSlot.className = 'py-2 px-3 border border-gray-200 rounded-lg text-sm text-gray-400 bg-gray-100 cursor-not-allowed';
+                    timeSlotsContainer.appendChild(timeSlot);
+                }
+            }
+        }
+    }
+
+    // Validação do formulário
+    document.getElementById('confirm-booking').addEventListener('click', function() {
+        const isDateSelected = datepicker.selectedDates.length > 0;
+        const isTimeSelected = document.querySelector('.time-slot.bg-blue-500') !== null;
+
+        if (isDateSelected && isTimeSelected) {
+            // Obter informações para o modal
+            const selectedDate = datepicker.selectedDates[0];
+            const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+            const selectedTime = document.querySelector('.time-slot.bg-blue-500').textContent;
+
+            // Atualizar modal
+            document.getElementById('confirmed-date').textContent = formattedDate;
+            document.getElementById('confirmed-time').textContent = selectedTime;
+
+            // Mostrar modal
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        } else {
+            alert('Por favor, selecione uma data e um horário para continuar.');
+        }
+    });
+
+    // Fechar modal
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.getElementById('confirmation-modal').classList.add('hidden');
+    });
+</script>
+</body>
+</html>

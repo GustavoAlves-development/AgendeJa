@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800 min-h-screen">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AgendeJá</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../imgs/Miniatura.png">
+</head>
+<body class="flex flex-col min-h-screen">
+
+<div
+        id="page-login"
+        class="flex items-center justify-center flex-1 p-4 bg-gray-100"
+>
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <!-- Espaço para sua logo -->
+        <div class="flex justify-center mb-8">
+            <img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-20 w-auto"/>
+        </div>
+
+        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
+            Bem-vindo
+        </h2>
+
+        <form class="space-y-4" id="login-form" action="/autenticarLogin" method="post">
+
+<!--            {% if error %}-->
+<!--                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">-->
+<!--                    {{ error }}-->
+<!--                </div>-->
+<!--            {% endif %}-->
+            <!-- E-mail -->
+            <div>
+                <label class="block mb-1 font-medium" for="login-email"
+                >E-mail</label
+                >
+                <input
+                        type="email"
+                        id="login-email"
+                        name="email"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="seu@email.com"
+                        required
+                />
+            </div>
+            <!-- Senha -->
+            <div>
+                <label class="block mb-1 font-medium" for="login-senha"
+                >Senha</label
+                >
+                <input
+                        type="password"
+                        id="login-senha"
+                        name="senha"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="Senha"
+                        required
+                />
+            </div>
+            <!-- Botão Entrar -->
+            <button
+                    type="submit"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition"
+            >
+                Entrar
+            </button>
+        </form>
+        <!-- Links -->
+        <div class="mt-4 flex justify-between text-sm">
+            <a href="#" id="link-esqueci" class="text-blue-400 hover:underline"
+            >Esqueci minha senha</a
+            >
+            <a href="../index.html" id="link-cadastrar" class="text-blue-400 hover:underline"
+            >Cadastre-se</a
+            >
+        </div>
+    </div>
+</div>
+
+<!-- ============================
+   Página de Cadastro
+============================== -->
+<div
+        id="page-cadastro"
+        class="hidden flex items-center justify-center flex-1 p-4 bg-gray-100"
+>
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4 text-center text-blue-600">
+            Criar Conta
+        </h2>
+
+        <form class="space-y-4" id="cadastro-form" action="/criarLogin" method="post">
+            <!-- Nome completo -->
+            <div>
+                <label class="block mb-1 font-medium" for="cadastro-nome">Nome Completo</label>
+                <input
+                        type="text"
+                        id="cadastro-nome"
+                        name="nome"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="Seu nome"
+                        required
+                />
+            </div>
+
+            <!-- Tipo de profissional -->
+            <div class="flex items-center justify-between">
+                <label class="block mb-1 font-medium" for="cliente">Sou um cliente</label>
+                <input type="radio" id="cliente" name="tipo-status" value="cliente" onclick="verificarStatus()"/>
+
+                <label class="block mb-1 font-medium" for="profissional">Sou um profissional</label>
+                <input type="radio" id="profissional" name="tipo-status" value="profissional"
+                       onclick="verificarStatus()"/>
+            </div>
+
+            <div class="hidden escondidoProfissonais">
+                <label class="block mb-1 font-medium" for="tipo-profissional">Tipo de Profissional</label>
+                <select
+                        id="tipo-profissional"
+                        name="tipo-profissional"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                    <option value="">Selecione</option>
+                    <option value="Barbeiro">Barbeiro</option>
+                    <option value="Professor">Professor</option>
+                    <option value="Tatuador">Tatuador</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <!-- E-mail -->
+            <div>
+                <label class="block mb-1 font-medium" for="cadastro-email">E-mail</label>
+                <input
+                        type="email"
+                        id="cadastro-email"
+                        name="email"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="seu@email.com"
+                        required
+                />
+            </div>
+
+            <!-- Telefone -->
+            <div>
+                <label class="block mb-1 font-medium" for="cadastro-telefone">Telefone</label>
+                <input
+                        type="text"
+                        id="cadastro-Telefone"
+                        name="telefone"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="(18) 99654-2098"
+                        required
+                />
+            </div>
+
+            <!-- Senha -->
+            <div>
+                <label class="block mb-1 font-medium" for="cadastro-senha">Senha</label>
+                <input
+                        type="password"
+                        id="cadastro-senha"
+                        name="senha"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="Senha"
+                        required
+                />
+            </div>
+
+            <!-- Confirmar senha -->
+            <div>
+                <label class="block mb-1 font-medium" for="cadastro-confirmar">Confirmar Senha</label>
+                <input
+                        type="password"
+                        id="cadastro-confirmar"
+                        name="confirmarSenha"
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        placeholder="Confirmar senha"
+                        required
+                />
+            </div>
+
+            <!-- Botão criar conta -->
+            <button
+                    type="submit"
+                    class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded transition"
+            >
+                Criar Conta
+            </button>
+        </form>
+
+        <!-- Link voltar ao login -->
+        <div class="mt-4 text-center text-sm">
+            <a
+                    href="#"
+                    id="link-voltar-login"
+                    class="text-blue-400 hover:underline"
+            >Já tenho uma conta</a
+            >
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/login.js"></script>
+<!--{#<script>#}-->
+<!--{#    function verificarStatus() {#}-->
+<!--{#        const profissionalRadio = document.getElementById('profissional');#}-->
+<!--{#        const clienteRadio = document.getElementById('cliente');#}-->
+<!--{#        const divProfissional = document.querySelector('.escondidoProfissonais');#}-->
+<!--{#        const selectProfissional = document.getElementById('tipo-profissional');#}-->
+<!--{##}-->
+<!--{#        if (profissionalRadio.checked) {#}-->
+<!--{#            divProfissional.classList.remove('hidden');#}-->
+<!--{#            selectProfissional.setAttribute('required', 'required');#}-->
+<!--{#        } else {#}-->
+<!--{#            divProfissional.classList.add('hidden');#}-->
+<!--{#            selectProfissional.removeAttribute('required');#}-->
+<!--{#        }#}-->
+<!--{#    }#}-->
+<!--{#</script>#}-->
+</body>
+</html>

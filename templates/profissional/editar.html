@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editar Perfil - Tatuador</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="../cliente/cliente.html"><img src="https://via.placeholder.com/150x50/3B82F6/FFFFFF?text=AgendeJá" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="painel-tatuador.html" class="text-gray-600 font-medium">Painel</a>
+      <a href="agendamentos-tatuador.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+      <a href="perfil-tatuador.html" class="text-blue-600 hover:text-blue-600">Meu Perfil</a>
+      <a href="servicos-tatuador.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+    </nav>
+    <div class="flex items-center space-x-4">
+      <div class="relative">
+        <button class="text-gray-600 hover:text-blue-600 relative">
+          <i class="fas fa-bell text-xl"></i>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+        </button>
+      </div>
+      <div class="relative dropdown">
+        <button class="flex items-center space-x-2">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Carla Santos" class="w-8 h-8 rounded-full">
+          <span class="hidden md:inline text-gray-700">Carla Santos</span>
+          <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+        </button>
+        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden dropdown-menu">
+          <a href="perfil-tatuador.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Meu Perfil</a>
+          <a href="configuracoes-tatuador.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configurações</a>
+          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajuda</a>
+          <div class="border-t border-gray-200"></div>
+          <a href="login.html" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Sair</a>
+        </div>
+      </div>
+    </div>
+    <button class="md:hidden text-gray-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Editar Perfil</h2>
+        <a href="painel-tatuador.html" class="text-blue-600 hover:text-blue-800 font-medium">Voltar ao painel</a>
+      </div>
+
+      <form>
+        <!-- Informações Básicas -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Informações Básicas</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="Carla Santos">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Nome do estabelecimento (opcional)</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="Estúdio Black Ink">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">CPF</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="987.654.321-00">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Telefone</label>
+              <input type="tel"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="(11) 99876-5432">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">E-mail</label>
+              <input type="email"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="carla@estudioblackink.com">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Anos de Experiência</label>
+              <input type="number"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="6">
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto de Perfil e Capa -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Fotos</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Foto de Perfil</label>
+              <div class="flex items-center space-x-4">
+                <div class="relative">
+                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Carla Santos"
+                       class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
+                  <button type="button" class="absolute -top-2 -right-2 bg-white p-1 rounded-full shadow-md text-blue-600 hover:text-blue-800">
+                    <i class="fas fa-pencil-alt text-xs"></i>
+                  </button>
+                </div>
+                <div>
+                  <button type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                    Alterar Foto
+                  </button>
+                  <p class="text-xs text-gray-500 mt-1">Recomendado: 500x500px</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Foto de Capa</label>
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1600965962382-8d8750594464?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                     alt="Estúdio de Tatuagem"
+                     class="w-full h-32 object-cover rounded-lg border border-gray-300">
+                <button type="button" class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md text-blue-600 hover:text-blue-800">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Recomendado: 1500x500px</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Localização -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Localização</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">CEP</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="Digite o CEP" value="01234-567">
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-gray-700 font-medium mb-2">Endereço</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="Av. Paulista, 1000">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Bairro</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="Bela Vista">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Cidade</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     value="São Paulo">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Estado</label>
+              <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                <option selected>SP</option>
+                <option>RJ</option>
+                <option>MG</option>
+                <!-- outros estados -->
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Complemento</label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="Apto, bloco, etc." value="Sala 305">
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Sobre Mim -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Sobre Mim</h3>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-2">Descrição Profissional</label>
+            <textarea rows="5"
+                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">Tatuadora com 6 anos de experiência, especializada em realismos, fine line e tatuagens geométricas. Formada em Belas Artes, busco sempre unir técnica artística com a precisão necessária para tatuagens de alta qualidade. Meu objetivo é criar peças únicas que tenham significado para meus clientes e que sejam executadas com os mais altos padrões de higiene e segurança.</textarea>
+            <p class="text-xs text-gray-500 mt-1">Conte aos clientes sobre sua experiência e especialidades</p>
+          </div>
+        </div>4
+        <!-- Redes Sociais -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Redes Sociais</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                <i class="fab fa-instagram text-pink-600 mr-2 text-xl"></i> Instagram
+              </label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="@seuusuario" value="@carlablackink">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                <i class="fab fa-facebook-f text-blue-700 mr-2 text-xl"></i> Facebook
+              </label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="Link do perfil" value="facebook.com/estudioblackink">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                <i class="fab fa-whatsapp text-green-600 mr-2 text-xl"></i> WhatsApp
+              </label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="(DDD) 9XXXX-XXXX" value="(11) 99876-5432">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                <i class="fab fa-tiktok text-black mr-2 text-xl"></i> TikTok
+              </label>
+              <input type="text"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                     placeholder="@seuusuario" value="@carlatattoo">
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+          <button type="button"
+                  class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit"
+                  class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+            Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+        </div>
+        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+        <ul class="space-y-2">
+          <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+          <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+          <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+          <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Suporte</h4>
+        <ul class="space-y-2">
+          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+        <div class="mt-2 flex">
+          <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+          <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // Dropdown do perfil
+  document.addEventListener('DOMContentLoaded', function() {
+    const perfilBtn = document.querySelector('.dropdown button');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    perfilBtn.addEventListener('click', function() {
+      dropdownMenu.classList.toggle('hidden');
+    });
+
+    // Fechar dropdown ao clicar fora
+    document.addEventListener('click', function(event) {
+      if (!perfilBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
+
+    // Simular upload de foto
+    document.querySelectorAll('button[type="button"]').forEach(button => {
+      button.addEventListener('click', function() {
+        if (this.textContent.includes('Alterar Foto') || this.querySelector('.fa-pencil-alt')) {
+          alert('Esta funcionalidade abriria o seletor de arquivos para upload de imagem.');
+        }
+      });
+    });
+
+    // Simular envio do formulário
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Perfil atualizado com sucesso!');
+    });
+  });
+</script>
+</body>
+</html>

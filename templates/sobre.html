@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sobre Nós - AgendeJá</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../imgs/Miniatura.png">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Cabeçalho -->
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="cliente/cliente.html"><img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="cliente/servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="cliente/profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Login/Perfil -->
+        <div class="flex items-center space-x-4">
+            <!-- Simulando usuário NÃO logado -->
+            <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+
+            <!-- Para simular usuário LOGADO, comente as linhas acima e descomente as abaixo -->
+            <!--
+            <div class="relative dropdown">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                    <span class="text-gray-700 font-medium">João Silva</span>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
+                    <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📊 Meu Dashboard
+                    </a>
+                    <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        👤 Meu Perfil
+                    </a>
+                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📅 Meus Agendamentos
+                    </a>
+                    <div class="border-t my-1"></div>
+                    <a href="cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                        🚪 Sair
+                    </a>
+                </div>
+            </div>
+            -->
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="cliente/servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="cliente/profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="flex-grow">
+    <!-- Hero Sobre Nós -->
+    <section class="bg-blue-600 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-6">Sobre o AgendeJá</h1>
+            <p class="text-xl max-w-3xl mx-auto">Conectando profissionais qualificados a clientes que buscam serviços de
+                qualidade de forma prática e eficiente.</p>
+        </div>
+    </section>
+
+    <!-- Nossa História -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Nossa História</h2>
+                    <p class="text-gray-600 mb-4">O AgendeJá nasceu em 2020 da percepção de que tanto profissionais
+                        autônomos quanto clientes enfrentavam dificuldades no processo de agendamento de serviços.</p>
+                    <p class="text-gray-600 mb-4">Observamos que barbearias, tatuadores e professores particulares
+                        perdiam tempo valioso gerenciando agendas manualmente, enquanto clientes enfrentavam
+                        dificuldades para encontrar horários disponíveis.</p>
+                    <p class="text-gray-600">Nossa plataforma foi desenvolvida para simplificar esse processo,
+                        oferecendo uma solução intuitiva que beneficia ambos os lados e transforma a experiência de
+                        agendamento de serviços.</p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                         alt="Nossa equipe"
+                         class="rounded-lg shadow-xl max-h-96 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missão, Visão e Valores -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Nossos Pilares</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Missão -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bullseye text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Missão</h3>
+                    <p class="text-gray-600">Simplificar o agendamento de serviços, conectando profissionais
+                        qualificados a clientes de maneira eficiente, prática e confiável.</p>
+                </div>
+
+                <!-- Visão -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-eye text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Visão</h3>
+                    <p class="text-gray-600">Ser a plataforma líder em agendamento de serviços na América Latina,
+                        reconhecida pela inovação e qualidade na experiência do usuário.</p>
+                </div>
+
+                <!-- Valores -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Valores</h3>
+                    <ul class="text-gray-600 text-left list-disc pl-5">
+                        <li class="mb-2">Inovação constante</li>
+                        <li class="mb-2">Transparência nas relações</li>
+                        <li>Compromisso com a satisfação</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Faça parte da nossa história</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Junte-se a milhares de profissionais e clientes que já estão
+                transformando a maneira de agendar serviços.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="login.html#link-cadastrar"
+                   class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition">Cadastre-se
+                    agora</a>
+                <a href="#" class="border-2 border-white hover:bg-blue-700 font-bold py-3 px-8 rounded-lg transition">Entrar
+                    em contato</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+    // Menu mobile (simplificado)
+    document.querySelector('.md\\:hidden').addEventListener('click', function () {
+        // Implementação do menu mobile aqui
+        alert('Menu mobile será implementado aqui');
+    });
+</script>
+</body>
+</html>
