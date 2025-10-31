@@ -6,7 +6,7 @@
     <title>Profissionais</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="../../imgs/Miniatura.png">
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -15,19 +15,19 @@
 <header class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center">
-            <a href="cliente.html"><img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
         </div>
         <nav class="hidden md:flex space-x-6">
-            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
             <!-- Simulando usuário NÃO logado -->
-            <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-            <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+            <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
 
             <!-- Para simular usuário LOGADO, comente as linhas acima e descomente as abaixo -->
             <!--
@@ -529,7 +529,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <div class="flex items-center mb-4">
-                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
                 </div>
                 <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
             </div>

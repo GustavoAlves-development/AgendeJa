@@ -6,7 +6,7 @@
     <title>Editar Perfil - AgendeJá</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="../../assets/imgs/Miniatura.png"/>
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -15,7 +15,7 @@
 <header class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center">
-            <a href="/"><img src="../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
         </div>
         <nav class="hidden md:flex space-x-6">
             <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
@@ -25,52 +25,40 @@
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
-            {% if usuario %}
-                <!-- Usuário logado - Mostrar foto e menu -->
-                <div class="relative group">
-                    <button class="flex items-center space-x-2 focus:outline-none">
-                        <img src="{{ usuario[8] }}"
-                             alt="Foto de perfil"
-                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
-                        <span class="text-gray-700 font-medium">{{ usuario[1] }}</span>
-                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
 
-                    <!-- Menu dropdown -->
-                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
-                        {% if usuario[5] == 'profissional' %}
-                            <a href="/dashboard-profissional" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                📊 Meu Dashboard
-                            </a>
-                            <a href="/perfil" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                💼 Meu Perfil
-                            </a>
-                            <a href="/agendamentos" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                📅 Agendamentos
-                            </a>
-                        {% else %}
-                            <a href="/meus-agendamentos" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                📅 Meus Agendamentos
-                            </a>
-                            <a href="/perfil" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                👤 Meu Perfil
-                            </a>
-                        {% endif %}
+            {% if cliente %}
+                <div class="relative dropdown">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+                    <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
 
-                        <div class="border-t my-1"></div>
-                        <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-red-50">
-                            🚪 Sair
-                        </a>
-                    </div>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
+                    <a href="/editarCliente" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        👤 Meu Perfil
+                    </a>
+                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        📅 Meus Agendamentos
+                    </a>
+                    <div class="border-t my-1"></div>
+                    <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                        🚪 Sair
+                    </a>
                 </div>
+            </div>
             {% else %}
-                <!-- Usuário não logado - Mostrar botões de login/cadastro -->
+            <!-- Simulando usuário NÃO logado -->
                 <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
                 <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
             {% endif %}
+
+
         </div>
         <button class="md:hidden text-gray-600">
             <i class="fas fa-bars text-xl"></i>
@@ -117,21 +105,21 @@
                                 <label class="block text-gray-700 font-medium mb-2">Nome Completo *</label>
                                 <input type="text" name="nome" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[1] }}">
+                                       value="{{ cliente[1] }}">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">E-mail *</label>
                                 <input type="email" name="email" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[2] }}">
+                                       value="{{ cliente[2] }}">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Telefone *</label>
                                 <input type="tel" name="telefone" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[4] }}">
+                                       value="{{ cliente[4] }}">
                             </div>
 
                             <div>
@@ -140,7 +128,7 @@
                                 </label>
                                 <input type="tel" name="whatsapp"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[19] }}">
+                                       value="{{ cliente[19] }}">
                             </div>
                         </div>
                     </div>
@@ -154,13 +142,13 @@
                                 <label class="block text-gray-700 font-medium mb-2">CEP</label>
                                 <input type="text" name="cep" id="cep"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[11] }}">
+                                       value="{{ cliente[11] }}">
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-gray-700 font-medium mb-2">Logradouro</label>
                                 <input type="text" name="logradouro" id="logradouro"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[12] }}">
+                                       value="{{ cliente[12] }}">
                             </div>
                         </div>
 
@@ -169,19 +157,19 @@
                                 <label class="block text-gray-700 font-medium mb-2">Número</label>
                                 <input type="text" name="numero"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[13] }}">
+                                       value="{{ cliente[13] }}">
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-gray-700 font-medium mb-2">Complemento</label>
                                 <input type="text" name="complemento"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[14] }}">
+                                       value="{{ cliente[14] }}">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Bairro</label>
                                 <input type="text" name="bairro" id="bairro"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[15] }}">
+                                       value="{{ cliente[15] }}">
                             </div>
                         </div>
 
@@ -190,7 +178,7 @@
                                 <label class="block text-gray-700 font-medium mb-2">Cidade</label>
                                 <input type="text" name="cidade" id="cidade"
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ usuario[16] }}">
+                                       value="{{ cliente[16] }}">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Estado</label>
@@ -251,7 +239,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <div class="flex items-center mb-4">
-                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
                 </div>
                 <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
             </div>

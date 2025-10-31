@@ -6,7 +6,7 @@
     <title>AgendeJá</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="../../imgs/Miniatura.png">
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <style>
@@ -20,28 +20,24 @@
 <header class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center">
-            <a href="cliente.html"><img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            <a href="cliente.html"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
         </div>
         <nav class="hidden md:flex space-x-6">
-            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
-            <!-- Simulando usuário NÃO logado -->
-            <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-            <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
 
-            <!-- Para simular usuário LOGADO, comente as linhas acima e descomente as abaixo -->
-            <!--
-            <div class="relative dropdown">
+            {% if cliente %}
+                <div class="relative dropdown">
                 <button class="flex items-center space-x-2 focus:outline-none">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg"
                          alt="Foto de perfil"
                          class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
-                    <span class="text-gray-700 font-medium">João Silva</span>
+                    <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
                     <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M19 9l-7 7-7-7"></path>
@@ -49,22 +45,25 @@
                 </button>
 
                 <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
-                    <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        📊 Meu Dashboard
-                    </a>
-                    <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="/editarCliente" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         👤 Meu Perfil
                     </a>
                     <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         📅 Meus Agendamentos
                     </a>
                     <div class="border-t my-1"></div>
-                    <a href="cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                    <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-red-50">
                         🚪 Sair
                     </a>
                 </div>
             </div>
-            -->
+            {% else %}
+            <!-- Simulando usuário NÃO logado -->
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+            {% endif %}
+
+
         </div>
         <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
             <i class="fas fa-bars text-xl"></i>
@@ -74,13 +73,13 @@
     <!-- Menu Mobile -->
     <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
         <nav class="flex flex-col space-y-4">
-            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
             <div class="border-t pt-4">
-                <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
             </div>
         </nav>
     </div>
@@ -291,7 +290,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <div class="flex items-center mb-4">
-                    <img src="../../imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
                 </div>
                 <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
             </div>
@@ -309,8 +308,8 @@
             <div>
                 <h4 class="text-lg font-bold mb-4">Suporte</h4>
                 <ul class="space-y-2">
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                    <li><a href=./contato" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="/contato" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
                 </ul>
             </div>
 
