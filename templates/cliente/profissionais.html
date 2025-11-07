@@ -6,6 +6,8 @@
     <title>Profissionais</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../static/js/login.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="icon" href="../../static/imgs/Miniatura.png">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -25,42 +27,56 @@
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
-            <!-- Simulando usuário NÃO logado -->
-            <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-            <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
+    {% if cliente %}
+    <div class="relative user-dropdown-container">
+        <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+            <img src="/imagem/{{ cliente[0] }}"
+                 alt="Foto de perfil"
+                 class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+            <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+            <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
 
-            <!-- Para simular usuário LOGADO, comente as linhas acima e descomente as abaixo -->
-            <!--
-            <div class="relative dropdown">
-                <button class="flex items-center space-x-2 focus:outline-none">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                         alt="Foto de perfil"
-                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
-                    <span class="text-gray-700 font-medium">João Silva</span>
-                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
-                    <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        📊 Meu Dashboard
-                    </a>
-                    <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        👤 Meu Perfil
-                    </a>
-                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        📅 Meus Agendamentos
-                    </a>
-                    <div class="border-t my-1"></div>
-                    <a href="cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
-                        🚪 Sair
-                    </a>
-                </div>
+        <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+            <div class="px-4 py-3 border-b border-gray-100">
+                <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
+                <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
             </div>
-            -->
+
+            <div class="py-2">
+                <a href="/editarCliente"
+                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">👤</span>
+                    <span>Meu Perfil</span>
+                </a>
+
+                <a href="/agendamentos"
+                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">📅</span>
+                    <span>Meus Agendamentos</span>
+                </a>
+            </div>
+
+            <div class="border-t border-gray-100 pt-2">
+                <a href="/logout"
+                   class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">🚪</span>
+                    <span>Sair da conta</span>
+                </a>
+            </div>
         </div>
+    </div>
+    {% else %}
+    <div class="flex items-center space-x-3">
+        <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+        <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+    </div>
+    {% endif %}
+</div>
         <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -75,7 +91,8 @@
             <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
             <div class="border-t pt-4">
                 <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+                <a href="cadastro.html"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
             </div>
         </nav>
     </div>
@@ -87,7 +104,7 @@
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="cliente.html" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
+                    <a href="/" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
@@ -112,19 +129,19 @@
 <!-- Filtros e Busca -->
 <section class="py-8 bg-white">
     <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Encontre o profissional ideal</h2>
-            <div class="flex items-center">
-                <div class="relative mr-4">
-                    <input type="text" placeholder="Buscar profissionais..."
-                           class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </div>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
-                    <i class="fas fa-filter mr-2"></i> Filtrar
-                </button>
-            </div>
-        </div>
+        {#        <div class="flex flex-col md:flex-row justify-between items-center mb-6">#}
+        {#            <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Encontre o profissional ideal</h2>#}
+        {#            <div class="flex items-center">#}
+        {#                <div class="relative mr-4">#}
+        {#                    <input type="text" placeholder="Buscar profissionais..."#}
+        {#                           class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">#}
+        {#                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>#}
+        {#                </div>#}
+        {#                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">#}
+        {#                    <i class="fas fa-filter mr-2"></i> Filtrar#}
+        {#                </button>#}
+        {#            </div>#}
+        {#        </div>#}
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-center transition">Todos</button>
@@ -135,28 +152,28 @@
             </button>
         </div>
 
-        <div class="flex flex-wrap gap-4 mb-8">
-            <div class="flex items-center">
-                <label class="mr-2 text-gray-700">Ordenar por:</label>
-                <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>Mais bem avaliados</option>
-                    <option>Mais próximos</option>
-                    <option>Preço: menor para maior</option>
-                    <option>Preço: maior para menor</option>
-                </select>
-            </div>
-
-            <div class="flex items-center">
-                <label class="mr-2 text-gray-700">Localização:</label>
-                <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>São Paulo, SP</option>
-                    <option>Rio de Janeiro, RJ</option>
-                    <option>Belo Horizonte, MG</option>
-                    <option>Porto Alegre, RS</option>
-                    <option>Curitiba, PR</option>
-                </select>
-            </div>
-        </div>
+        {#        <div class="flex flex-wrap gap-4 mb-8">#}
+        {#            <div class="flex items-center">#}
+        {#                <label class="mr-2 text-gray-700">Ordenar por:</label>#}
+        {#                <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">#}
+        {#                    <option>Mais bem avaliados</option>#}
+        {#                    <option>Mais próximos</option>#}
+        {#                    <option>Preço: menor para maior</option>#}
+        {#                    <option>Preço: maior para menor</option>#}
+        {#                </select>#}
+        {#            </div>#}
+        {##}
+        {#            <div class="flex items-center">#}
+        {#                <label class="mr-2 text-gray-700">Localização:</label>#}
+        {#                <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">#}
+        {#                    <option>São Paulo, SP</option>#}
+        {#                    <option>Rio de Janeiro, RJ</option>#}
+        {#                    <option>Belo Horizonte, MG</option>#}
+        {#                    <option>Porto Alegre, RS</option>#}
+        {#                    <option>Curitiba, PR</option>#}
+        {#                </select>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
 </section>
 
@@ -164,287 +181,109 @@
 <section class="py-12 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Profissional 1 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                         alt="Marcos Silva"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-cut mr-1"></i> Barbeiro
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Marcos Silva</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-gray-600 ml-1 text-sm">4.5</span>
+            {% for profissional in profissionais %}
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="/imagemProfissional/{{ profissional[0] }}"
+                             alt="Foto de Perfil"
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
+                            {{ profissional[3] }}
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Especialista em cortes modernos e tradicionais. Mais de 10 anos de
-                        experiência.</p>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Vila Madalena, São Paulo - SP</span>
-                    </div>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Seg a Sex: 9h às 19h | Sáb: 9h às 16h</span>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 40,00</span>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">
+                                {% if profissional[2] is none %}
+                                    {{ profissional[1] }}
+                                {% else %}
+                                    {{ profissional[2] }}
+                                {% endif %}
+                            </h3>
+                            {#                        <div class="flex text-yellow-400">#}
+                            {#                            <i class="fas fa-star"></i>#}
+                            {#                            <i class="fas fa-star"></i>#}
+                            {#                            <i class="fas fa-star"></i>#}
+                            {#                            <i class="fas fa-star"></i>#}
+                            {#                            <i class="fas fa-star-half-alt"></i>#}
+                            {#                            <span class="text-gray-600 ml-1 text-sm">4.5</span>#}
+                            {#                        </div>#}
                         </div>
-                        <a href="../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
-                </div>
-            </div>
+                        <p class="text-gray-600 mb-4">{{ profissional[16] }}...</p>
 
-            <!-- Profissional 2 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1593705114312-a0ee03a3f7c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                         alt="Carla Mendes"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-paint-brush mr-1"></i> Tatuadora
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Carla Mendes</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-gray-600 ml-1 text-sm">5.0</span>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>{{ profissional[13] }}, {{ profissional[14] }}</span>
                         </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">Especialista em tatuagens realistas e aquarela. Trabalha com
-                        referências personalizadas.</p>
 
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Pinheiros, São Paulo - SP</span>
-                    </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="far fa-clock mr-2"></i>
+                            <span>
+                                            {% set horarios_prof = horarios_por_profissional.get(profissional[0], []) %}
+                                {% if horarios_prof %}
+                                    {% set horarios_seg_sex = [] %}
+                                    {% set horarios_sab_dom = [] %}
 
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Ter a Sáb: 10h às 19h</span>
-                    </div>
+                                    {% for horario in horarios_prof %}
+                                        {% set hora_inicio_int = horario[3].hour %}
+                                        {% set hora_fim_int = horario[4].hour %}
+                                        {% set horario_str = hora_inicio_int ~ 'h às ' ~ hora_fim_int ~ 'h' %}
 
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 250,00</span>
+                                        {% if horario[2] in [2,3,4,5,6] %}  {# Segunda a Sexta #}
+                                            {% if horario_str not in horarios_seg_sex %}
+                                                {% set _ = horarios_seg_sex.append(horario_str) %}
+                                            {% endif %}
+                                        {% else %}  {# Sábado e Domingo #}
+                                            {% if horario_str not in horarios_sab_dom %}
+                                                {% set _ = horarios_sab_dom.append(horario_str) %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if horarios_seg_sex|length == 1 %}
+                                        Seg a Sex: {{ horarios_seg_sex[0] }}
+                                    {% elif horarios_seg_sex|length > 1 %}
+                                        Seg a Sex: Horários variados
+                                    {% endif %}
+
+                                    {% if horarios_sab_dom %}
+                                        {% if horarios_seg_sex %} | {% endif %}
+                                        {% if horarios_sab_dom|length == 1 %}
+                                            Fim de semana: {{ horarios_sab_dom[0] }}
+                                        {% else %}
+                                            Fim de semana: Horários variados
+                                        {% endif %}
+                                    {% endif %}
+                                {% else %}
+                                    Horários não definidos
+                                {% endif %}
+                            </span>
                         </div>
-                        <a href="../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Profissional 3 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                         alt="Ricardo Almeida"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-book-open mr-1"></i> Professor
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Ricardo Almeida</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span class="text-gray-600 ml-1 text-sm">4.0</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <span class="text-sm text-gray-500">A partir de</span>
+                                <span class="text-xl font-bold text-blue-600 block">
+                                    {% set ns = namespace(preco_minimo=0) %}
+                                    {% for prof_id, preco in precos %}
+                                        {% if prof_id == profissional[0] %}
+                                            {% if ns.preco_minimo == 0 or preco < ns.preco_minimo %}
+                                                {% set ns.preco_minimo = preco %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    R$ {{ "%.2f"|format(ns.preco_minimo) if ns.preco_minimo > 0 else "0,00" }}
+                                </span>
+                            </div>
+                            <a href="/individual/{{ profissional[0] }}"
+                               class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
+                                perfil</a>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Professor de inglês com certificação CELTA. Aulas para todos os níveis
-                        e idades.</p>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Moema, São Paulo - SP</span>
-                    </div>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Seg a Sex: 8h às 21h | Sáb: 8h às 12h</span>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 90,00</span>
-                        </div>
-                        <a href="../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
                 </div>
-            </div>
+            {% endfor %}
 
-            <!-- Profissional 4 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                         alt="Juliana Costa"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-spa mr-1"></i> Esteticista
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Juliana Costa</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-gray-600 ml-1 text-sm">4.5</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">Especialista em design de sobrancelhas e estética facial. Formada pela
-                        IPUPO.</p>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Jardins, São Paulo - SP</span>
-                    </div>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Seg a Sex: 9h às 18h | Sáb: 9h às 14h</span>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 35,00</span>
-                        </div>
-                        <a href="../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profissional 5 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                         alt="Pedro Santos"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-music mr-1"></i> Músico
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Pedro Santos</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-gray-600 ml-1 text-sm">5.0</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">Professor de violão e guitarra. Método próprio para iniciantes e
-                        avançados.</p>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Vila Olímpia, São Paulo - SP</span>
-                    </div>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Seg a Sáb: 10h às 20h</span>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 80,00</span>
-                        </div>
-                        <a href="../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profissional 6 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                         alt="Amanda Lima"
-                         class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-lg text-sm font-medium">
-                        <i class="fas fa-hands mr-1"></i> Massoterapeuta
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Amanda Lima</h3>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span class="text-gray-600 ml-1 text-sm">4.0</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">Massoterapeuta especializada em massagem relaxante e terapêutica.
-                        Formada pela Escola Brasileira de Massoterapia.</p>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>Itaim Bibi, São Paulo - SP</span>
-                    </div>
-
-                    <div class="flex items-center text-gray-600 mb-4">
-                        <i class="far fa-clock mr-2"></i>
-                        <span>Ter a Dom: 9h às 19h</span>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-sm text-gray-500">A partir de</span>
-                            <span class="text-xl font-bold text-blue-600 block">R$ 120,00</span>
-                        </div>
-                        <a href=".../profissional/Individual.html"
-                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Ver
-                            perfil</a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Paginação -->

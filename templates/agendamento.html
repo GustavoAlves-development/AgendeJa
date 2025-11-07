@@ -6,7 +6,9 @@
     <title>Agendar Serviço - AgendeJá</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../static/js/login.js"></script>
     <link rel="icon" href="../static/imgs/Miniatura.png">
+    <link rel="stylesheet" href="/static/styles.css">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <!-- Flatpickr para seleção de data/hora -->
@@ -28,8 +30,8 @@
             <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
         </nav>
         <div class="flex items-center space-x-4">
-            <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-            <a href="login.html#link-cadastrar"
+            <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+            <a href="/cadastro"
                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
         </div>
         <button class="md:hidden text-gray-600">
@@ -75,23 +77,27 @@
                         <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
                              alt="Corte de Cabelo" class="w-20 h-20 object-cover rounded-lg mr-4">
                         <div>
-                            <h3 class="font-bold">Corte de Cabelo</h3>
-                            <p class="text-sm text-gray-600">Barbearia</p>
-                            <p class="text-sm text-gray-600">Duração: 40min</p>
+                            <h3 class="font-bold">{{ servico[2] }}</h3>
+                            <p class="text-sm text-gray-600">
+                                {% if servico[1] == profissional[0]%}
+                                    {{ profissional[1] }}
+                                {% endif %}
+                            </p>
+                            <p class="text-sm text-gray-600">Duração: {{ servico[4] }} min</p>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-4">
-                        <div class="flex justify-between mb-2">
-                            <span>Valor do serviço:</span>
-                            <span class="font-bold">R$ 35,00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span>Taxa de reserva:</span>
-                            <span class="font-bold">R$ 5,00</span>
-                        </div>
+{#                        <div class="flex justify-between mb-2">#}
+{#                            <span>Valor do serviço:</span>#}
+{#                            <span class="font-bold">R$ 35,00</span>#}
+{#                        </div>#}
+{#                        <div class="flex justify-between mb-2">#}
+{#                            <span>Taxa de reserva:</span>#}
+{#                            <span class="font-bold">R$ 5,00</span>#}
+{#                        </div>#}
                         <div class="flex justify-between text-lg font-bold mt-4 pt-4 border-t border-gray-200">
                             <span>Total:</span>
-                            <span class="text-blue-600">R$ 40,00</span>
+                            <span class="text-blue-600">R$ {{ servico[5] }}</span>
                         </div>
                     </div>
                 </div>

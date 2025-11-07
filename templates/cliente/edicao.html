@@ -6,6 +6,8 @@
     <title>Editar Perfil - AgendeJá</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../static/js/login.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="icon" href="../../static/imgs/Miniatura.png">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -25,46 +27,75 @@
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
+    {% if cliente %}
+    <div class="relative user-dropdown-container">
+        <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+            <img src="/imagem/{{ cliente[0] }}"
+                 alt="Foto de perfil"
+                 class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+            <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+            <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
 
-            {% if cliente %}
-                <div class="relative dropdown">
-                <button class="flex items-center space-x-2 focus:outline-none">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                         alt="Foto de perfil"
-                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
-                    <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
-                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden dropdown-menu">
-                    <a href="/editarCliente" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        👤 Meu Perfil
-                    </a>
-                    <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        📅 Meus Agendamentos
-                    </a>
-                    <div class="border-t my-1"></div>
-                    <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-red-50">
-                        🚪 Sair
-                    </a>
-                </div>
+        <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+            <div class="px-4 py-3 border-b border-gray-100">
+                <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
+                <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
             </div>
-            {% else %}
-            <!-- Simulando usuário NÃO logado -->
-                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
-            {% endif %}
 
+            <div class="py-2">
+                <a href="/editarCliente"
+                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">👤</span>
+                    <span>Meu Perfil</span>
+                </a>
 
+                <a href="/agendamentos"
+                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">📅</span>
+                    <span>Meus Agendamentos</span>
+                </a>
+            </div>
+
+            <div class="border-t border-gray-100 pt-2">
+                <a href="/logout"
+                   class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                    <span class="w-5 mr-3">🚪</span>
+                    <span>Sair da conta</span>
+                </a>
+            </div>
         </div>
+    </div>
+    {% else %}
+    <div class="flex items-center space-x-3">
+        <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+        <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+    </div>
+    {% endif %}
+</div>
         <button class="md:hidden text-gray-600">
             <i class="fas fa-bars text-xl"></i>
         </button>
     </div>
 </header>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+            {% for message in messages %}
+                <div class="alert alert-success"
+                     style="background: #4CAF50; color: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 
 <!-- Conteúdo Principal -->
 <main class="flex-grow container mx-auto px-4 py-8">
@@ -82,9 +113,11 @@
                         <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Foto de Perfil</h3>
                         <div class="flex items-center space-x-6">
                             <div class="relative">
-                                <img id="foto-preview" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto do perfil"
+                                <img id="foto-preview" src="/imagem/{{ cliente[0] }}"
+                                     alt="Foto do perfil"
                                      class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
-                                <input type="file" id="foto-perfil" name="foto_perfil" accept="image/*" class="hidden" onchange="previewImage(this)">
+                                <input type="file" id="foto-perfil" name="foto_perfil" accept="image/*" class="hidden"
+                                       onchange="previewImage(this)">
                             </div>
                             <div class="space-y-2">
                                 <button type="button" onclick="document.getElementById('foto-perfil').click()"
@@ -105,30 +138,30 @@
                                 <label class="block text-gray-700 font-medium mb-2">Nome Completo *</label>
                                 <input type="text" name="nome" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[1] }}">
+                                       value="{{ cliente[1] if cliente[1] is not none else '' }}">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">E-mail *</label>
                                 <input type="email" name="email" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[2] }}">
+                                       value="{{ cliente[3] if cliente[3] is not none else '' }}">
                             </div>
 
                             <div>
-                                <label class="block text-gray-700 font-medium mb-2">Telefone *</label>
-                                <input type="tel" name="telefone" required
+                                <label class="block text-gray-700 font-medium mb-2">CPF *</label>
+                                <input type="number" name="CPF" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[4] }}">
+                                       value="{{ cliente[2] if cliente[2] is not none else '' }}">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2 flex items-center">
                                     <i class="fab fa-whatsapp text-green-600 mr-2 text-xl"></i> WhatsApp
                                 </label>
-                                <input type="tel" name="whatsapp"
+                                <input type="tel" name="whatsapp" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[19] }}">
+                                       value="{{ cliente[4] if cliente[4] is not none else '' }}">
                             </div>
                         </div>
                     </div>
@@ -140,77 +173,60 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">CEP</label>
-                                <input type="text" name="cep" id="cep"
+                                <input type="text" name="cep" id="cep" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[11] }}">
+                                       value="{{ cliente[7] if cliente[7] is not none else '' }}">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-gray-700 font-medium mb-2">Logradouro</label>
-                                <input type="text" name="logradouro" id="logradouro"
+                                <label class="block text-gray-700 font-medium mb-2">Rua</label>
+                                <input type="text" name="rua" id="rua" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[12] }}">
+                                       value="{{ cliente[8] if cliente[8] is not none else '' }}">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Número</label>
-                                <input type="text" name="numero"
+                                <input type="text" name="numero" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[13] }}">
+                                       value="{{ cliente[17] if cliente[17] is not none else '' }}">
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-gray-700 font-medium mb-2">Complemento</label>
-                                <input type="text" name="complemento"
+                                <input type="text" name="complemento" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[14] }}">
+                                       value="{{ cliente[12] if cliente[12] is not none else '' }}">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Bairro</label>
-                                <input type="text" name="bairro" id="bairro"
+                                <input type="text" name="bairro" id="bairro" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[15] }}">
+                                       value="{{ cliente[8] if cliente[8] is not none else '' }}">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Cidade</label>
-                                <input type="text" name="cidade" id="cidade"
+                                <input type="text" name="cidade" id="cidade" required
                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                       value="{{ cliente[16] }}">
+                                       value="{{ cliente[9] if cliente[9] is not none else '' }}">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Estado</label>
-                                <select name="estado" id="estado" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                <select name="estado" id="estado"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                        required>
                                     <option value="">Selecione</option>
-                                    <option value="AC" selected>Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
+                                    {% set estados_brasil = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"] %}
+                                    {% for estado in estados_brasil %}
+                                        {% if estado == cliente[11] %}
+                                            <option value="{{ estado }}" selected>{{ estado }}</option>
+                                        {% else %}
+                                            <option value="{{ estado }}">{{ estado }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -232,7 +248,6 @@
         </div>
     </div>
 </main>
-
 <!-- Rodapé -->
 <footer class="bg-gray-800 text-white py-12">
     <div class="container mx-auto px-4">
@@ -294,7 +309,7 @@
 
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
             }
             reader.readAsDataURL(file);
@@ -302,7 +317,7 @@
     }
 
     // Buscar CEP (exemplo simplificado)
-    document.getElementById('cep').addEventListener('blur', function() {
+    document.getElementById('cep').addEventListener('blur', function () {
         const cep = this.value.replace(/\D/g, '');
         if (cep.length === 8) {
             // Aqui você implementaria a busca na API de CEP
@@ -316,18 +331,26 @@
     });
 
     // Dropdown do perfil
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const perfilBtn = document.getElementById('perfil-btn');
         const notificacoesBtn = document.getElementById('notificacoes-btn');
 
-        perfilBtn.addEventListener('click', function() {
+        perfilBtn.addEventListener('click', function () {
             alert('Menu do perfil clicado - implementar dropdown');
         });
 
-        notificacoesBtn.addEventListener('click', function() {
+        notificacoesBtn.addEventListener('click', function () {
             alert('Notificações clicado - implementar dropdown');
         });
     });
+
+    // Auto-hide flash messages após 5 segundos
+    setTimeout(function () {
+        const flashMessages = document.querySelector('.flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

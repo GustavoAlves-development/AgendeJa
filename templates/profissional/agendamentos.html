@@ -1,557 +1,676 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="bg-gray-50 font-sans text-gray-800">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agendamentos - AgendeJá</title>
-  <link rel="icon" href="../../static/imgs/Miniatura.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    .group:hover .group-hover\:block {
-      display: block;
-    }
-    @media (max-width: 768px) {
-      .agendamento-card {
-        border-left: 4px solid #3b82f6;
-      }
-    }
-    .horario-item {
-      transition: all 0.3s ease;
-    }
-    .horario-item:hover {
-      background-color: #f9fafb;
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Agendamentos - AgendeJá</title>
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../static/js/login.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .agendamento-card {
+                border-left: 4px solid #3b82f6;
+            }
+        }
+
+        .horario-item {
+            transition: all 0.3s ease;
+        }
+
+        .horario-item:hover {
+            background-color: #f9fafb;
+        }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Cabeçalho -->
 <header class="bg-white shadow-md">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center">
-      <a href="../cliente/cliente.html"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
-    </div>
-    <nav class="hidden md:flex space-x-6">
-      <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-      <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
-      <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-      <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
-    </nav>
-    <!-- Área de Perfil -->
-    <div class="flex items-center space-x-4">
-      <div class="relative group">
-        <button class="flex items-center space-x-2 focus:outline-none">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg"
-               alt="Foto de perfil"
-               class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
-          <span class="text-gray-700 font-medium">Carlos Silva</span>
-          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-
-        <!-- Menu dropdown -->
-        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
-          <a href="meus-servicos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-            💼 Meus Serviços
-          </a>
-          <a href="agendamentos.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-            📅 Agendamentos
-          </a>
-          <a href="perfil-profissional.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-            👤 Meu Perfil
-          </a>
-          <div class="border-t my-1"></div>
-          <a href="../cliente/cliente.html" class="block px-4 py-2 text-red-600 hover:bg-red-50">
-            🚪 Sair
-          </a>
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
         </div>
-      </div>
-    </div>
-    <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agedamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Perfil -->
+        <div class="flex items-center space-x-4">
+            <div class="relative user-dropdown-container">
+                <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                    <img src="/imagemProfissional/{{ profissional[0] }}"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                    <span class="text-gray-700 font-medium">
+                        {% if profissional[2] is none %}
+                            {{ profissional[1] }}
+                        {% else %}
+                            {{ profissional[2] }}
+                        {% endif %}</span>
+                    <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
 
-  <!-- Menu Mobile -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
-    <nav class="flex flex-col space-y-4">
-      <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-      <a href="agendamentos.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
-      <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-      <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
-      <div class="border-t pt-4">
-        <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-        <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
-      </div>
-    </nav>
-  </div>
+                <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                    <div class="px-4 py-3 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900">{{ profissional [1] }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ profissional[5] }}</p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-2">
+                        <a href="/logout"
+                           class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                            <span class="w-5 mr-3">🚪</span>
+                            <span>Sair da conta</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="/" class="text-gray-600 hover:text-blue-600">Painel</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
 </header>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+            {% for message in messages %}
+                <div class="alert alert-success"
+                     style="background: #4CAF50; color: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 
 <!-- Conteúdo Principal -->
 <main class="flex-grow container mx-auto px-4 py-6 md:py-8">
-  <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto">
 
-    <!-- Abas de Navegação -->
-    <div class="bg-white rounded-lg shadow-sm p-2 mb-6">
-      <div class="flex space-x-1">
-        <button id="tab-agendamentos" class="flex-1 py-3 px-4 text-center font-medium text-blue-600 bg-blue-50 rounded-lg transition-colors" onclick="mostrarAba('agendamentos')">
-          <i class="fas fa-calendar-alt mr-2"></i>Meus Agendamentos
-        </button>
-        <button id="tab-horarios" class="flex-1 py-3 px-4 text-center font-medium text-gray-600 hover:text-blue-600 rounded-lg transition-colors" onclick="mostrarAba('horarios')">
-          <i class="fas fa-clock mr-2"></i>Horários de Atendimento
-        </button>
-      </div>
+        <!-- Abas de Navegação -->
+        <div class="bg-white rounded-lg shadow-sm p-2 mb-6">
+            <div class="flex space-x-1">
+                <button id="tab-agendamentos"
+                        class="flex-1 py-3 px-4 text-center font-medium text-blue-600 bg-blue-50 rounded-lg transition-colors"
+                        onclick="mostrarAba('agendamentos')">
+                    <i class="fas fa-calendar-alt mr-2"></i>Meus Agendamentos
+                </button>
+                <button id="tab-horarios"
+                        class="flex-1 py-3 px-4 text-center font-medium text-gray-600 hover:text-blue-600 rounded-lg transition-colors"
+                        onclick="mostrarAba('horarios')">
+                    <i class="fas fa-clock mr-2"></i>Horários de Atendimento
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba Agendamentos -->
+        <div id="conteudo-agendamentos" class="aba-conteudo">
+            <!-- Cabeçalho da Página -->
+            <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h1 class="text-xl md:text-2xl font-bold text-gray-800">Meus Agendamentos</h1>
+                        <p class="text-gray-600 text-sm md:text-base">Gerencie todos os seus agendamentos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            {#            <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">#}
+            {#                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">#}
+            {#                    <div class="md:col-span-2">#}
+            {#                        <label class="block text-sm font-medium text-gray-700 mb-2">Data</label>#}
+            {#                        <input type="date"#}
+            {#                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm md:text-base">#}
+            {#                    </div>#}
+            {#                    <div>#}
+            {#                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>#}
+            {#                        <select class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm md:text-base">#}
+            {#                            <option value="">Todos</option>#}
+            {#                            <option value="confirmado">Confirmados</option>#}
+            {#                            <option value="pendente">Pendentes</option>#}
+            {#                            <option value="cancelado">Cancelados</option>#}
+            {#                            <option value="concluido">Concluídos</option>#}
+            {#                        </select>#}
+            {#                    </div>#}
+            {#                    <div class="flex items-end">#}
+            {#                        <button onclick="aplicarFiltros()"#}
+            {#                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base">#}
+            {#                            Filtrar#}
+            {#                        </button>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+
+            <!-- Lista de Agendamentos - Mobile -->
+            <div class="md:hidden space-y-3">
+                <!-- Agendamentos mobile aqui (mesmo conteúdo anterior) -->
+                <div class="agendamento-card bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900 text-lg">Consulta Básica</h3>
+                            <p class="text-gray-600 text-sm mt-1">Serviço padrão de 1 hora</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Hoje</div>
+                            <div class="font-semibold text-gray-900 mt-1">14:00</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-user text-blue-600 mr-2 w-4"></i>
+                            <span class="text-sm">Maria Silva</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-clock text-blue-600 mr-2 w-4"></i>
+                            <span class="text-sm">60 minutos</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
+                        <div class="flex space-x-2">
+                            <button onclick="confirmarAgendamento(1)"
+                                    class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                                    title="Confirmar">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button onclick="contatarCliente('Maria Silva')"
+                                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                    title="Contatar">
+                                <i class="fas fa-phone"></i>
+                            </button>
+                            <button onclick="cancelarAgendamento(1)"
+                                    class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    title="Cancelar">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Agendamentos - Desktop -->
+            <div class="hidden md:block bg-white rounded-lg shadow-sm overflow-hidden">
+                <!-- Cabeçalho da Tabela -->
+                <div class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-200 font-semibold text-gray-700 text-sm">
+                    <div class="col-span-3">Serviço</div>
+                    <div class="col-span-3">Cliente</div>
+                    <div class="col-span-2">Duração</div>
+                    <div class="col-span-2">Horário</div>
+                    <div class="col-span-2">Ações</div>
+                </div>
+
+                <!-- Agendamentos Desktop -->
+                <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <div class="col-span-3">
+                        <div class="font-medium text-gray-900">Consulta Básica</div>
+                        <div class="text-sm text-gray-500 mt-1">Serviço padrão de 1 hora</div>
+                    </div>
+                    <div class="col-span-3">
+                        <div class="font-medium text-gray-900">Maria Silva</div>
+                        <div class="text-sm text-gray-500 mt-1">maria.silva@email.com</div>
+                    </div>
+                    <div class="col-span-2">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-clock text-blue-600 mr-2"></i>
+                            <span>60 minutos</span>
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <div class="font-medium text-gray-900">14:00</div>
+                        <div class="text-sm text-gray-500">Hoje</div>
+                    </div>
+                    <div class="col-span-2">
+                        <div class="flex space-x-2">
+                            <button onclick="confirmarAgendamento(1)"
+                                    class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                                    title="Confirmar">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button onclick="contatarCliente('Maria Silva')"
+                                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                    title="Contatar">
+                                <i class="fas fa-phone"></i>
+                            </button>
+                            <button onclick="cancelarAgendamento(1)"
+                                    class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    title="Cancelar">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba Horários -->
+        <div id="conteudo-horarios" class="aba-conteudo hidden">
+            <!-- Cabeçalho da Página -->
+            <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h1 class="text-xl md:text-2xl font-bold text-gray-800">Horários de Atendimento</h1>
+                        <p class="text-gray-600 text-sm md:text-base">Configure seus horários de funcionamento</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="salvarHorarios()"
+                                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-save mr-2"></i> Salvar Horários
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuração de Horários -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <form action="/salvarHorarios" method="POST">
+                    <!-- Horários Padrão -->
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Horários Padrão de Atendimento</h3>
+                        <p class="text-gray-600 text-sm mb-6">Configure os horários em que você está disponível para
+                            atendimento em cada dia da semana.</p>
+
+                        <div class="space-y-4">
+                            <!-- Segunda-feira -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="segunda_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="segunda" checked>
+                                        <span class="ml-3 text-gray-700 font-medium">Segunda-feira</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="segunda_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="segunda" value="08:00" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="segunda_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="segunda" value="18:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terça-feira -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="terca_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="terca" checked>
+                                        <span class="ml-3 text-gray-700 font-medium">Terça-feira</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="terca_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="terca" value="08:00" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="terca_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="terca" value="18:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quarta-feira -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="quarta_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="quarta" checked>
+                                        <span class="ml-3 text-gray-700 font-medium">Quarta-feira</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="quarta_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="quarta" value="08:00" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="quarta_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="quarta" value="18:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quinta-feira -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="quinta_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="quinta" checked>
+                                        <span class="ml-3 text-gray-700 font-medium">Quinta-feira</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="quinta_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="quinta" value="08:00" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="quinta_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="quinta" value="18:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sexta-feira -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="sexta_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="sexta" checked>
+                                        <span class="ml-3 text-gray-700 font-medium">Sexta-feira</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="sexta_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="sexta" value="08:00" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="sexta_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="sexta" value="18:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sábado -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="sabado_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="sabado">
+                                        <span class="ml-3 text-gray-700 font-medium">Sábado</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="sabado_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="sabado" value="09:00">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="sabado_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="sabado" value="13:00">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Domingo -->
+                            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
+                                <div class="md:col-span-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="domingo_ativa" value="true"
+                                               class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox"
+                                               data-dia="domingo">
+                                        <span class="ml-3 text-gray-700 font-medium">Domingo</span>
+                                    </label>
+                                </div>
+                                <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Início</label>
+                                        <input type="time" name="domingo_inicio"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio"
+                                               data-dia="domingo" value="09:00">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Horário de
+                                            Término</label>
+                                        <input type="time" name="domingo_termino"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino"
+                                               data-dia="domingo" value="12:00">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botão de Salvar -->
+                        <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+                            <button type="submit"
+                                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                                Salvar Horários
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <!-- Conteúdo da Aba Agendamentos -->
-    <div id="conteudo-agendamentos" class="aba-conteudo">
-      <!-- Cabeçalho da Página -->
-      <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
-        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-          <div class="mb-4 md:mb-0">
-            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Meus Agendamentos</h1>
-            <p class="text-gray-600 text-sm md:text-base">Gerencie todos os seus agendamentos</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Filtros -->
-      <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
-          <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Data</label>
-            <input type="date" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm md:text-base">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-            <select class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm md:text-base">
-              <option value="">Todos</option>
-              <option value="confirmado">Confirmados</option>
-              <option value="pendente">Pendentes</option>
-              <option value="cancelado">Cancelados</option>
-              <option value="concluido">Concluídos</option>
-            </select>
-          </div>
-          <div class="flex items-end">
-            <button onclick="aplicarFiltros()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base">
-              Filtrar
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lista de Agendamentos - Mobile -->
-      <div class="md:hidden space-y-3">
-        <!-- Agendamentos mobile aqui (mesmo conteúdo anterior) -->
-        <div class="agendamento-card bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
-          <div class="flex justify-between items-start mb-3">
-            <div class="flex-1">
-              <h3 class="font-semibold text-gray-900 text-lg">Consulta Básica</h3>
-              <p class="text-gray-600 text-sm mt-1">Serviço padrão de 1 hora</p>
-            </div>
-            <div class="text-right">
-              <div class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Hoje</div>
-              <div class="font-semibold text-gray-900 mt-1">14:00</div>
-            </div>
-          </div>
-
-          <div class="space-y-2">
-            <div class="flex items-center text-gray-700">
-              <i class="fas fa-user text-blue-600 mr-2 w-4"></i>
-              <span class="text-sm">Maria Silva</span>
-            </div>
-            <div class="flex items-center text-gray-700">
-              <i class="fas fa-clock text-blue-600 mr-2 w-4"></i>
-              <span class="text-sm">60 minutos</span>
-            </div>
-          </div>
-
-          <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
-            <div class="flex space-x-2">
-              <button onclick="confirmarAgendamento(1)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Confirmar">
-                <i class="fas fa-check"></i>
-              </button>
-              <button onclick="contatarCliente('Maria Silva')" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Contatar">
-                <i class="fas fa-phone"></i>
-              </button>
-              <button onclick="cancelarAgendamento(1)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Cancelar">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lista de Agendamentos - Desktop -->
-      <div class="hidden md:block bg-white rounded-lg shadow-sm overflow-hidden">
-        <!-- Cabeçalho da Tabela -->
-        <div class="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-200 font-semibold text-gray-700 text-sm">
-          <div class="col-span-3">Serviço</div>
-          <div class="col-span-3">Cliente</div>
-          <div class="col-span-2">Duração</div>
-          <div class="col-span-2">Horário</div>
-          <div class="col-span-2">Ações</div>
-        </div>
-
-        <!-- Agendamentos Desktop -->
-        <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors">
-          <div class="col-span-3">
-            <div class="font-medium text-gray-900">Consulta Básica</div>
-            <div class="text-sm text-gray-500 mt-1">Serviço padrão de 1 hora</div>
-          </div>
-          <div class="col-span-3">
-            <div class="font-medium text-gray-900">Maria Silva</div>
-            <div class="text-sm text-gray-500 mt-1">maria.silva@email.com</div>
-          </div>
-          <div class="col-span-2">
-            <div class="flex items-center text-gray-700">
-              <i class="fas fa-clock text-blue-600 mr-2"></i>
-              <span>60 minutos</span>
-            </div>
-          </div>
-          <div class="col-span-2">
-            <div class="font-medium text-gray-900">14:00</div>
-            <div class="text-sm text-gray-500">Hoje</div>
-          </div>
-          <div class="col-span-2">
-            <div class="flex space-x-2">
-              <button onclick="confirmarAgendamento(1)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Confirmar">
-                <i class="fas fa-check"></i>
-              </button>
-              <button onclick="contatarCliente('Maria Silva')" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Contatar">
-                <i class="fas fa-phone"></i>
-              </button>
-              <button onclick="cancelarAgendamento(1)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Cancelar">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Conteúdo da Aba Horários -->
-    <div id="conteudo-horarios" class="aba-conteudo hidden">
-      <!-- Cabeçalho da Página -->
-      <div class="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
-        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-          <div class="mb-4 md:mb-0">
-            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Horários de Atendimento</h1>
-            <p class="text-gray-600 text-sm md:text-base">Configure seus horários de funcionamento</p>
-          </div>
-          <div class="flex space-x-2">
-            <button onclick="salvarHorarios()" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              <i class="fas fa-save mr-2"></i> Salvar Horários
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Configuração de Horários -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-        <!-- Horários Padrão -->
-        <div class="p-6 border-b border-gray-200">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Horários Padrão de Atendimento</h3>
-          <p class="text-gray-600 text-sm mb-6">Configure os horários em que você está disponível para atendimento em cada dia da semana.</p>
-
-          <div class="space-y-4">
-            <!-- Segunda-feira -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="segunda" checked>
-                  <span class="ml-3 text-gray-700 font-medium">Segunda-feira</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="segunda" value="08:00">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="segunda" value="18:00">
-                </div>
-              </div>
-            </div>
-
-            <!-- Terça-feira -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="terca" checked>
-                  <span class="ml-3 text-gray-700 font-medium">Terça-feira</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="terca" value="08:00">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="terca" value="18:00">
-                </div>
-              </div>
-            </div>
-
-            <!-- Quarta-feira -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="quarta" checked>
-                  <span class="ml-3 text-gray-700 font-medium">Quarta-feira</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="quarta" value="08:00">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="quarta" value="18:00">
-                </div>
-              </div>
-            </div>
-
-            <!-- Quinta-feira -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="quinta" checked>
-                  <span class="ml-3 text-gray-700 font-medium">Quinta-feira</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="quinta" value="08:00">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="quinta" value="18:00">
-                </div>
-              </div>
-            </div>
-
-            <!-- Sexta-feira -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="sexta" checked>
-                  <span class="ml-3 text-gray-700 font-medium">Sexta-feira</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="sexta" value="08:00">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="sexta" value="18:00">
-                </div>
-              </div>
-            </div>
-
-            <!-- Sábado -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="sabado">
-                  <span class="ml-3 text-gray-700 font-medium">Sábado</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="sabado" value="09:00" disabled>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="sabado" value="13:00" disabled>
-                </div>
-              </div>
-            </div>
-
-            <!-- Domingo -->
-            <div class="horario-item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-lg border border-gray-200">
-              <div class="md:col-span-3">
-                <label class="flex items-center">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 dia-checkbox" data-dia="domingo">
-                  <span class="ml-3 text-gray-700 font-medium">Domingo</span>
-                </label>
-              </div>
-              <div class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Início</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-inicio" data-dia="domingo" value="09:00" disabled>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Horário de Término</label>
-                  <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 horario-termino" data-dia="domingo" value="12:00" disabled>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </main>
 
 <!-- Rodapé -->
 <footer class="bg-gray-800 text-white py-12">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <div class="flex items-center mb-4">
-          <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
-        </div>
-        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
-      </div>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
-        <ul class="space-y-2">
-          <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
-          <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
-          <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
-          <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Suporte</h4>
-        <ul class="space-y-2">
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
-        <div class="mt-2 flex">
-          <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
-          <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
         </div>
-      </div>
     </div>
-    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
-    </div>
-  </div>
 </footer>
 
 
 <!-- Scripts -->
 <script>
-  // Menu mobile
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('hidden');
-  }
-
-  // Sistema de abas
-  function mostrarAba(aba) {
-    // Esconder todas as abas
-    document.querySelectorAll('.aba-conteudo').forEach(conteudo => {
-      conteudo.classList.add('hidden');
-    });
-
-    // Remover estilo ativo de todas as abas
-    document.querySelectorAll('[id^="tab-"]').forEach(tab => {
-      tab.classList.remove('text-blue-600', 'bg-blue-50');
-      tab.classList.add('text-gray-600', 'hover:text-blue-600');
-    });
-
-    // Mostrar aba selecionada
-    document.getElementById(`conteudo-${aba}`).classList.remove('hidden');
-
-    // Estilizar aba ativa
-    document.getElementById(`tab-${aba}`).classList.add('text-blue-600', 'bg-blue-50');
-    document.getElementById(`tab-${aba}`).classList.remove('text-gray-600', 'hover:text-blue-600');
-  }
-
-  // Controle de checkboxes dos dias
-  document.querySelectorAll('.dia-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const dia = this.getAttribute('data-dia');
-      const inputs = document.querySelectorAll(`[data-dia="${dia}"]`);
-
-      inputs.forEach(input => {
-        if (input.type === 'time') {
-          input.disabled = !this.checked;
-        }
-      });
-    });
-  });
-
-  // Funções dos agendamentos
-  function confirmarAgendamento(id) {
-    alert(`Agendamento #${id} confirmado com sucesso!`);
-  }
-
-  function cancelarAgendamento(id) {
-    if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
-      alert(`Agendamento #${id} cancelado.`);
+    // Menu mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
     }
-  }
 
-  function contatarCliente(nome) {
-    alert(`Contatando ${nome}...`);
-  }
+    // Sistema de abas
+    function mostrarAba(aba) {
+        // Esconder todas as abas
+        document.querySelectorAll('.aba-conteudo').forEach(conteudo => {
+            conteudo.classList.add('hidden');
+        });
 
-  function exportarAgendamentos() {
-    alert('Exportando lista de agendamentos...');
-  }
+        // Remover estilo ativo de todas as abas
+        document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+            tab.classList.remove('text-blue-600', 'bg-blue-50');
+            tab.classList.add('text-gray-600', 'hover:text-blue-600');
+        });
 
-  function aplicarFiltros() {
-    alert('Aplicando filtros selecionados...');
-  }
+        // Mostrar aba selecionada
+        document.getElementById(`conteudo-${aba}`).classList.remove('hidden');
 
-  function salvarHorarios() {
-    const horarios = {};
+        // Estilizar aba ativa
+        document.getElementById(`tab-${aba}`).classList.add('text-blue-600', 'bg-blue-50');
+        document.getElementById(`tab-${aba}`).classList.remove('text-gray-600', 'hover:text-blue-600');
+    }
 
+    // Controle de checkboxes dos dias
     document.querySelectorAll('.dia-checkbox').forEach(checkbox => {
-      const dia = checkbox.getAttribute('data-dia');
-      const inicio = document.querySelector(`.horario-inicio[data-dia="${dia}"]`).value;
-      const termino = document.querySelector(`.horario-termino[data-dia="${dia}"]`).value;
+        checkbox.addEventListener('change', function () {
+            const dia = this.getAttribute('data-dia');
+            const inputs = document.querySelectorAll(`[data-dia="${dia}"]`);
 
-      horarios[dia] = {
-        ativo: checkbox.checked,
-        inicio: inicio,
-        termino: termino
-      };
+            inputs.forEach(input => {
+                if (input.type === 'time') {
+                    input.disabled = !this.checked;
+                }
+            });
+        });
     });
 
-    console.log('Horários salvos:', horarios);
-    alert('Horários de atendimento salvos com sucesso!');
-  }
+    // Funções dos agendamentos
+    function confirmarAgendamento(id) {
+        alert(`Agendamento #${id} confirmado com sucesso!`);
+    }
 
-  // Fechar menu mobile ao clicar em um link
-  document.querySelectorAll('#mobileMenu a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.add('hidden');
+    function cancelarAgendamento(id) {
+        if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
+            alert(`Agendamento #${id} cancelado.`);
+        }
+    }
+
+    function contatarCliente(nome) {
+        alert(`Contatando ${nome}...`);
+    }
+
+    function exportarAgendamentos() {
+        alert('Exportando lista de agendamentos...');
+    }
+
+    function aplicarFiltros() {
+        alert('Aplicando filtros selecionados...');
+    }
+
+
+    // JavaScript para habilitar/desabilitar campos de horário quando o checkbox é alterado
+    document.querySelectorAll('.dia-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const dia = this.getAttribute('data-dia');
+            const inputs = document.querySelectorAll(`[data-dia="${dia}"]`);
+
+            inputs.forEach(input => {
+                if (input.type === 'time') {
+                    input.disabled = !this.checked;
+                    if (!this.checked) {
+                        input.removeAttribute('required');
+                    } else {
+                        input.setAttribute('required', 'required');
+                    }
+                }
+            });
+        });
+
+        // Trigger change event on page load to set initial state
+        checkbox.dispatchEvent(new Event('change'));
     });
-  });
 
-  // Inicializar a página na aba de agendamentos
-  document.addEventListener('DOMContentLoaded', function() {
-    mostrarAba('agendamentos');
-  });
+
+    // Fechar menu mobile ao clicar em um link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        });
+    });
+
+    // Inicializar a página na aba de agendamentos
+    document.addEventListener('DOMContentLoaded', function () {
+        mostrarAba('agendamentos');
+    });
+    setTimeout(function () {
+        const flashMessages = document.querySelector('.flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

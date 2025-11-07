@@ -1,586 +1,584 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Marcos Silva - Barbeiro | AgendeJá</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="../../static/imgs/Miniatura.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>
+        {% if profissional[2] is none %}
+            {{ profissional[1] }}
+        {% else %}
+            {{ profissional[2] }}
+        {% endif %} - {{ profissional[3] }} | AgendeJá
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="../../static/js/login.js"></script>
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Cabeçalho -->
 <header class="bg-white shadow-md">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center">
-      <a href="cliente.html"><img src="/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
-    </div>
-    <nav class="hidden md:flex space-x-6">
-      <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-      <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-      <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-      <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
-    </nav>
-    <!-- Área de Login/Perfil -->
-    <div class="flex items-center space-x-4">
-      <!-- Simulando usuário NÃO logado -->
-      <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-      <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">Cadastre-se</a>
-    </div>
-    <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </div>
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Login/Perfil -->
+        <div class="flex items-center space-x-4">
+            {% if cliente %}
+                <div class="relative user-dropdown-container">
+                    <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                        <img src="/imagem/{{ cliente[0] }}"
+                             alt="Foto de perfil"
+                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                        <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+                        <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
 
-  <!-- Menu Mobile -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
-    <nav class="flex flex-col space-y-4">
-      <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-      <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-      <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-      <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
-      <div class="border-t pt-4">
-        <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-        <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
-      </div>
-    </nav>
-  </div>
+                    <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                        <div class="px-4 py-3 border-b border-gray-100">
+                            <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
+                            <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
+                        </div>
+
+                        <div class="py-2">
+                            <a href="/editarCliente"
+                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">👤</span>
+                                <span>Meu Perfil</span>
+                            </a>
+
+                            <a href="/agendamentos"
+                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">📅</span>
+                                <span>Meus Agendamentos</span>
+                            </a>
+                        </div>
+
+                        <div class="border-t border-gray-100 pt-2">
+                            <a href="/logout"
+                               class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">🚪</span>
+                                <span>Sair da conta</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="flex items-center space-x-3">
+                    <a href="/login"
+                       class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+                    <a href="/cadastro"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+                </div>
+            {% endif %}
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="../sobre.html" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="../contato.html" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="../login.html" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="cadastro.html"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
 </header>
 
 <!-- Breadcrumb -->
 <section class="bg-gray-100 py-4">
-  <div class="container mx-auto px-4">
-    <nav class="flex" aria-label="Breadcrumb">
-      <ol class="inline-flex items-center space-x-1 md:space-x-3">
-        <li class="inline-flex items-center">
-          <a href="cliente.html" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
-        </li>
-        <li>
-          <div class="flex items-center">
-            <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
-            <a href="profissionais.html" class="text-sm text-gray-600 hover:text-blue-600">Profissionais</a>
-          </div>
-        </li>
-        <li aria-current="page">
-          <div class="flex items-center">
-            <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
-            <span class="text-sm font-medium text-blue-600">Marcos Silva</span>
-          </div>
-        </li>
-      </ol>
-    </nav>
-  </div>
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
+                        <a href="/profissionais" class="text-sm text-gray-600 hover:text-blue-600">Profissionais</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2 text-xs"></i>
+                        <span class="text-sm font-medium text-blue-600">Marcos Silva</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
 </section>
 
 <!-- Cabeçalho do Profissional -->
 <section class="relative">
-  <!-- Foto de capa -->
-  <div class="h-64 md:h-80 w-full bg-gray-300 overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-         alt="Barbearia do Marcos"
-         class="w-full h-full object-cover">
-  </div>
-
-  <!-- Informações do profissional -->
-  <div class="container mx-auto px-4 -mt-16 relative z-10">
-    <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-      <div class="flex flex-col md:flex-row items-start md:items-center">
-        <!-- Foto de perfil -->
-        <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
-          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-               alt="Marcos Silva"
-               class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
-        </div>
-
-        <!-- Informações principais -->
-        <div class="flex-grow">
-          <div class="flex flex-col md:flex-row md:items-center justify-between">
-            <div>
-              <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Marcos Silva</h1>
-              <div class="flex items-center mt-2">
-                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                    <i class="fas fa-cut mr-1"></i> Barbeiro
-                                </span>
-              </div>
-            </div>
-
-            <div class="mt-4 md:mt-0 flex items-center">
-              <div class="flex text-yellow-400 mr-2">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <span class="text-gray-600">4.5 (128 avaliações)</span>
-            </div>
-          </div>
-
-          <div class="mt-4 flex flex-wrap items-center text-gray-600">
-            <div class="flex items-center mr-6 mb-2">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Vila Madalena, São Paulo - SP</span>
-            </div>
-            <div class="flex items-center mr-6 mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>Seg a Sex: 9h às 19h | Sáb: 9h às 16h</span>
-            </div>
-            <div class="flex items-center mb-2">
-              <i class="fas fa-calendar-check mr-2"></i>
-              <span>Disponível para agendamento</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Foto de capa -->
+    <div class="h-64 md:h-80 w-full bg-gray-300 overflow-hidden">
+        <img src="/imagemCapaProfissional/{{ profissional[0] }}"
+             alt="Foto de capa"
+             class="w-full h-full object-cover">
     </div>
-  </div>
+
+    <!-- Informações do profissional -->
+    <div class="container mx-auto px-4 -mt-16 relative z-10">
+        <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+            <div class="flex flex-col md:flex-row items-start md:items-center">
+                <!-- Foto de perfil -->
+                <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                    <img src="/imagemProfissional/{{ profissional[0] }}"
+                         alt="Foto de perfil"
+                         class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
+                </div>
+
+                <!-- Informações principais -->
+                <div class="flex-grow">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
+                                {% if profissional[2] is none %}
+                                    {{ profissional[1] }}
+                                {% else %}
+                                    {{ profissional[2] }}
+                                {% endif %}
+                            </h1>
+                            <div class="flex items-center mt-2">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  {{ profissional[3] }}
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HORÁRIOS ADICIONADOS AQUI -->
+                    <div class="flex items-center text-gray-600 mt-4">
+                        <i class="far fa-clock mr-2"></i>
+                        <span>
+              {% set horarios_prof = horarios_por_profissional.get(profissional[0], []) %}
+                            {% if horarios_prof %}
+                                {% set dias_semana = {1: 'Dom', 2: 'Seg', 3: 'Ter', 4: 'Qua', 5: 'Qui', 6: 'Sex', 7: 'Sáb'} %}
+
+                                {# Agrupar dias com mesmo horário #}
+                                {% set horarios_agrupados = {} %}
+                                {% for horario in horarios_prof %}
+                                    {% set hora_inicio_int = horario[3].hour %}
+                                    {% set hora_fim_int = horario[4].hour %}
+                                    {% set chave_horario = hora_inicio_int ~ '-' ~ hora_fim_int %}
+                                    {% if chave_horario not in horarios_agrupados %}
+                                        {% set _ = horarios_agrupados.update({chave_horario: []}) %}
+                                    {% endif %}
+                                    {% set _ = horarios_agrupados[chave_horario].append(horario[2]) %}
+                                {% endfor %}
+
+                                {# Formatar para exibição #}
+                                {% set textos_horarios = [] %}
+                                {% for chave, dias in horarios_agrupados.items() %}
+                                    {% set partes = chave.split('-') %}
+                                    {% set hora_inicio = partes[0] ~ 'h' %}
+                                    {% set hora_fim = partes[1] ~ 'h' %}
+
+                                    {% if dias|length == 1 %}
+                                        {% set texto = dias_semana[dias[0]] ~ ': ' ~ hora_inicio ~ ' às ' ~ hora_fim %}
+                                    {% else %}
+                                        {# Ordenar dias #}
+                                        {% set dias_ordenados = dias|sort %}
+                                        {% set primeiro_dia = dias_semana[dias_ordenados[0]] %}
+                                        {% set ultimo_dia = dias_semana[dias_ordenados[-1]] %}
+                                        {% set texto = primeiro_dia ~ ' a ' ~ ultimo_dia ~ ': ' ~ hora_inicio ~ ' às ' ~ hora_fim %}
+                                    {% endif %}
+                                    {% set _ = textos_horarios.append(texto) %}
+                                {% endfor %}
+
+                                {{ textos_horarios|join(' | ') }}
+                            {% else %}
+                                Horários não definidos
+                            {% endif %}
+            </span>
+                    </div>
+                    <!-- FIM DOS HORÁRIOS -->
+
+                    <div class="mt-4 flex flex-wrap items-center text-gray-600">
+                        <div class="flex items-center mr-6 mb-2">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>{{ profissional[13] }}, {{ profissional[14] }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <!-- Conteúdo Principal -->
 <section class="py-12">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <!-- Coluna Esquerda - Informações do Profissional -->
-      <div class="lg:w-2/3">
-        <!-- Sobre o Profissional -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">Sobre</h2>
-          <p class="text-gray-600 mb-4">
-            Barbeiro com mais de 10 anos de experiência no mercado, especializado em cortes modernos e tradicionais.
-            Formado pela Academia Brasileira de Barbeiros, sempre busco me atualizar com as últimas tendências
-            e técnicas para oferecer o melhor serviço aos meus clientes.
-          </p>
-          <p class="text-gray-600">
-            Meu objetivo é proporcionar uma experiência única, onde cada cliente se sinta especial e saia satisfeito
-            não apenas com o corte, mas com todo o atendimento.
-          </p>
-        </div>
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Coluna Esquerda - Informações do Profissional -->
+            <div class="lg:w-2/3">
+                <!-- Sobre o Profissional -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Sobre</h2>
+                    <p class="text-gray-600 mb-4">
+                        {{ profissional[16] }}
+                    </p>
 
-        <!-- Serviços -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">Serviços</h2>
-          <div class="space-y-4">
-            <!-- Serviço 1 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-bold text-gray-800">Corte de Cabelo</h3>
-                  <p class="text-gray-600 text-sm mt-1">Corte personalizado de acordo com seu estilo e formato de rosto.</p>
                 </div>
-                <div class="text-right">
-                  <span class="text-lg font-bold text-blue-600">R$ 40,00</span>
-                  <p class="text-gray-500 text-sm">45 min</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
-                  Agendar este serviço
-                </button>
-              </div>
-            </div>
 
-            <!-- Serviço 2 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-bold text-gray-800">Barba</h3>
-                  <p class="text-gray-600 text-sm mt-1">Aparar, modelar e finalizar com produtos de qualidade.</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-lg font-bold text-blue-600">R$ 25,00</span>
-                  <p class="text-gray-500 text-sm">30 min</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
-                  Agendar este serviço
-                </button>
-              </div>
-            </div>
+                <!-- Serviços -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Serviços</h2>
+                    <div class="space-y-4">
+                        <!-- Serviço 1 -->
+                        {% for servico in servicos %}
+                            <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-bold text-gray-800">{{ servico[2] }}</h3>
+                                        <p class="text-gray-600 text-sm mt-1">{{ servico[3] }}</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-lg font-bold text-blue-600">R$ {{ servico[4] }}</span>
+                                        <p class="text-gray-500 text-sm">{{ servico[5] }} min</p>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="/agendar/{{ servico[0] }}">
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
+                                            Agendar este serviço
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-            <!-- Serviço 3 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-bold text-gray-800">Corte + Barba</h3>
-                  <p class="text-gray-600 text-sm mt-1">Pacote completo com corte de cabelo e barba.</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-lg font-bold text-blue-600">R$ 60,00</span>
-                  <p class="text-gray-500 text-sm">1h 15min</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
-                  Agendar este serviço
-                </button>
-              </div>
-            </div>
-
-            <!-- Serviço 4 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="font-bold text-gray-800">Sobrancelha</h3>
-                  <p class="text-gray-600 text-sm mt-1">Design de sobrancelhas para valorizar sua expressão.</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-lg font-bold text-blue-600">R$ 15,00</span>
-                  <p class="text-gray-500 text-sm">20 min</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
-                  Agendar este serviço
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Galeria -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">Galeria</h2>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div class="aspect-square overflow-hidden rounded-lg">
-              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80"
-                   alt="Trabalho do Marcos"
-                   class="w-full h-full object-cover hover:scale-105 transition duration-300">
-            </div>
-            <div class="aspect-square overflow-hidden rounded-lg">
-              <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
-                   alt="Trabalho do Marcos"
-                   class="w-full h-full object-cover hover:scale-105 transition duration-300">
-            </div>
-            <div class="aspect-square overflow-hidden rounded-lg">
-              <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                   alt="Trabalho do Marcos"
-                   class="w-full h-full object-cover hover:scale-105 transition duration-300">
-            </div>
-          </div>
-        </div>
-
-        <!-- Avaliações -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">Avaliações (128)</h2>
-
-          <!-- Resumo das avaliações -->
-          <div class="flex items-center mb-6">
-            <div class="text-center mr-6">
-              <div class="text-4xl font-bold text-gray-800">4.5</div>
-              <div class="flex text-yellow-400 justify-center mt-1">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <div class="text-gray-500 text-sm mt-1">128 avaliações</div>
-            </div>
-
-            <div class="flex-grow">
-              <div class="flex items-center mb-1">
-                <span class="text-sm text-gray-600 w-8">5</span>
-                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">
-                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 70%"></div>
-                </div>
-                <span class="text-sm text-gray-600">90</span>
-              </div>
-              <div class="flex items-center mb-1">
-                <span class="text-sm text-gray-600 w-8">4</span>
-                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">
-                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 20%"></div>
-                </div>
-                <span class="text-sm text-gray-600">25</span>
-              </div>
-              <div class="flex items-center mb-1">
-                <span class="text-sm text-gray-600 w-8">3</span>
-                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">
-                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 5%"></div>
-                </div>
-                <span class="text-sm text-gray-600">8</span>
-              </div>
-              <div class="flex items-center mb-1">
-                <span class="text-sm text-gray-600 w-8">2</span>
-                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">
-                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 3%"></div>
-                </div>
-                <span class="text-sm text-gray-600">4</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm text-gray-600 w-8">1</span>
-                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">
-                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 2%"></div>
-                </div>
-                <span class="text-sm text-gray-600">1</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Lista de avaliações -->
-          <div class="space-y-6">
-            <!-- Avaliação 1 -->
-            <div class="border-b border-gray-200 pb-6">
-              <div class="flex justify-between mb-2">
-                <div class="flex items-center">
-                  <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                       alt="João Silva"
-                       class="w-10 h-10 rounded-full mr-3">
-                  <div>
-                    <h4 class="font-bold text-gray-800">João Silva</h4>
-                    <div class="flex text-yellow-400 text-sm">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
                     </div>
-                  </div>
                 </div>
-                <span class="text-gray-500 text-sm">2 semanas atrás</span>
-              </div>
-              <p class="text-gray-600">
-                Excelente profissional! Corte impecável e muito atencioso. Recomendo!
-              </p>
-            </div>
 
-            <!-- Avaliação 2 -->
-            <div class="border-b border-gray-200 pb-6">
-              <div class="flex justify-between mb-2">
-                <div class="flex items-center">
-                  <img src="https://randomuser.me/api/portraits/men/22.jpg"
-                       alt="Pedro Santos"
-                       class="w-10 h-10 rounded-full mr-3">
-                  <div>
-                    <h4 class="font-bold text-gray-800">Pedro Santos</h4>
-                    <div class="flex text-yellow-400 text-sm">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star-half-alt"></i>
+                <!-- Galeria -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Galeria</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="aspect-square overflow-hidden rounded-lg">
+                            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80"
+                                 alt="Trabalho do Marcos"
+                                 class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="aspect-square overflow-hidden rounded-lg">
+                            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                                 alt="Trabalho do Marcos"
+                                 class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="aspect-square overflow-hidden rounded-lg">
+                            <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                 alt="Trabalho do Marcos"
+                                 class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <span class="text-gray-500 text-sm">1 mês atrás</span>
-              </div>
-              <p class="text-gray-600">
-                Muito bom atendimento e profissionalismo. Ambiente agradável e limpo. Voltarei com certeza.
-              </p>
+
+                <!-- Avaliações -->
+                {#        <div class="bg-white rounded-lg shadow-md p-6">#}
+                {#          <h2 class="text-xl font-bold text-gray-800 mb-4">Avaliações (128)</h2>#}
+                {##}
+                {#          <!-- Resumo das avaliações -->#}
+                {#          <div class="flex items-center mb-6">#}
+                {#            <div class="text-center mr-6">#}
+                {#              <div class="text-4xl font-bold text-gray-800">4.5</div>#}
+                {#              <div class="flex text-yellow-400 justify-center mt-1">#}
+                {#                <i class="fas fa-star"></i>#}
+                {#                <i class="fas fa-star"></i>#}
+                {#                <i class="fas fa-star"></i>#}
+                {#                <i class="fas fa-star"></i>#}
+                {#                <i class="fas fa-star-half-alt"></i>#}
+                {#              </div>#}
+                {#              <div class="text-gray-500 text-sm mt-1">128 avaliações</div>#}
+                {#            </div>#}
+                {##}
+                {#            <div class="flex-grow">#}
+                {#              <div class="flex items-center mb-1">#}
+                {#                <span class="text-sm text-gray-600 w-8">5</span>#}
+                {#                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">#}
+                {#                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 70%"></div>#}
+                {#                </div>#}
+                {#                <span class="text-sm text-gray-600">90</span>#}
+                {#              </div>#}
+                {#              <div class="flex items-center mb-1">#}
+                {#                <span class="text-sm text-gray-600 w-8">4</span>#}
+                {#                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">#}
+                {#                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 20%"></div>#}
+                {#                </div>#}
+                {#                <span class="text-sm text-gray-600">25</span>#}
+                {#              </div>#}
+                {#              <div class="flex items-center mb-1">#}
+                {#                <span class="text-sm text-gray-600 w-8">3</span>#}
+                {#                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">#}
+                {#                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 5%"></div>#}
+                {#                </div>#}
+                {#                <span class="text-sm text-gray-600">8</span>#}
+                {#              </div>#}
+                {#              <div class="flex items-center mb-1">#}
+                {#                <span class="text-sm text-gray-600 w-8">2</span>#}
+                {#                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">#}
+                {#                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 3%"></div>#}
+                {#                </div>#}
+                {#                <span class="text-sm text-gray-600">4</span>#}
+                {#              </div>#}
+                {#              <div class="flex items-center">#}
+                {#                <span class="text-sm text-gray-600 w-8">1</span>#}
+                {#                <div class="h-2 bg-gray-200 rounded-full flex-grow mx-2">#}
+                {#                  <div class="h-2 bg-yellow-400 rounded-full" style="width: 2%"></div>#}
+                {#                </div>#}
+                {#                <span class="text-sm text-gray-600">1</span>#}
+                {#              </div>#}
+                {#            </div>#}
+                {#          </div>#}
+                {##}
+                {#          <!-- Lista de avaliações -->#}
+                {#          <div class="space-y-6">#}
+                {#            <!-- Avaliação 1 -->#}
+                {#            <div class="border-b border-gray-200 pb-6">#}
+                {#              <div class="flex justify-between mb-2">#}
+                {#                <div class="flex items-center">#}
+                {#                  <img src="https://randomuser.me/api/portraits/men/32.jpg"#}
+                {#                       alt="João Silva"#}
+                {#                       class="w-10 h-10 rounded-full mr-3">#}
+                {#                  <div>#}
+                {#                    <h4 class="font-bold text-gray-800">João Silva</h4>#}
+                {#                    <div class="flex text-yellow-400 text-sm">#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                    </div>#}
+                {#                  </div>#}
+                {#                </div>#}
+                {#                <span class="text-gray-500 text-sm">2 semanas atrás</span>#}
+                {#              </div>#}
+                {#              <p class="text-gray-600">#}
+                {#                Excelente profissional! Corte impecável e muito atencioso. Recomendo!#}
+                {#              </p>#}
+                {#            </div>#}
+                {##}
+                {#            <!-- Avaliação 2 -->#}
+                {#            <div class="border-b border-gray-200 pb-6">#}
+                {#              <div class="flex justify-between mb-2">#}
+                {#                <div class="flex items-center">#}
+                {#                  <img src="https://randomuser.me/api/portraits/men/22.jpg"#}
+                {#                       alt="Pedro Santos"#}
+                {#                       class="w-10 h-10 rounded-full mr-3">#}
+                {#                  <div>#}
+                {#                    <h4 class="font-bold text-gray-800">Pedro Santos</h4>#}
+                {#                    <div class="flex text-yellow-400 text-sm">#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star-half-alt"></i>#}
+                {#                    </div>#}
+                {#                  </div>#}
+                {#                </div>#}
+                {#                <span class="text-gray-500 text-sm">1 mês atrás</span>#}
+                {#              </div>#}
+                {#              <p class="text-gray-600">#}
+                {#                Muito bom atendimento e profissionalismo. Ambiente agradável e limpo. Voltarei com certeza.#}
+                {#              </p>#}
+                {#            </div>#}
+                {##}
+                {#            <!-- Avaliação 3 -->#}
+                {#            <div class="pb-2">#}
+                {#              <div class="flex justify-between mb-2">#}
+                {#                <div class="flex items-center">#}
+                {#                  <img src="https://randomuser.me/api/portraits/women/44.jpg"#}
+                {#                       alt="Maria Oliveira"#}
+                {#                       class="w-10 h-10 rounded-full mr-3">#}
+                {#                  <div>#}
+                {#                    <h4 class="font-bold text-gray-800">Maria Oliveira</h4>#}
+                {#                    <div class="flex text-yellow-400 text-sm">#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="fas fa-star"></i>#}
+                {#                      <i class="far fa-star"></i>#}
+                {#                    </div>#}
+                {#                  </div>#}
+                {#                </div>#}
+                {#                <span class="text-gray-500 text-sm">2 meses atrás</span>#}
+                {#              </div>#}
+                {#              <p class="text-gray-600">#}
+                {#                Levei meu filho para cortar o cabelo e ficou ótimo! Marcos tem muita paciência com crianças.#}
+                {#              </p>#}
+                {#            </div>#}
+                {#          </div>#}
+                {##}
+                {#          <div class="mt-6 text-center">#}
+                {#            <button class="text-blue-600 hover:text-blue-800 font-medium">#}
+                {#              Carregar mais avaliações#}
+                {#            </button>#}
+                {#          </div>#}
+                {#        </div>#}
             </div>
 
-            <!-- Avaliação 3 -->
-            <div class="pb-2">
-              <div class="flex justify-between mb-2">
-                <div class="flex items-center">
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                       alt="Maria Oliveira"
-                       class="w-10 h-10 rounded-full mr-3">
-                  <div>
-                    <h4 class="font-bold text-gray-800">Maria Oliveira</h4>
-                    <div class="flex text-yellow-400 text-sm">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
+            <!-- Coluna Direita - Informações de Contato e Agendamento -->
+            <div class="lg:w-1/3">
+
+                <!-- Informações de Contato -->
+                <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Contato</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-600 w-5"></i>
+                            <span class="ml-3 text-gray-600">{{ profissional[11] }}, {{ profissional[27] }} - {{ profissional[12] }}, {{ profissional[13] }} - {{ profissional[14] }}</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-blue-600 w-5"></i>
+                            <span class="ml-3 text-gray-600">{{ profissional[18] }}</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-600 w-5"></i>
+                            <span class="ml-3 text-gray-600">{{ profissional[5] }}</span>
+                        </div>
+
                     </div>
-                  </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-gray-800 mb-3">Redes Sociais</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <span class="text-gray-500 text-sm">2 meses atrás</span>
-              </div>
-              <p class="text-gray-600">
-                Levei meu filho para cortar o cabelo e ficou ótimo! Marcos tem muita paciência com crianças.
-              </p>
-            </div>
-          </div>
 
-          <div class="mt-6 text-center">
-            <button class="text-blue-600 hover:text-blue-800 font-medium">
-              Carregar mais avaliações
-            </button>
-          </div>
+                <!-- Modalidades de Atendimento -->
+                <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Modalidades de Atendimento</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-laptop text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Online</h4>
+                                <p class="text-gray-600 text-sm">Consultoria e orientação por videochamada</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-store text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Presencial</h4>
+                                <p class="text-gray-600 text-sm">Atendimento no estabelecimento</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-home text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Domiciliar</h4>
+                                <p class="text-gray-600 text-sm">Atendimento na residência do cliente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Coluna Direita - Informações de Contato e Agendamento -->
-      <div class="lg:w-1/3">
-        <!-- Card de Agendamento -->
-        <div class="bg-white rounded-lg shadow-md p-6 top-4">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Agendar Serviço</h3>
-
-          <div class="mb-4">
-            <label class="block text-gray-700 mb-2">Selecione um serviço</label>
-            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Corte de Cabelo - R$ 40,00</option>
-              <option>Barba - R$ 25,00</option>
-              <option>Corte + Barba - R$ 60,00</option>
-              <option>Sobrancelha - R$ 15,00</option>
-            </select>
-          </div>
-
-          <div class="mb-4">
-            <label class="block text-gray-700 mb-2">Data</label>
-            <input type="date" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          </div>
-
-          <div class="mb-4">
-            <label class="block text-gray-700 mb-2">Horário</label>
-            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>09:00</option>
-              <option>10:00</option>
-              <option>11:00</option>
-              <option>14:00</option>
-              <option>15:00</option>
-              <option>16:00</option>
-              <option>17:00</option>
-            </select>
-          </div>
-
-          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition mb-4">
-            Confirmar Agendamento
-          </button>
-
-        </div>
-
-        <!-- Informações de Contato -->
-        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Contato</h3>
-
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <i class="fas fa-map-marker-alt text-blue-600 w-5"></i>
-              <span class="ml-3 text-gray-600">Rua Harmonia, 123 - Vila Madalena, São Paulo - SP</span>
-            </div>
-
-            <div class="flex items-center">
-              <i class="fas fa-phone text-blue-600 w-5"></i>
-              <span class="ml-3 text-gray-600">(11) 99999-9999</span>
-            </div>
-
-            <div class="flex items-center">
-              <i class="fas fa-envelope text-blue-600 w-5"></i>
-              <span class="ml-3 text-gray-600">contato@marcossilva.com</span>
-            </div>
-
-          </div>
-
-          <div class="mt-6">
-            <h4 class="font-bold text-gray-800 mb-3">Redes Sociais</h4>
-            <div class="flex space-x-4">
-              <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
-                <i class="fab fa-facebook"></i>
-              </a>
-              <a href="#" class="text-gray-600 hover:text-blue-600 text-xl">
-                <i class="fab fa-whatsapp"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modalidades de Atendimento -->
-        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Modalidades de Atendimento</h3>
-
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <div class="bg-green-100 p-2 rounded-full mr-3">
-                <i class="fas fa-laptop text-green-600"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-gray-800">Online</h4>
-                <p class="text-gray-600 text-sm">Consultoria e orientação por videochamada</p>
-              </div>
-            </div>
-
-            <div class="flex items-center">
-              <div class="bg-blue-100 p-2 rounded-full mr-3">
-                <i class="fas fa-store text-blue-600"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-gray-800">Presencial</h4>
-                <p class="text-gray-600 text-sm">Atendimento no estabelecimento</p>
-              </div>
-            </div>
-
-            <div class="flex items-center">
-              <div class="bg-purple-100 p-2 rounded-full mr-3">
-                <i class="fas fa-home text-purple-600"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-gray-800">Domiciliar</h4>
-                <p class="text-gray-600 text-sm">Atendimento na residência do cliente</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <!-- Rodapé -->
 <footer class="bg-gray-800 text-white py-12">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <div class="flex items-center mb-4">
-          <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
-        </div>
-        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
-      </div>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
-        <ul class="space-y-2">
-          <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
-          <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
-          <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
-          <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Suporte</h4>
-        <ul class="space-y-2">
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
-        <div class="mt-2 flex">
-          <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
-          <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
         </div>
-      </div>
     </div>
-    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
-    </div>
-  </div>
 </footer>
 
 <!-- Scripts -->
 <script>
-  // Menu mobile (simplificado)
-  function toggleMobileMenu() {
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.toggle('hidden');
-  }
+    // Menu mobile (simplificado)
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+    }
 </script>
 </body>
 </html>

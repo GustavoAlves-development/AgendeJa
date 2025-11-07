@@ -14,7 +14,12 @@ app.secret_key = "viniciusEdu"
 app.register_blueprint(Cliente.bp)
 app.register_blueprint(Profissional.bp)
 
-
+def getClient():
+    if 'id' not in session:
+        return None
+    cursor.execute('SELECT * FROM cliente WHERE id = %s', (session['id'],))
+    cliente = cursor.fetchone()
+    return cliente
 @app.route('/', methods=['GET'])
 def Home():
     if 'id' in session:
@@ -24,9 +29,7 @@ def Home():
         if cliente:
             return render_template('cliente/cliente.html', cliente=cliente)
         else:
-            cursor.execute("SELECT * FROM profissional WHERE id = %s", (index,))
-            profissional = cursor.fetchone()
-            return render_template('profissional/gestao.html', profissional=profissional)
+            return redirect('/gestao')
     return render_template('cliente/cliente.html')
 
 
@@ -140,16 +143,28 @@ def logout():
 
 @app.get('/contato')
 def contato():
-    return render_template('contato.html')
+    cliente = getClient()
+    return render_template('contato.html', cliente=cliente)
 
 
 @app.get('/sobre')
 def sobre():
-    return render_template('sobre.html')
+    cliente = getClient()
+    return render_template('sobre.html', cliente=cliente)
 
 
 def recuperar_foto(id):
-    cursor.execute("SELECT foto_perfil FROM cliente WHERE =?;", (id,))
+    cursor.execute("SELECT foto_perfil FROM cliente WHERE id = %s;", (id,))
+    ft = cursor.fetchone()
+    return ft[0]
+
+def recuperar_foto_profissional(id):
+    cursor.execute("SELECT foto_perfil FROM profissional WHERE id = %s;", (id,))
+    ft = cursor.fetchone()
+    return ft[0]
+
+def recuperar_foto_capa_profissional(id):
+    cursor.execute("SELECT foto_capa FROM profissional WHERE id = %s;", (id,))
     ft = cursor.fetchone()
     return ft[0]
 
@@ -164,7 +179,32 @@ def imagem(id):
             download_name=f"imagem_{id}.jpeg"
         )
     else:
-        return send_from_directory("static/imagens/", "estudante.png")
+        return send_from_directory("static/imgs/", "perfil_padrao.png")
+
+@app.route('/imagemProfissional/<id>')
+def imagemProfissional(id):
+    foto_blob = recuperar_foto_profissional(id)
+    if foto_blob:
+        return send_file(
+            io.BytesIO(foto_blob),
+            mimetype='image/jpeg',
+            download_name=f"imagem_{id}.jpeg"
+        )
+    else:
+        return send_from_directory("static/imgs/", "perfil_padrao.png")
+
+
+@app.route('/imagemCapaProfissional/<id>')
+def imagemCapaProfissional(id):
+    foto_blob = recuperar_foto_capa_profissional(id)
+    if foto_blob:
+        return send_file(
+            io.BytesIO(foto_blob),
+            mimetype='image/jpeg',
+            download_name=f"imagem_{id}.jpeg"
+        )
+    else:
+        return send_from_directory("static/imgs/", "capa_padrao.jpg")
 
 
 if __name__ == '__main__':

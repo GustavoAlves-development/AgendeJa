@@ -1,365 +1,539 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="bg-gray-100 font-sans text-gray-800">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Editar Perfil - Tatuador</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="../../static/imgs/Miniatura.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Editar Perfil - Tatuador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="../../static/js/login.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="../../static/imgs/Miniatura.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 <header class="bg-white shadow-md">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center">
-      <a href="../cliente/cliente.html"><img src="https://via.placeholder.com/150x50/3B82F6/FFFFFF?text=AgendeJá" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
-    </div>
-    <nav class="hidden md:flex space-x-6">
-      <a href="painel-tatuador.html" class="text-gray-600 font-medium">Painel</a>
-      <a href="agendamentos-tatuador.html" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
-      <a href="perfil-tatuador.html" class="text-blue-600 hover:text-blue-600">Meu Perfil</a>
-      <a href="servicos-tatuador.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-    </nav>
-    <div class="flex items-center space-x-4">
-      <div class="relative">
-        <button class="text-gray-600 hover:text-blue-600 relative">
-          <i class="fas fa-bell text-xl"></i>
-          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
-        </button>
-      </div>
-      <div class="relative dropdown">
-        <button class="flex items-center space-x-2">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Carla Santos" class="w-8 h-8 rounded-full">
-          <span class="hidden md:inline text-gray-700">Carla Santos</span>
-          <i class="fas fa-chevron-down text-xs text-gray-500"></i>
-        </button>
-        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden dropdown-menu">
-          <a href="perfil-tatuador.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Meu Perfil</a>
-          <a href="configuracoes-tatuador.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configurações</a>
-          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajuda</a>
-          <div class="border-t border-gray-200"></div>
-          <a href="login.html" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Sair</a>
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
         </div>
-      </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agedamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Perfil -->
+        <div class="flex items-center space-x-4">
+            <div class="relative user-dropdown-container">
+                <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                    <img src="/imagemProfissional/{{ profissional[0] }}"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                    <span class="text-gray-700 font-medium">
+                        {% if profissional[2] is none %}
+                            {{ profissional[1] }}
+                        {% else %}
+                            {{ profissional[2] }}
+                        {% endif %}</span>
+                    <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                    <div class="px-4 py-3 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900">{{ profissional [1] }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ profissional[5] }}</p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-2">
+                        <a href="/logout"
+                           class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                            <span class="w-5 mr-3">🚪</span>
+                            <span>Sair da conta</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
     </div>
-    <button class="md:hidden text-gray-600">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="/" class="text-gray-600 hover:text-blue-600">Painel</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
 </header>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+            {% for message in messages %}
+                <div class="alert alert-success"
+                     style="background: #4CAF50; color: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 
 <!-- Conteúdo Principal -->
 <main class="flex-grow container mx-auto px-4 py-8">
-  <div class="max-w-4xl mx-auto">
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Editar Perfil</h2>
-        <a href="painel-tatuador.html" class="text-blue-600 hover:text-blue-800 font-medium">Voltar ao painel</a>
-      </div>
-
-      <form>
-        <!-- Informações Básicas -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Informações Básicas</h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Nome Completo</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="Carla Santos">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Editar Perfil</h2>
+                <a href="/gestao" class="text-blue-600 hover:text-blue-800 font-medium">Voltar ao painel</a>
             </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Nome do estabelecimento (opcional)</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="Estúdio Black Ink">
-            </div>
+            <form action="/editarProfissional" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="foto-perfil-alterada" name="foto_perfil_alterada" value="false">
+                <input type="hidden" id="foto-capa-alterada" name="foto_capa_alterada" value="false">
+                <!-- Informações Básicas -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Informações Básicas</h3>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">CPF</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="987.654.321-00">
-            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                            <input type="text" required
+                                   name="nome"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[1] if profissional[1] is not none else '' }}">
+                        </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Telefone</label>
-              <input type="tel"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="(11) 99876-5432">
-            </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Nome do estabelecimento
+                                (opcional)</label>
+                            <input type="text"
+                                   name="estabelecimento"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[2] if profissional[2] is not none else '' }}">
+                        </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">E-mail</label>
-              <input type="email"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="carla@estudioblackink.com">
-            </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">CPF</label>
+                            <input type="text" required
+                                   name="CPF"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[4] if profissional[4] is not none else '' }}">
+                        </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Anos de Experiência</label>
-              <input type="number"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="6">
-            </div>
-          </div>
-        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Telefone</label>
+                            <input type="tel" required
+                                   name="telefone"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[6] if profissional[6] is not none else '' }}">
+                        </div>
 
-        <!-- Foto de Perfil e Capa -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Fotos</h3>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">E-mail</label>
+                            <input type="email"
+                                   name="email" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[5] if profissional[5] is not none else '' }}">
+                        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Foto de Perfil</label>
-              <div class="flex items-center space-x-4">
-                <div class="relative">
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Carla Santos"
-                       class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
-                  <button type="button" class="absolute -top-2 -right-2 bg-white p-1 rounded-full shadow-md text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-pencil-alt text-xs"></i>
-                  </button>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Anos de Experiência</label>
+                            <input type="number"
+                                   name="anos" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[7] if profissional[7] is not none else '' }}">
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <button type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                    Alterar Foto
-                  </button>
-                  <p class="text-xs text-gray-500 mt-1">Recomendado: 500x500px</p>
+
+                <!-- Foto de Perfil e Capa -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Fotos</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Foto de Perfil (mantém como está) -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Foto de Perfil</label>
+                            <label class="block text-gray-700 font-medium mb-2">Foto de Perfil</label>
+                            <div class="flex items-center space-x-4">
+                                <div class="relative">
+                                    <img id="foto-perfil-preview" src="/imagemProfissional/{{ profissional[0] }}"
+                                         alt="Foto do perfil"
+                                         class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
+                                    <input type="file" id="foto-perfil" name="foto-perfil" accept="image/*"
+                                           class="hidden"
+                                           onchange="previewPerfilImage(this)">
+                                </div>
+                                <div class="space-y-2">
+                                    <button type="button" onclick="document.getElementById('foto-perfil').click()"
+                                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                                        Alterar Foto
+                                    </button>
+                                    <p class="text-xs text-gray-500">Recomendado: 500x500px</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto de Capa (CORRIGIDO) -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Foto de Capa</label>
+                            <div class="space-y-3">
+                                <div class="relative bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 p-4">
+                                    <img id="foto-capa-preview" src="/imagemCapaProfissional/{{ profissional[0] }}"
+                                         alt="Foto de capa"
+                                         class="w-full h-32 object-cover rounded-lg">
+                                    <input type="file" id="foto-capa" name="foto-capa" accept="image/*" class="hidden"
+                                           onchange="previewCapaImage(this)">
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button type="button" onclick="document.getElementById('foto-capa').click()"
+                                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                                        Alterar Capa
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-500">Recomendado: 1500x500px</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Foto de Capa</label>
-              <div class="relative">
-                <img src="https://images.unsplash.com/photo-1600965962382-8d8750594464?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                     alt="Estúdio de Tatuagem"
-                     class="w-full h-32 object-cover rounded-lg border border-gray-300">
-                <button type="button" class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md text-blue-600 hover:text-blue-800">
-                  <i class="fas fa-pencil-alt"></i>
-                </button>
-              </div>
-              <p class="text-xs text-gray-500 mt-1">Recomendado: 1500x500px</p>
-            </div>
-          </div>
+                <!-- Localização -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Localização</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">CEP</label>
+                            <input type="text"
+                                   name="cep" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="Digite o CEP"
+                                   value="{{ profissional[10] if profissional[10] is not none else '' }}">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 font-medium mb-2">Rua</label>
+                            <input type="text"
+                                   name="rua" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[11] if profissional[11] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Bairro</label>
+                            <input type="text"
+                                   name="bairro" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[12] if profissional[12] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Cidade</label>
+                            <input type="text"
+                                   name="cidade" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   value="{{ profissional[13] if profissional[13] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Estado</label>
+                            <select name="estado" id="estado"
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                    required>
+                                <option value="">Selecione</option>
+                                {% set estados_brasil = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"] %}
+                                {% for estado in estados_brasil %}
+                                    {% if estado == (profissional[14] if profissional[14] is not none else '') %}
+                                        <option value="{{ estado }}" selected>{{ estado }}</option>
+                                    {% else %}
+                                        <option value="{{ estado }}">{{ estado }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Complemento</label>
+                            <input type="text"
+                                   name="complemento"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="Apto, bloco, etc."
+                                   value="{{ profissional[15] if profissional[15] is not none else '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sobre Mim -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Sobre Mim</h3>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Descrição Profissional</label>
+                        <textarea rows="5"
+                                  name="descricao" required
+                                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">{{ profissional[16] if profissional[16] is not none else '' }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Conte aos clientes sobre sua experiência e
+                            especialidades</p>
+                    </div>
+                </div>
+
+                <!-- Redes Sociais -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Redes Sociais</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                                <i class="fab fa-instagram text-pink-600 mr-2 text-xl"></i> Instagram
+                            </label>
+                            <input type="text"
+                                   name="instagram"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="@seuusuario"
+                                   value="{{ profissional[17] if profissional[17] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                                <i class="fab fa-facebook-f text-blue-700 mr-2 text-xl"></i> Facebook
+                            </label>
+                            <input type="text"
+                                   name="facebook"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="Link do perfil"
+                                   value="{{ profissional[19] if profissional[19] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                                <i class="fab fa-whatsapp text-green-600 mr-2 text-xl"></i> WhatsApp
+                            </label>
+                            <input type="text"
+                                   name="whatsapp"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="(DDD) 9XXXX-XXXX"
+                                   value="{{ profissional[18] if profissional[18] is not none else '' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2 flex items-center">
+                                <i class="fab fa-tiktok text-black mr-2 text-xl"></i> TikTok
+                            </label>
+                            <input type="text"
+                                   name="tiktok"
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                                   placeholder="@seuusuario"
+                                   value="{{ profissional[20] if profissional[20] is not none else '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                    <button type="button"
+                            class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                        Salvar Alterações
+                    </button>
+                </div>
+            </form>
         </div>
-
-        <!-- Localização -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Localização</h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">CEP</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="Digite o CEP" value="01234-567">
-            </div>
-
-            <div class="md:col-span-2">
-              <label class="block text-gray-700 font-medium mb-2">Endereço</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="Av. Paulista, 1000">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Bairro</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="Bela Vista">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Cidade</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     value="São Paulo">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Estado</label>
-              <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
-                <option selected>SP</option>
-                <option>RJ</option>
-                <option>MG</option>
-                <!-- outros estados -->
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Complemento</label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="Apto, bloco, etc." value="Sala 305">
-            </div>
-          </div>
-
-
-        </div>
-
-        <!-- Sobre Mim -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Sobre Mim</h3>
-
-          <div>
-            <label class="block text-gray-700 font-medium mb-2">Descrição Profissional</label>
-            <textarea rows="5"
-                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400">Tatuadora com 6 anos de experiência, especializada em realismos, fine line e tatuagens geométricas. Formada em Belas Artes, busco sempre unir técnica artística com a precisão necessária para tatuagens de alta qualidade. Meu objetivo é criar peças únicas que tenham significado para meus clientes e que sejam executadas com os mais altos padrões de higiene e segurança.</textarea>
-            <p class="text-xs text-gray-500 mt-1">Conte aos clientes sobre sua experiência e especialidades</p>
-          </div>
-        </div>4
-        <!-- Redes Sociais -->
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-4 border-b border-gray-200 pb-2">Redes Sociais</h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                <i class="fab fa-instagram text-pink-600 mr-2 text-xl"></i> Instagram
-              </label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="@seuusuario" value="@carlablackink">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                <i class="fab fa-facebook-f text-blue-700 mr-2 text-xl"></i> Facebook
-              </label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="Link do perfil" value="facebook.com/estudioblackink">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                <i class="fab fa-whatsapp text-green-600 mr-2 text-xl"></i> WhatsApp
-              </label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="(DDD) 9XXXX-XXXX" value="(11) 99876-5432">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                <i class="fab fa-tiktok text-black mr-2 text-xl"></i> TikTok
-              </label>
-              <input type="text"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                     placeholder="@seuusuario" value="@carlatattoo">
-            </div>
-          </div>
-        </div>
-
-        <!-- Botões de Ação -->
-        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
-          <button type="button"
-                  class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
-            Cancelar
-          </button>
-          <button type="submit"
-                  class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
-            Salvar Alterações
-          </button>
-        </div>
-      </form>
     </div>
-  </div>
 </main>
 
 <!-- Rodapé -->
 <footer class="bg-gray-800 text-white py-12">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <div class="flex items-center mb-4">
-          <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
-        </div>
-        <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
-      </div>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                </div>
+                <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
-        <ul class="space-y-2">
-          <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
-          <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
-          <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
-          <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
+                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Suporte</h4>
-        <ul class="space-y-2">
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-          <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
-        </ul>
-      </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Suporte</h4>
+                <ul class="space-y-2">
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Redes Sociais</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
-        <div class="mt-2 flex">
-          <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
-          <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
         </div>
-      </div>
     </div>
-    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-      <p>&copy; 2023 AgendeJá. Todos os direitos reservados.</p>
-    </div>
-  </div>
 </footer>
 
 <!-- Scripts -->
 <script>
-  // Dropdown do perfil
-  document.addEventListener('DOMContentLoaded', function() {
-    const perfilBtn = document.querySelector('.dropdown button');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
+    // Dropdown do perfil
+    document.addEventListener('DOMContentLoaded', function () {
+        const perfilBtn = document.querySelector('.dropdown button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    perfilBtn.addEventListener('click', function() {
-      dropdownMenu.classList.toggle('hidden');
+        perfilBtn.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', function (event) {
+            if (!perfilBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+
+
     });
-
-    // Fechar dropdown ao clicar fora
-    document.addEventListener('click', function(event) {
-      if (!perfilBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.add('hidden');
-      }
-    });
-
-    // Simular upload de foto
-    document.querySelectorAll('button[type="button"]').forEach(button => {
-      button.addEventListener('click', function() {
-        if (this.textContent.includes('Alterar Foto') || this.querySelector('.fa-pencil-alt')) {
-          alert('Esta funcionalidade abriria o seletor de arquivos para upload de imagem.');
+    // Auto-hide flash messages após 5 segundos
+    setTimeout(function () {
+        const flashMessages = document.querySelector('.flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'none';
         }
-      });
-    });
+    }, 5000);
 
-    // Simular envio do formulário
-    document.querySelector('form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Perfil atualizado com sucesso!');
-    });
-  });
+    function previewPerfilImage(input) {
+        const preview = document.getElementById('foto-perfil-preview');
+        const file = input.files[0];
+        const hiddenInput = document.getElementById('foto-perfil-alterada');
+
+        if (file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione uma imagem válida.');
+                input.value = '';
+                return;
+            }
+
+            if (!validarTamanhoImagem(file, 5)) {
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                hiddenInput.value = 'true'; // Marca que a foto foi alterada
+            }
+            reader.readAsDataURL(file);
+        } else {
+            hiddenInput.value = 'false';
+        }
+    }
+
+    function previewCapaImage(input) {
+        const preview = document.getElementById('foto-capa-preview');
+        const file = input.files[0];
+        const hiddenInput = document.getElementById('foto-capa-alterada');
+
+        if (file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione uma imagem válida.');
+                input.value = '';
+                return;
+            }
+
+            if (!validarTamanhoImagem(file, 5)) {
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                hiddenInput.value = 'true'; // Marca que a capa foi alterada
+
+                // Adiciona feedback visual
+                preview.parentElement.classList.remove('border-dashed', 'border-gray-300');
+                preview.parentElement.classList.add('border-solid', 'border-blue-500');
+            }
+            reader.readAsDataURL(file);
+        } else {
+            hiddenInput.value = 'false';
+        }
+    }
+
+    function validarTamanhoImagem(file, maxSizeMB = 5) {
+        if (file.size > maxSizeMB * 1024 * 1024) {
+            alert(`A imagem deve ter no máximo ${maxSizeMB}MB`);
+            return false;
+        }
+        return true;
+    }
+
+    // Adicione este código no final do seu script
+document.addEventListener('DOMContentLoaded', function() {
+    // Limpa os previews quando a página carrega
+    const fotoPerfilInput = document.getElementById('foto-perfil');
+    const fotoCapaInput = document.getElementById('foto-capa');
+
+    // Reseta os valores dos inputs file
+    if (fotoPerfilInput) fotoPerfilInput.value = '';
+    if (fotoCapaInput) fotoCapaInput.value = '';
+
+    // Reseta os hidden inputs
+    const fotoPerfilAlterada = document.getElementById('foto-perfil-alterada');
+    const fotoCapaAlterada = document.getElementById('foto-capa-alterada');
+    if (fotoPerfilAlterada) fotoPerfilAlterada.value = 'false';
+    if (fotoCapaAlterada) fotoCapaAlterada.value = 'false';
+
+    // Remove qualquer estilo de alteração da capa
+    const capaPreview = document.getElementById('foto-capa-preview');
+    if (capaPreview && capaPreview.parentElement) {
+        capaPreview.parentElement.classList.add('border-dashed', 'border-gray-300');
+        capaPreview.parentElement.classList.remove('border-solid', 'border-blue-500');
+    }
+});
 </script>
 </body>
 </html>

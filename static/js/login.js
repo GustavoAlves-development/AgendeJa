@@ -107,3 +107,174 @@ document.addEventListener('DOMContentLoaded', function() {
         inicializarTipoProfissional();
     }
 });
+
+class DropdownManager {
+    constructor() {
+        this.dropdowns = new Set();
+        this.isInitialized = false;
+    }
+
+    init() {
+        if (this.isInitialized) return;
+
+        document.addEventListener('click', this.handleDocumentClick.bind(this));
+        document.addEventListener('keydown', this.handleKeydown.bind(this));
+        this.registerExistingDropdowns();
+
+        this.isInitialized = true;
+    }
+
+    registerExistingDropdowns() {
+        const dropdownContainers = document.querySelectorAll('.user-dropdown-container');
+        dropdownContainers.forEach(container => {
+            this.registerDropdown(container);
+        });
+    }
+
+    registerDropdown(container) {
+        const toggle = container.querySelector('.dropdown-toggle');
+        const menu = container.querySelector('.dropdown-menu');
+        const arrow = container.querySelector('.dropdown-arrow');
+
+        if (!toggle || !menu) {
+            console.warn('Dropdown elements not found in container:', container);
+            return;
+        }
+
+        const dropdownData = {
+            container,
+            toggle,
+            menu,
+            arrow,
+            isOpen: false
+        };
+
+        this.dropdowns.add(dropdownData);
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleDropdown(dropdownData);
+        });
+
+        // Prevenir que cliques no menu fechem o dropdown
+        menu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    toggleDropdown(dropdownData) {
+        if (dropdownData.isOpen) {
+            this.closeDropdown(dropdownData);
+        } else {
+            this.openDropdown(dropdownData);
+        }
+    }
+
+    openDropdown(dropdownData) {
+        // Fecha outros dropdowns abertos
+        this.closeAllDropdowns();
+
+        dropdownData.menu.classList.remove('hidden');
+        dropdownData.menu.classList.add('open');
+        dropdownData.menu.classList.remove('closing');
+
+        if (dropdownData.arrow) {
+            dropdownData.arrow.classList.add('rotated');
+        }
+
+        dropdownData.isOpen = true;
+
+        // Trigger custom event
+        this.triggerEvent('dropdownOpened', dropdownData.container);
+    }
+
+    closeDropdown(dropdownData) {
+        dropdownData.menu.classList.add('closing');
+        dropdownData.menu.classList.remove('open');
+
+        if (dropdownData.arrow) {
+            dropdownData.arrow.classList.remove('rotated');
+        }
+
+        dropdownData.isOpen = false;
+
+        // Espera a animação terminar antes de esconder
+        setTimeout(() => {
+            if (!dropdownData.isOpen) {
+                dropdownData.menu.classList.add('hidden');
+                dropdownData.menu.classList.remove('closing');
+            }
+        }, 200);
+
+        // Trigger custom event
+        this.triggerEvent('dropdownClosed', dropdownData.container);
+    }
+
+    closeAllDropdowns() {
+        this.dropdowns.forEach(dropdownData => {
+            if (dropdownData.isOpen) {
+                this.closeDropdown(dropdownData);
+            }
+        });
+    }
+
+    handleDocumentClick(e) {
+        let clickedInsideDropdown = false;
+
+        this.dropdowns.forEach(dropdownData => {
+            if (dropdownData.container.contains(e.target)) {
+                clickedInsideDropdown = true;
+            }
+        });
+
+        if (!clickedInsideDropdown) {
+            this.closeAllDropdowns();
+        }
+    }
+
+    handleKeydown(e) {
+        if (e.key === 'Escape') {
+            this.closeAllDropdowns();
+        }
+    }
+
+    triggerEvent(eventName, element, data = null) {
+        const event = new CustomEvent(eventName, {
+            detail: data,
+            bubbles: true
+        });
+        element.dispatchEvent(event);
+    }
+
+    // Método público para fechar todos os dropdowns
+    closeAll() {
+        this.closeAllDropdowns();
+    }
+
+    // Método público para destruir o manager
+    destroy() {
+        document.removeEventListener('click', this.handleDocumentClick);
+        document.removeEventListener('keydown', this.handleKeydown);
+        this.dropdowns.clear();
+        this.isInitialized = false;
+    }
+}
+
+// Singleton instance
+const dropdownManager = new DropdownManager();
+
+// Auto-inicialização quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        dropdownManager.init();
+    });
+} else {
+    dropdownManager.init();
+}
+
+// Export para uso em outros arquivos
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = dropdownManager;
+} else {
+    window.dropdownManager = dropdownManager;
+}
