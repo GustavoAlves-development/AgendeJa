@@ -15,7 +15,75 @@
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Cabeçalho -->
-<header class="bg-white shadow-md">
+{% if profissional %}
+    <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+        </nav>
+        <!-- Área de Perfil -->
+        <div class="flex items-center space-x-4">
+            <div class="relative user-dropdown-container">
+                <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                    <img src="/imagemProfissional/{{ profissional[0] }}"
+                         alt="Foto de perfil"
+                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                    <span class="text-gray-700 font-medium">
+                        {% if profissional[2] is none %}
+                            {{ profissional[1] }}
+                        {% else %}
+                            {{ profissional[2] }}
+                        {% endif %}</span>
+                    <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                    <div class="px-4 py-3 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900">{{ profissional [1] }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ profissional[5] }}</p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-2">
+                        <a href="/logout"
+                           class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                            <span class="w-5 mr-3">🚪</span>
+                            <span>Sair da conta</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+        <nav class="flex flex-col space-y-4">
+            <a href="/" class="text-gray-600 hover:text-blue-600">Painel</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            <div class="border-t pt-4">
+                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                <a href="/cadastro"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+            </div>
+        </nav>
+    </div>
+</header>
+{% else %}
+    <header class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center">
             <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
@@ -28,56 +96,58 @@
         </nav>
         <!-- Área de Login/Perfil -->
         <div class="flex items-center space-x-4">
-    {% if cliente %}
-    <div class="relative user-dropdown-container">
-        <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
-            <img src="/imagem/{{ cliente[0] }}"
-                 alt="Foto de perfil"
-                 class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
-            <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
-            <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
-                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M19 9l-7 7-7-7"></path>
-            </svg>
-        </button>
+            {% if cliente %}
+                <div class="relative user-dropdown-container">
+                    <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                        <img src="/imagem/{{ cliente[0] }}"
+                             alt="Foto de perfil"
+                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                        <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+                        <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
 
-        <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
-            <div class="px-4 py-3 border-b border-gray-100">
-                <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
-                <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
-            </div>
+                    <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                        <div class="px-4 py-3 border-b border-gray-100">
+                            <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
+                            <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
+                        </div>
 
-            <div class="py-2">
-                <a href="/editarCliente"
-                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
-                    <span class="w-5 mr-3">👤</span>
-                    <span>Meu Perfil</span>
-                </a>
+                        <div class="py-2">
+                            <a href="/editarCliente"
+                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">👤</span>
+                                <span>Meu Perfil</span>
+                            </a>
 
-                <a href="/agendamentos"
-                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
-                    <span class="w-5 mr-3">📅</span>
-                    <span>Meus Agendamentos</span>
-                </a>
-            </div>
+                            <a href="/agendamentosCliente"
+                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">📅</span>
+                                <span>Meus Agendamentos</span>
+                            </a>
+                        </div>
 
-            <div class="border-t border-gray-100 pt-2">
-                <a href="/logout"
-                   class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
-                    <span class="w-5 mr-3">🚪</span>
-                    <span>Sair da conta</span>
-                </a>
-            </div>
+                        <div class="border-t border-gray-100 pt-2">
+                            <a href="/logout"
+                               class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                                <span class="w-5 mr-3">🚪</span>
+                                <span>Sair da conta</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="flex items-center space-x-3">
+                    <a href="/login"
+                       class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+                    <a href="/cadastro"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+                </div>
+            {% endif %}
         </div>
-    </div>
-    {% else %}
-    <div class="flex items-center space-x-3">
-        <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
-        <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
-    </div>
-    {% endif %}
-</div>
         <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -92,12 +162,13 @@
             <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
             <div class="border-t pt-4">
                 <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="/cadastro" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+                <a href="/cadastro"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
             </div>
         </nav>
     </div>
 </header>
-
+{% endif %}
 <!-- Conteúdo Principal -->
 <main class="flex-grow">
     <!-- Hero Contato -->

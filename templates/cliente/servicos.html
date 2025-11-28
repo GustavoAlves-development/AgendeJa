@@ -55,7 +55,7 @@
                                 <span>Meu Perfil</span>
                             </a>
 
-                            <a href="/agendamentos"
+                            <a href="/agendamentosCliente"
                                class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
                                 <span class="w-5 mr-3">📅</span>
                                 <span>Meus Agendamentos</span>
@@ -88,8 +88,8 @@
     <!-- Menu Mobile -->
     <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
         <nav class="flex flex-col space-y-4">
-            <a href="servicos.html" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="profissionais.html" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
+            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
             <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
             <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
             <div class="border-t pt-4">
@@ -107,7 +107,7 @@
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="cliente.html" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
+                    <a href="/cliente" class="text-sm text-gray-600 hover:text-blue-600">Início</a>
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
@@ -152,7 +152,7 @@
             {% for servico in servicos %}
                 <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                     <div class="h-48 overflow-hidden">
-                        <img src="/imagemProfissional/{{ servico[1] }}"
+                        <img src="/imagemServico/{{ servico[0] }}"
                              alt="Imagem do serviço"
                              class="w-full h-full object-cover">
                     </div>
@@ -167,22 +167,23 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <p class="text-gray-600 mb-4">Corte moderno e estilizado com os melhores profissionais da
-                            cidade.</p>
+                        <p class="text-gray-600 mb-4">
+                            {{ servico[3] }}
+                        </p>
                         <div class="flex justify-between items-center mb-4">
                             <div>
-                                <span class="text-2xl font-bold text-blue-600">R$ 35,00</span>
-                                <span class="text-sm text-gray-500 block">Duração: 40min</span>
+                                <span class="text-2xl font-bold text-blue-600">R$ {{ servico[5] }}</span>
+                                <span class="text-sm text-gray-500 block">Duração: {{ servico[4] }}min</span>
                             </div>
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
+{#                            <div class="flex text-yellow-400">#}
+{#                                <i class="fas fa-star"></i>#}
+{#                                <i class="fas fa-star"></i>#}
+{#                                <i class="fas fa-star"></i>#}
+{#                                <i class="fas fa-star"></i>#}
+{#                                <i class="fas fa-star-half-alt"></i>#}
+{#                            </div>#}
                         </div>
-                        <a href="../agendamento.html"
+                        <a href="/agendar/{{ servico[0] }}"
                            class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg transition">Agendar
                             agora</a>
                     </div>

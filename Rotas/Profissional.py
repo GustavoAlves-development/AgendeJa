@@ -98,7 +98,13 @@ def gestao():
             FROM servico WHERE profissional_id = %s
         """, (profissional[0],))
     servicos = cursor.fetchall()
-    return render_template('profissional/gestao.html', profissional=profissional, servicos=servicos)
+    cursor.execute("SELECT * FROM agendamento WHERE profissional_id = %s and status =%s", (profissional[0],"confirmado"))
+    agendamentos = cursor.fetchall()
+
+    cursor.execute("SELECT id,nome_completo FROM cliente")
+    clientes = cursor.fetchall()
+    return render_template('profissional/gestao.html', profissional=profissional,
+                           servicos=servicos, agendamentos=agendamentos, clientes=clientes)
 
 
 @bp.route('/servicosProfissional', methods=['GET', 'POST'])
@@ -110,19 +116,21 @@ def servicosProfissional():
         descricao = request.form['descricaoServico']
         duracao = request.form['duracaoServico']
         preco = request.form['precoServico']
+        imagemServico = request.files['imagemServico']
+        imagemServico_blob = imagemServico.read()
 
         if servico_id:  # Se tem ID, é atualização
             cursor.execute("""
                     UPDATE servico 
-                    SET nome = %s, descricao = %s, duracao_minutos = %s, preco = %s 
+                    SET nome = %s, descricao = %s, duracao_minutos = %s, preco = %s , imagem_servico = %s
                     WHERE id = %s
-                """, (nome, descricao, duracao, preco, servico_id))
+                """, (nome, descricao, duracao, preco,imagemServico_blob, servico_id))
             flash('Serviço atualizado com sucesso!')
         else:  # Se não tem ID, é criação
             cursor.execute("""
-                    INSERT INTO servico (nome, descricao, duracao_minutos, preco, profissional_id) 
-                    VALUES (%s, %s, %s, %s, %s)
-                """, (nome, descricao, duracao, preco, profissional[0]))
+                    INSERT INTO servico (nome, descricao, duracao_minutos, preco, imagem_servico, profissional_id) 
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """, (nome, descricao, duracao, preco, imagemServico_blob, profissional[0]))
             flash('Serviço adicionado com sucesso!')
         banco.commit()
         return redirect('/servicosProfissional')
@@ -144,7 +152,7 @@ def agendamentos():
     profissional = getProfissional()
     cursor.execute("SELECT * FROM disponibilidade_profissional WHERE profissional_id = %s", (profissional[0],))
     horariosDisponiveis = cursor.fetchall()
-    return render_template('profissional/agendamentos.html', horariosDisponiveis=horariosDisponiveis)
+    return render_template('profissional/agendamentos.html', horariosDisponiveis=horariosDisponiveis, profissional= profissional)
 
 
 def deletar_horarios_existentes(profissional_id):

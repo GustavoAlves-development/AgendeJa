@@ -20,6 +20,13 @@ def getClient():
     cursor.execute('SELECT * FROM cliente WHERE id = %s', (session['id'],))
     cliente = cursor.fetchone()
     return cliente
+
+def getProfissional():
+    if 'id' not in session:
+        return None
+    cursor.execute('SELECT * FROM profissional WHERE id = %s', (session['id'],))
+    profissional = cursor.fetchone()
+    return profissional
 @app.route('/', methods=['GET'])
 def Home():
     if 'id' in session:
@@ -31,8 +38,6 @@ def Home():
         else:
             return redirect('/gestao')
     return render_template('cliente/cliente.html')
-
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def Login():
@@ -144,13 +149,15 @@ def logout():
 @app.get('/contato')
 def contato():
     cliente = getClient()
-    return render_template('contato.html', cliente=cliente)
+    profissional = getProfissional()
+    return render_template('contato.html', cliente=cliente, profissional=profissional)
 
 
 @app.get('/sobre')
 def sobre():
     cliente = getClient()
-    return render_template('sobre.html', cliente=cliente)
+    profissional = getProfissional()
+    return render_template('sobre.html', cliente=cliente, profissional=profissional)
 
 
 def recuperar_foto(id):
@@ -165,6 +172,11 @@ def recuperar_foto_profissional(id):
 
 def recuperar_foto_capa_profissional(id):
     cursor.execute("SELECT foto_capa FROM profissional WHERE id = %s;", (id,))
+    ft = cursor.fetchone()
+    return ft[0]
+
+def recuperar_fotoServico(id):
+    cursor.execute("SELECT imagem_servico FROM servico WHERE id = %s;", (id,))
     ft = cursor.fetchone()
     return ft[0]
 
@@ -205,6 +217,18 @@ def imagemCapaProfissional(id):
         )
     else:
         return send_from_directory("static/imgs/", "capa_padrao.jpg")
+
+@app.route('/imagemServico/<id>')
+def imagemServico(id):
+    foto_blob = recuperar_fotoServico(id)
+    if foto_blob:
+        return send_file(
+            io.BytesIO(foto_blob),
+            mimetype='image/jpeg',
+            download_name=f"imagem_{id}.jpeg"
+        )
+    else:
+        return send_from_directory("static/imgs/", "default.png")
 
 
 if __name__ == '__main__':

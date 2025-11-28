@@ -55,7 +55,7 @@
         </div>
         <nav class="hidden md:flex space-x-6">
             <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agedamentos</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
             <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
             <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
         </nav>
@@ -114,7 +114,6 @@
         </nav>
     </div>
 </header>
-
 
 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -238,11 +237,33 @@
                 </button>
             </div>
 
-            <form id="formServico" action="/servicosProfissional" method="post">
+            <form id="formServico" action="/servicosProfissional" method="post" enctype="multipart/form-data">
                 <!-- Campo hidden para armazenar o ID do serviço sendo editado -->
                 <input type="hidden" id="servicoId" name="servicoId" value="">
 
                 <div class="space-y-4">
+                    <!-- Campo de Imagem - Layout vertical -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Imagem do Serviço</label>
+
+                        <!-- Preview da imagem -->
+                        <div class="mb-3 flex justify-center">
+                            <div class="w-40 h-40 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+                                <img id="previewImagem" src="" alt="Preview" class="hidden w-full h-full object-cover">
+                                <span id="placeholderImagem" class="text-gray-400 text-sm text-center px-2">Nenhuma imagem selecionada</span>
+                            </div>
+                        </div>
+
+                        <!-- Input de arquivo -->
+                        <div>
+                            <input type="file" id="imagemServico" name="imagemServico"
+                                   accept="image/*"
+                                   class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                   onchange="previewImage(this)">
+                            <p class="text-xs text-gray-500 mt-1">Formatos: JPG, PNG, GIF. Tamanho máximo: 5MB</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Serviço</label>
                         <input type="text" id="nomeServico" name="nomeServico"
@@ -284,6 +305,43 @@
                     </button>
                 </div>
             </form>
+
+            <script>
+                function previewImage(input) {
+                    const preview = document.getElementById('previewImagem');
+                    const placeholder = document.getElementById('placeholderImagem');
+
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            preview.src = e.target.result;
+                            preview.classList.remove('hidden');
+                            placeholder.classList.add('hidden');
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    } else {
+                        preview.classList.add('hidden');
+                        placeholder.classList.remove('hidden');
+                    }
+                }
+
+                // Função para carregar imagem existente ao editar
+                function carregarImagemExistente(urlImagem) {
+                    const preview = document.getElementById('previewImagem');
+                    const placeholder = document.getElementById('placeholderImagem');
+
+                    if (urlImagem) {
+                        preview.src = urlImagem;
+                        preview.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+                    } else {
+                        preview.classList.add('hidden');
+                        placeholder.classList.remove('hidden');
+                    }
+                }
+            </script>
         </div>
     </div>
 </div>
@@ -350,25 +408,25 @@
 
     // Modal functions
     function abrirModalNovoServico() {
-    document.getElementById('modalTitulo').textContent = 'Novo Serviço';
-    document.getElementById('formServico').reset();
-    document.getElementById('servicoId').value = ''; // Limpa o ID para novo serviço
-    document.getElementById('modalServico').classList.add('active');
-}
+        document.getElementById('modalTitulo').textContent = 'Novo Serviço';
+        document.getElementById('formServico').reset();
+        document.getElementById('servicoId').value = ''; // Limpa o ID para novo serviço
+        document.getElementById('modalServico').classList.add('active');
+    }
 
-function abrirModalEditarServico(id, nome, descricao, duracao, preco) {
-    document.getElementById('modalTitulo').textContent = 'Editar Serviço';
-    document.getElementById('servicoId').value = id;
-    document.getElementById('nomeServico').value = nome;
-    document.getElementById('descricaoServico').value = descricao;
-    document.getElementById('duracaoServico').value = duracao;
-    document.getElementById('precoServico').value = preco;
-    document.getElementById('modalServico').classList.add('active');
-}
+    function abrirModalEditarServico(id, nome, descricao, duracao, preco) {
+        document.getElementById('modalTitulo').textContent = 'Editar Serviço';
+        document.getElementById('servicoId').value = id;
+        document.getElementById('nomeServico').value = nome;
+        document.getElementById('descricaoServico').value = descricao;
+        document.getElementById('duracaoServico').value = duracao;
+        document.getElementById('precoServico').value = preco;
+        document.getElementById('modalServico').classList.add('active');
+    }
 
-function fecharModal() {
-    document.getElementById('modalServico').classList.remove('active');
-}
+    function fecharModal() {
+        document.getElementById('modalServico').classList.remove('active');
+    }
 
 
     // Fechar menu mobile ao clicar em um link

@@ -24,7 +24,7 @@
         </div>
         <nav class="hidden md:flex space-x-6">
             <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agedamentos</a>
+            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
             <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
             <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
         </nav>
@@ -117,82 +117,43 @@
 
                 <div class="space-y-4">
                     <!-- Agendamento 1 -->
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-semibold">Maria Silva</h4>
-                                <div class="flex items-center text-sm text-gray-600 mt-1">
-                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
-                                    <span>Hoje, 14:00 - 15:30</span>
+                    {% for agendamento in agendamentos %}
+                        <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold">
+                                        {% for cliente in clientes %}
+                                            {% if cliente[0] == agendamento[1] %}
+                                                {{ cliente[1] }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h4>
+                                    <div class="flex items-center text-sm text-gray-600 mt-1">
+                                        <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
+                                        <span>{{ agendamento[4].strftime('%d/%m/%Y') }}, as {{ agendamento[5].strftime('%H:%M') }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
+                                            onclick="contatarCliente('Maria Silva')">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </button>
+                                    <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
+                                            onclick="enviarMensagem('Maria Silva')">
+                                        <i class="fas fa-comment-alt"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="flex space-x-2">
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="contatarCliente('Maria Silva')">
-                                    <i class="fas fa-phone-alt"></i>
-                                </button>
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="enviarMensagem('Maria Silva')">
-                                    <i class="fas fa-comment-alt"></i>
-                                </button>
+                            <div class="mt-2 text-sm text-gray-600">
+                                <i class="fas fa-info-circle mr-1 text-blue-600"></i>
+                                {% for servico in servicos %}
+                                    {% if servico[0] == agendamento[3] %}
+                                        {{ servico[2] }}
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="mt-2 text-sm text-gray-600">
-                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Consulta de rotina
-                        </div>
-                    </div>
-
-                    <!-- Agendamento 2 -->
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-semibold">João Pereira</h4>
-                                <div class="flex items-center text-sm text-gray-600 mt-1">
-                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
-                                    <span>Amanhã, 10:00 - 11:00</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="contatarCliente('João Pereira')">
-                                    <i class="fas fa-phone-alt"></i>
-                                </button>
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="enviarMensagem('João Pereira')">
-                                    <i class="fas fa-comment-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mt-2 text-sm text-gray-600">
-                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Primeira sessão
-                        </div>
-                    </div>
-
-                    <!-- Agendamento 3 -->
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-semibold">Ana Costa</h4>
-                                <div class="flex items-center text-sm text-gray-600 mt-1">
-                                    <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
-                                    <span>Quinta, 16:00 - 17:00</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="contatarCliente('Ana Costa')">
-                                    <i class="fas fa-phone-alt"></i>
-                                </button>
-                                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full"
-                                        onclick="enviarMensagem('Ana Costa')">
-                                    <i class="fas fa-comment-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mt-2 text-sm text-gray-600">
-                            <i class="fas fa-info-circle mr-1 text-blue-600"></i> Retorno - Cliente recorrente
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
