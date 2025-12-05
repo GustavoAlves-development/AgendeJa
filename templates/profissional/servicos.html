@@ -209,7 +209,7 @@
                     </div>
                     <div class="col-span-2">
                         <div class="flex justify-center space-x-2">
-                            <button onclick="abrirModalEditarServico({{ servico[0] }}, '{{ servico[2] }}', '{{ servico[3] }}', {{ servico[4] }}, {{ servico[5] }})"
+                            <button onclick="abrirModalEditarServico({{ servico[0] }}, '{{ servico[2] }}', '{{ servico[3] }}', {{ servico[4] }}, {{ servico[5] }}, '/imagemServico/{{servico[0]}}')"
                                     class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                     title="Editar">
                                 <i class="fas fa-edit"></i>
@@ -360,8 +360,8 @@
                 <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
                 <ul class="space-y-2">
                     <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
-                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
-                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/servicos/1" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais/1" class="text-gray-400 hover:text-white">Profissionais</a></li>
                     <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
                 </ul>
             </div>
@@ -369,8 +369,8 @@
             <div>
                 <h4 class="text-lg font-bold mb-4">Suporte</h4>
                 <ul class="space-y-2">
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                    <li><a href=./contato" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="/contato" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
                 </ul>
             </div>
 
@@ -382,13 +382,6 @@
                     <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
-                <div class="mt-2 flex">
-                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
-                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
             </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
@@ -398,29 +391,49 @@
 </footer>
 
 
-<!-- Scripts -->
-<script>
-    // Menu mobile
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-    }
 
+<script>
     // Modal functions
     function abrirModalNovoServico() {
         document.getElementById('modalTitulo').textContent = 'Novo Serviço';
         document.getElementById('formServico').reset();
         document.getElementById('servicoId').value = ''; // Limpa o ID para novo serviço
+
+        // Limpa a preview da imagem para novo serviço
+        const preview = document.getElementById('previewImagem');
+        const placeholder = document.getElementById('placeholderImagem');
+        preview.src = '';
+        preview.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+
+        // Limpa o input de arquivo
+        document.getElementById('imagemServico').value = '';
+
         document.getElementById('modalServico').classList.add('active');
     }
 
-    function abrirModalEditarServico(id, nome, descricao, duracao, preco) {
+    function abrirModalEditarServico(id, nome, descricao, duracao, preco, imagemUrl = null) {
         document.getElementById('modalTitulo').textContent = 'Editar Serviço';
         document.getElementById('servicoId').value = id;
         document.getElementById('nomeServico').value = nome;
         document.getElementById('descricaoServico').value = descricao;
         document.getElementById('duracaoServico').value = duracao;
         document.getElementById('precoServico').value = preco;
+
+        // Se houver uma URL de imagem, carregar a imagem existente
+        if (imagemUrl) {
+            carregarImagemExistente(imagemUrl);
+        } else {
+            // Se não houver imagem, mostrar o placeholder
+            const preview = document.getElementById('previewImagem');
+            const placeholder = document.getElementById('placeholderImagem');
+            preview.src = '';
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+        }
+
+        // Não limpa o input de arquivo - permite manter ou substituir
+
         document.getElementById('modalServico').classList.add('active');
     }
 
@@ -428,27 +441,59 @@
         document.getElementById('modalServico').classList.remove('active');
     }
 
+    // Função para carregar imagem existente ao editar
+    function carregarImagemExistente(urlImagem) {
+        const preview = document.getElementById('previewImagem');
+        const placeholder = document.getElementById('placeholderImagem');
 
-    // Fechar menu mobile ao clicar em um link
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('mobileMenu').classList.add('hidden');
-        });
-    });
+        if (urlImagem) {
+            preview.src = urlImagem;
+            preview.classList.remove('hidden');
+            placeholder.classList.add('hidden');
 
-    // Fechar modal ao clicar fora dele
-    document.getElementById('modalServico').addEventListener('click', function (e) {
-        if (e.target === this) {
-            fecharModal();
+            // Adicionar tratamento de erro caso a imagem não exista
+            preview.onerror = function () {
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                console.error('Erro ao carregar imagem:', urlImagem);
+            };
+        } else {
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
         }
-    });
+    }
 
-    setTimeout(function () {
-        const flashMessages = document.querySelector('.flash-messages');
-        if (flashMessages) {
-            flashMessages.style.display = 'none';
+    function previewImage(input) {
+        const preview = document.getElementById('previewImagem');
+        const placeholder = document.getElementById('placeholderImagem');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            // Se o usuário cancelar a seleção, voltar para a imagem existente (se houver)
+            const servicoId = document.getElementById('servicoId').value;
+            if (servicoId) {
+                // Tentar recarregar a imagem existente se estiver editando
+                const imagemExistente = preview.src;
+                if (imagemExistente && imagemExistente !== window.location.href) {
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                } else {
+                    preview.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+            } else {
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+            }
         }
-    }, 5000);
+    }
 </script>
-</body>
-</html>

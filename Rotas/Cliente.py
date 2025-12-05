@@ -66,10 +66,18 @@ def servicos():
     return render_template('Cliente/servicos.html', cliente=cliente, servicos=servicos, profissionais=profissionais)
 
 
-@bp.route('/profissionais')
-def profissionais():
-    cursor.execute('SELECT * FROM profissional')
+@bp.route('/profissionais/<pagina>')
+def profissionais(pagina):
+
+    pagina = int(pagina)
+    por_pagina = 6
+    offset = (pagina - 1) * por_pagina
+    cursor.execute("SELECT * FROM profissional LIMIT %s OFFSET %s", (por_pagina, offset))
     profissionais = cursor.fetchall()
+
+    cursor.execute("SELECT COUNT(*) FROM profissional;")
+    total_profissionais = cursor.fetchone()[0]
+    total_paginas = (total_profissionais + por_pagina - 1) // por_pagina
 
     cursor.execute('SELECT profissional_id, preco FROM Servico')
     precos = cursor.fetchall()
@@ -87,7 +95,7 @@ def profissionais():
     cliente = getClient()
 
     return render_template('cliente/profissionais.html', profissionais=profissionais, precos=precos,
-                           horarios_por_profissional=horarios_por_profissional, cliente=cliente)
+                           horarios_por_profissional=horarios_por_profissional, cliente=cliente, pagina=pagina, total_paginas=total_paginas,)
 
 
 @bp.route('/agendar/<id>')
@@ -109,7 +117,7 @@ def agenda(id):
 @bp.route('/horarios-disponiveis')
 def horarios_disponiveis():
     data = request.args.get('data')
-    profissional_id = request.args.get('profissional_id')
+    profissional_id = request.args.get('professional_id')
     servico_id = request.args.get('servico_id')
 
     try:

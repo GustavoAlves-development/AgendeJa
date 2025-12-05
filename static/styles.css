@@ -72,6 +72,35 @@
     }
 }
 
+/* Estilo para limitar texto a 2 linhas */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Remove setas dos inputs number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Transição suave para os cards */
+.transform {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para quando não há imagem */
+.bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .dropdown-menu {

@@ -8,101 +8,46 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../static/js/login.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
-
     <link rel="icon" href="../static/imgs/Miniatura.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Inicializar EmailJS com seu User ID
+        (function () {
+            // SUBSTITUA 'SEU_USER_ID_AQUI' pelo seu User ID do EmailJS
+            emailjs.init('xAu2qdR5anVHf-Di2');
+        })();
+    </script>
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Cabeçalho -->
 {% if profissional %}
     <header class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
-        </div>
-        <nav class="hidden md:flex space-x-6">
-            <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
-            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
-        </nav>
-        <!-- Área de Perfil -->
-        <div class="flex items-center space-x-4">
-            <div class="relative user-dropdown-container">
-                <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
-                    <img src="/imagemProfissional/{{ profissional[0] }}"
-                         alt="Foto de perfil"
-                         class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
-                    <span class="text-gray-700 font-medium">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/servicosProfissional" class="text-gray-600 hover:text-blue-600">Serviços</a>
+                <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            </nav>
+            <!-- Área de Perfil -->
+            <div class="flex items-center space-x-4">
+                <div class="relative user-dropdown-container">
+                    <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                        <img src="/imagemProfissional/{{ profissional[0] }}"
+                             alt="Foto de perfil"
+                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                        <span class="text-gray-700 font-medium">
                         {% if profissional[2] is none %}
                             {{ profissional[1] }}
                         {% else %}
                             {{ profissional[2] }}
                         {% endif %}</span>
-                    <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
-                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-
-                <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
-                    <div class="px-4 py-3 border-b border-gray-100">
-                        <p class="text-sm font-medium text-gray-900">{{ profissional [1] }}</p>
-                        <p class="text-sm text-gray-500 truncate">{{ profissional[5] }}</p>
-                    </div>
-                    <div class="border-t border-gray-100 pt-2">
-                        <a href="/logout"
-                           class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
-                            <span class="w-5 mr-3">🚪</span>
-                            <span>Sair da conta</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars text-xl"></i>
-        </button>
-    </div>
-
-    <!-- Menu Mobile -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
-        <nav class="flex flex-col space-y-4">
-            <a href="/" class="text-gray-600 hover:text-blue-600">Painel</a>
-            <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
-            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
-            <div class="border-t pt-4">
-                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="/cadastro"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
-            </div>
-        </nav>
-    </div>
-</header>
-{% else %}
-    <header class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-            <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
-        </div>
-        <nav class="hidden md:flex space-x-6">
-            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
-        </nav>
-        <!-- Área de Login/Perfil -->
-        <div class="flex items-center space-x-4">
-            {% if cliente %}
-                <div class="relative user-dropdown-container">
-                    <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
-                        <img src="/imagem/{{ cliente[0] }}"
-                             alt="Foto de perfil"
-                             class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
-                        <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
                         <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -112,24 +57,9 @@
 
                     <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
                         <div class="px-4 py-3 border-b border-gray-100">
-                            <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
-                            <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
+                            <p class="text-sm font-medium text-gray-900">{{ profissional [1] }}</p>
+                            <p class="text-sm text-gray-500 truncate">{{ profissional[5] }}</p>
                         </div>
-
-                        <div class="py-2">
-                            <a href="/editarCliente"
-                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
-                                <span class="w-5 mr-3">👤</span>
-                                <span>Meu Perfil</span>
-                            </a>
-
-                            <a href="/agendamentosCliente"
-                               class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
-                                <span class="w-5 mr-3">📅</span>
-                                <span>Meus Agendamentos</span>
-                            </a>
-                        </div>
-
                         <div class="border-t border-gray-100 pt-2">
                             <a href="/logout"
                                class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
@@ -139,36 +69,157 @@
                         </div>
                     </div>
                 </div>
-            {% else %}
-                <div class="flex items-center space-x-3">
-                    <a href="/login"
-                       class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+            </div>
+            <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+            <nav class="flex flex-col space-y-4">
+                <a href="/" class="text-gray-600 hover:text-blue-600">Painel</a>
+                <a href="/agendamentos" class="text-gray-600 hover:text-blue-600">Agendamentos</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+                <div class="border-t pt-4">
+                    <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
                     <a href="/cadastro"
-                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
                 </div>
-            {% endif %}
+            </nav>
+        </div>
+    </header>
+{% elif cliente %}
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/servicos/1" class="text-gray-600 hover:text-blue-600">Serviços</a>
+                <a href="/profissionais/1" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            </nav>
+            <!-- Área de Login/Perfil -->
+            <div class="flex items-center space-x-4">
+                {% if cliente %}
+                    <div class="relative user-dropdown-container">
+                        <button class="dropdown-toggle flex items-center space-x-2 focus:outline-none transition-all duration-200 hover:bg-gray-50 rounded-lg px-3 py-2">
+                            <img src="/imagem/{{ cliente[0] }}"
+                                 alt="Foto de perfil"
+                                 class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-sm">
+                            <span class="text-gray-700 font-medium">{{ cliente[1] }}</span>
+                            <svg class="dropdown-arrow w-4 h-4 text-gray-600 transition-transform duration-200"
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+                            <div class="px-4 py-3 border-b border-gray-100">
+                                <p class="text-sm font-medium text-gray-900">{{ cliente[1] }}</p>
+                                <p class="text-sm text-gray-500 truncate">{{ cliente[3] if cliente[3] else 'Usuário' }}</p>
+                            </div>
+
+                            <div class="py-2">
+                                <a href="/editarCliente"
+                                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                    <span class="w-5 mr-3">👤</span>
+                                    <span>Meu Perfil</span>
+                                </a>
+
+                                <a href="/agendamentosCliente"
+                                   class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 group">
+                                    <span class="w-5 mr-3">📅</span>
+                                    <span>Meus Agendamentos</span>
+                                </a>
+                            </div>
+
+                            <div class="border-t border-gray-100 pt-2">
+                                <a href="/logout"
+                                   class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 group">
+                                    <span class="w-5 mr-3">🚪</span>
+                                    <span>Sair da conta</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="flex items-center space-x-3">
+                        <a href="/login"
+                           class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+                        <a href="/cadastro"
+                           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+                    </div>
+                {% endif %}
+            </div>
+            <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+            <nav class="flex flex-col space-y-4">
+                <a href="/servicos/1" class="text-gray-600 hover:text-blue-600">Serviços</a>
+                <a href="/profissionais/1" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+                <div class="border-t pt-4">
+                    <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                    <a href="/cadastro"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+{% else %}
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/"><img src="../../static/imgs/Logo.png" alt="Logo AgendeJá" class="h-12 w-auto"/></a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/servicos/1" class="text-gray-600 hover:text-blue-600">Serviços</a>
+                <a href="/profissionais/1" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+            </nav>
+            <!-- Área de Login/Perfil -->
+            <div class="flex items-center space-x-3">
+                <a href="/login"
+                   class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Entrar</a>
+                <a href="/cadastro"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Cadastre-se</a>
+            </div>
         </div>
         <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
             <i class="fas fa-bars text-xl"></i>
         </button>
-    </div>
 
-    <!-- Menu Mobile -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
-        <nav class="flex flex-col space-y-4">
-            <a href="/servicos" class="text-gray-600 hover:text-blue-600">Serviços</a>
-            <a href="/profissionais" class="text-gray-600 hover:text-blue-600">Profissionais</a>
-            <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
-            <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
-            <div class="border-t pt-4">
-                <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
-                <a href="/cadastro"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
-            </div>
-        </nav>
-    </div>
-</header>
+        <!-- Menu Mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 border-t">
+            <nav class="flex flex-col space-y-4">
+                <a href="/servicos/1" class="text-gray-600 hover:text-blue-600">Serviços</a>
+                <a href="/profissionais/1" class="text-gray-600 hover:text-blue-600">Profissionais</a>
+                <a href="/sobre" class="text-gray-600 hover:text-blue-600">Sobre Nós</a>
+                <a href="/contato" class="text-gray-600 hover:text-blue-600">Contato</a>
+                <div class="border-t pt-4">
+                    <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Entrar</a>
+                    <a href="/cadastro"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition inline-block mt-2">Cadastre-se</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 {% endif %}
+
+<!-- Mensagem de status (inicialmente escondida) -->
+<div id="status-mensagem" class="hidden fixed top-20 right-4 z-50 max-w-sm"></div>
+
 <!-- Conteúdo Principal -->
 <main class="flex-grow">
     <!-- Hero Contato -->
@@ -187,32 +238,33 @@
                 <!-- Formulário de Contato -->
                 <div class="lg:w-2/3">
                     <h2 class="text-3xl font-bold mb-6 text-gray-800">Envie uma mensagem</h2>
-                    <form class="space-y-6">
+                    <form id="form-contato" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="nome" class="block text-gray-700 mb-2">Nome completo</label>
-                                <input type="text" id="nome"
+                                <label for="nome" class="block text-gray-700 mb-2">Nome completo *</label>
+                                <input type="text" id="nome" name="nome"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                       placeholder="Seu nome">
+                                       placeholder="Seu nome" required>
                             </div>
                             <div>
-                                <label for="email" class="block text-gray-700 mb-2">E-mail</label>
-                                <input type="email" id="email"
+                                <label for="email" class="block text-gray-700 mb-2">E-mail *</label>
+                                <input type="email" id="email" name="email"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                       placeholder="seu@email.com">
+                                       placeholder="seu@email.com" required>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="telefone" class="block text-gray-700 mb-2">Telefone</label>
-                                <input type="tel" id="telefone"
+                                <label for="telefone" class="block text-gray-700 mb-2">Telefone *</label>
+                                <input type="tel" id="telefone" name="telefone"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                       placeholder="(11) 99999-9999">
+                                       placeholder="(11) 99999-9999" required>
                             </div>
                             <div>
-                                <label for="assunto" class="block text-gray-700 mb-2">Assunto</label>
-                                <select id="assunto"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="assunto" class="block text-gray-700 mb-2">Assunto *</label>
+                                <select id="assunto" name="assunto"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
                                     <option value="">Selecione um assunto</option>
                                     <option value="duvida">Dúvida</option>
                                     <option value="sugestao">Sugestão</option>
@@ -223,12 +275,12 @@
                             </div>
                         </div>
                         <div>
-                            <label for="mensagem" class="block text-gray-700 mb-2">Mensagem</label>
-                            <textarea id="mensagem" rows="5"
+                            <label for="mensagem" class="block text-gray-700 mb-2">Mensagem *</label>
+                            <textarea id="mensagem" name="mensagem" rows="5"
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                      placeholder="Escreva sua mensagem aqui..."></textarea>
+                                      placeholder="Escreva sua mensagem aqui..." required></textarea>
                         </div>
-                        <button type="submit"
+                        <button type="submit" id="btn-enviar"
                                 class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition w-full md:w-auto">
                             Enviar mensagem
                         </button>
@@ -273,7 +325,7 @@
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800 mb-2">WhatsApp</h3>
                                 <p class="text-gray-600">(11) 98765-4321</p>
-                                <a href="https://wa.me/5511987654321"
+                                <a href="https://wa.me/5518997343821"
                                    class="inline-block mt-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition flex items-center">
                                     <i class="fab fa-whatsapp mr-2"></i> Enviar mensagem
                                 </a>
@@ -310,7 +362,7 @@
                         Como faço para me cadastrar como profissional?
                         <i class="fas fa-chevron-down text-blue-600"></i>
                     </button>
-                    <div class="mt-4 text-gray-600">
+                    <div class="mt-4 text-gray-600 hidden">
                         <p>Para se cadastrar como profissional, clique em "Cadastre-se" no canto superior direito do
                             site, selecione a opção "Sou profissional" e preencha o formulário com seus dados. Após a
                             análise, entraremos em contato para validar seu cadastro.</p>
@@ -323,7 +375,7 @@
                         Quais são as formas de pagamento aceitas?
                         <i class="fas fa-chevron-down text-blue-600"></i>
                     </button>
-                    <div class="mt-4 text-gray-600">
+                    <div class="mt-4 text-gray-600 hidden">
                         <p>Aceitamos cartões de crédito (Visa, Mastercard, Elo e American Express), débito online e PIX.
                             O pagamento é processado de forma segura através do nosso sistema.</p>
                     </div>
@@ -335,7 +387,7 @@
                         Como cancelar ou remarcar um agendamento?
                         <i class="fas fa-chevron-down text-blue-600"></i>
                     </button>
-                    <div class="mt-4 text-gray-600">
+                    <div class="mt-4 text-gray-600 hidden">
                         <p>Para cancelar ou remarcar, acesse sua conta, vá na seção "Meus Agendamentos", localize o
                             agendamento desejado e clique em "Cancelar" ou "Remarcar". Lembre-se de verificar a política
                             de cancelamento do estabelecimento.</p>
@@ -348,7 +400,7 @@
                         Os profissionais são verificados pela plataforma?
                         <i class="fas fa-chevron-down text-blue-600"></i>
                     </button>
-                    <div class="mt-4 text-gray-600">
+                    <div class="mt-4 text-gray-600 hidden">
                         <p>Sim, todos os profissionais passam por um processo de verificação que inclui análise de
                             documentação e qualificações. Além disso, contamos com um sistema de avaliações para ajudar
                             outros usuários a escolherem o melhor profissional.</p>
@@ -365,11 +417,11 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto">Nossa equipe de suporte está pronta para ajudar você a resolver
                 qualquer problema ou tirar suas dúvidas.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="https://wa.me/5511987654321"
+                <a href="https://wa.me/5518997343821"
                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition flex items-center justify-center">
                     <i class="fab fa-whatsapp mr-2 text-xl"></i> Chamar no WhatsApp
                 </a>
-                <a href="tel:+551134567890"
+                <a href="tel:+5518997343821"
                    class="border-2 border-white hover:bg-blue-700 font-bold py-3 px-8 rounded-lg transition flex items-center justify-center">
                     <i class="fas fa-phone mr-2"></i> Ligar agora
                 </a>
@@ -384,7 +436,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <div class="flex items-center mb-4">
-                    <img src="../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
+                    <img src="../../static/imgs/logoBrancaa.png" alt="Logo AgendeJá" class="h-10 w-auto"/>
                 </div>
                 <p class="text-gray-400">A maneira mais fácil de agendar serviços profissionais.</p>
             </div>
@@ -393,8 +445,8 @@
                 <h4 class="text-lg font-bold mb-4">Links Úteis</h4>
                 <ul class="space-y-2">
                     <li><a href="/" class="text-gray-400 hover:text-white">Início</a></li>
-                    <li><a href="/servicos" class="text-gray-400 hover:text-white">Serviços</a></li>
-                    <li><a href="/profissionais" class="text-gray-400 hover:text-white">Profissionais</a></li>
+                    <li><a href="/servicos/1" class="text-gray-400 hover:text-white">Serviços</a></li>
+                    <li><a href="/profissionais/1" class="text-gray-400 hover:text-white">Profissionais</a></li>
                     <li><a href="/sobre" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
                 </ul>
             </div>
@@ -402,8 +454,8 @@
             <div>
                 <h4 class="text-lg font-bold mb-4">Suporte</h4>
                 <ul class="space-y-2">
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
-                    <li><a href="../contato.html" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
+                    <li><a href=./contato" class="text-gray-400 hover:text-white">Contato</a></li>
+                    <li><a href="/contato" class="text-gray-400 hover:text-white">Perguntas Frequentes</a></li>
                 </ul>
             </div>
 
@@ -415,13 +467,6 @@
                     <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <p class="mt-4 text-gray-400">Assine nossa newsletter</p>
-                <div class="mt-2 flex">
-                    <input type="email" placeholder="Seu e-mail" class="px-3 py-2 rounded-l text-gray-800 w-full">
-                    <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
             </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
@@ -432,28 +477,94 @@
 
 <!-- Scripts -->
 <script>
-    // Menu mobile (simplificado)
-    document.querySelector('.md\\:hidden').addEventListener('click', function () {
-        // Implementação do menu mobile aqui
-        alert('Menu mobile será implementado aqui');
-    });
+    // Menu mobile
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+    }
 
-    // Script simples para as perguntas frequentes
+    // Script para as perguntas frequentes
     document.querySelectorAll('.border-b button').forEach(button => {
         button.addEventListener('click', () => {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
 
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
+            content.classList.toggle('hidden');
+
+            if (content.classList.contains('hidden')) {
                 icon.classList.remove('fa-chevron-up');
                 icon.classList.add('fa-chevron-down');
             } else {
-                content.style.display = 'block';
                 icon.classList.remove('fa-chevron-down');
                 icon.classList.add('fa-chevron-up');
             }
         });
+    });
+
+    // Envio do formulário com EmailJS
+    document.getElementById('form-contato').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const btn = document.getElementById('btn-enviar');
+        const statusDiv = document.getElementById('status-mensagem');
+        const originalText = btn.innerHTML;
+
+        // Desabilitar botão e mostrar "Enviando..."
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+
+        // Coletar dados do formulário
+        const templateParams = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('telefone').value,
+            assunto: document.getElementById('assunto').options[document.getElementById('assunto').selectedIndex].text,
+            mensagem: document.getElementById('mensagem').value,
+            data_envio: new Date().toLocaleString('pt-BR')
+        };
+
+        // SUBSTITUA 'SEU_SERVICE_ID' e 'SEU_TEMPLATE_ID' pelos seus IDs do EmailJS
+        emailjs.send('service_x1ohu7r', 'template_m1ny0io', templateParams)
+            .then(function (response) {
+                // Sucesso
+                statusDiv.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-lg flex items-center';
+                statusDiv.innerHTML = `
+                    <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
+                    <div>
+                        <strong class="font-bold">Sucesso!</strong>
+                        <span class="block sm:inline"> Mensagem enviada com sucesso!</span>
+                    </div>
+                `;
+                statusDiv.classList.remove('hidden');
+
+                // Limpar formulário
+                document.getElementById('form-contato').reset();
+
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    statusDiv.classList.add('hidden');
+                }, 5000);
+
+                console.log('SUCCESS!', response.status, response.text);
+            }, function (error) {
+                // Erro
+                statusDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg flex items-center';
+                statusDiv.innerHTML = `
+                    <i class="fas fa-exclamation-circle text-red-500 mr-3 text-xl"></i>
+                    <div>
+                        <strong class="font-bold">Erro!</strong>
+                        <span class="block sm:inline"> Ocorreu um erro ao enviar a mensagem. Tente novamente.</span>
+                    </div>
+                `;
+                statusDiv.classList.remove('hidden');
+
+                console.error('FAILED...', error);
+            })
+            .finally(() => {
+                // Reabilitar botão
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            });
     });
 </script>
 </body>
